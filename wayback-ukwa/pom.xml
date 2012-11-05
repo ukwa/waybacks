@@ -1,0 +1,184 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <groupId>uk.bl.wap.wayback</groupId>
+  <artifactId>wayback-ukwa</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>war</packaging>
+  
+  <name>Wayback for UKWA</name>
+  <description>Wayback configured as required for the main UKWA service.</description>
+  
+  <developers>
+        <developer>
+            <id>AnJackson</id>
+            <name>Andrew Jackson</name>
+            <email>Andrew.Jackson@bl.uk</email>
+            <organization>The British Library</organization>
+            <organizationUrl>http://www.bl.uk</organizationUrl>
+        </developer>
+  </developers>
+  
+  <dependencies>
+		<dependency>
+      		<groupId>commons-codec</groupId>
+      		<artifactId>commons-codec</artifactId>
+      		<version>1.5</version>
+      	</dependency>
+		<dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.4</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.7.0</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.2.1</version>
+            <type>jar</type>
+            <scope>test</scope>
+        </dependency>
+         <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.2.2</version>
+            <type>jar</type>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+                <groupId>commons-lang</groupId>
+                <artifactId>commons-lang</artifactId>
+                <version>2.3</version>
+                <type>jar</type>
+        </dependency>
+		<dependency>
+      		<groupId>javax.servlet</groupId>
+      		<artifactId>servlet-api</artifactId>
+      		<version>2.5</version>
+      		<scope>provided</scope>
+      	</dependency>
+     	<dependency>
+      		<groupId>javax.servlet</groupId>
+      		<artifactId>jstl</artifactId>
+      		<version>1.1.2</version>
+      	</dependency>
+		<dependency>
+      		<groupId>taglibs</groupId>
+      		<artifactId>standard</artifactId>
+      		<version>1.1.2</version>
+      	</dependency> 
+	  	<dependency>
+	      	<groupId>org.quartz-scheduler</groupId>
+	      	<artifactId>quartz</artifactId>
+	      	<version>2.0.2</version>
+	  	</dependency>
+	  	<dependency>
+	  		<!-- Required by Quartz to prevent SLF4J Error Messages -->
+  			<groupId>org.slf4j</groupId>
+  			<artifactId>slf4j-log4j12</artifactId>
+  			<version>1.7.2</version>
+		</dependency>
+	  	<dependency>
+      		<groupId>org.archive.wayback</groupId>
+      		<artifactId>wayback-webapp</artifactId>
+      		<version>1.7.1-SNAPSHOT</version>
+      		<type>war</type>
+      		<scope>runtime</scope>
+    	</dependency>
+	  	<dependency>
+	  	 <groupId>javax.servlet.jsp</groupId>
+	  	 <artifactId>jsp-api</artifactId>
+	  	 <version>2.2</version>
+	  	 <scope>provided</scope>
+	  	</dependency>
+  </dependencies> 
+  
+  <build>               
+	<finalName>waybackhdfs</finalName>
+	<plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <inherited>true</inherited>
+            <configuration>
+                <verbose>true</verbose>
+                <source>1.6</source>
+                <target>1.6</target>
+            </configuration>
+        </plugin>
+        <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.3</version>
+        <configuration>
+		  <dependentWarExcludes>WEB-INF/web.xml,WEB-INF/wayback.xml,WEB-INF/CDXCollection.xml,WEB-INF/lib/jsp*.jar,WEB-INF/lib/servlet-api*.jar,WEB-INF/lib/hadoop-0.20*.jar</dependentWarExcludes>
+          <overlays>
+            <overlay>
+              <groupId>org.archive.wayback</groupId>
+      			<artifactId>wayback-webapp</artifactId>
+              <version>1.7.1-SNAPSHOT</version>
+            </overlay>
+            <overlay>
+              <!-- empty groupId/artifactId represents the current build -->
+            </overlay>
+          </overlays>
+        </configuration>
+      </plugin>
+	<plugin>
+        <groupId>org.apache.tomcat.maven</groupId>
+        <artifactId>tomcat6-maven-plugin</artifactId>
+        <version>2.0</version>
+        <configuration>
+            <warDirectory>${project.build.directory}/${project.build.finalName}</warDirectory>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+<repositories>
+    <repository>
+
+      <id>internetarchive</id>
+      <name>Internet Archive Maven Repository</name>
+      <url>http://builds.archive.org:8080/maven2</url>
+      <layout>default</layout>
+
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>daily</updatePolicy>
+        <checksumPolicy>warn</checksumPolicy>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+        <updatePolicy>daily</updatePolicy>
+        <checksumPolicy>warn</checksumPolicy>
+      </snapshots>
+    </repository>
+
+      <repository>
+        <id>cloudera</id>
+        <name>Cloudera Hadoop</name>
+        <url>https://repository.cloudera.com/artifactory/cloudera-repos/</url>
+        <layout>default</layout>
+
+        <releases>
+          <enabled>true</enabled>
+          <updatePolicy>daily</updatePolicy>
+          <checksumPolicy>warn</checksumPolicy>
+        </releases>
+        <snapshots>
+          <enabled>true</enabled>
+          <updatePolicy>daily</updatePolicy>
+          <checksumPolicy>warn</checksumPolicy>
+        </snapshots>
+      </repository>
+
+  </repositories>
+  		
+</project>
