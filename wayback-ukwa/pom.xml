@@ -97,6 +97,11 @@
 	  	 <version>2.2</version>
 	  	 <scope>provided</scope>
 	  	</dependency>
+    <dependency>
+     <groupId>com.ibm.icu</groupId>
+     <artifactId>icu4j</artifactId>
+     <version>4.8.1</version>
+    </dependency>    
   </dependencies> 
   
   <build>               
@@ -128,7 +133,8 @@
               <excludes>
                 <exclude>WEB-INF/lib/jsp*.jar</exclude>
                 <exclude>WEB-INF/lib/servlet-api*.jar</exclude>
-                <exclude>WEB-INF/lib/hadoop-0.20*.jar</exclude>
+                <exclude>WEB-INF/lib/hadoop-*.jar</exclude>
+                <exclude>WEB-INF/lib/icu4j-*.jar</exclude>
                 <exclude>WEB-INF/replay/Timeline.jsp</exclude>
               </excludes>
             </overlay>

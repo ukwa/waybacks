@@ -213,6 +213,37 @@
 
   </bean>
 
+ <bean name="80:archive-de" parent="80:archive">
+  <property name="locale">
+   <bean class="java.util.Locale">
+    <constructor-arg type="java.lang.String" value="de" />
+   </bean>
+  </property>
+
+  <property name="uriConverter">
+   <bean class="org.archive.wayback.archivalurl.ArchivalUrlResultURIConverter">
+    <property name="replayURIPrefix"
+     value="http://www.webarchive.org.uk/waybackhdfs/archive-de/" />
+   </bean>
+  </property>
+ </bean>
+  
+ <bean name="80:archive-cy" parent="80:archive">
+  <property name="locale">
+   <bean class="java.util.Locale">
+    <constructor-arg type="java.lang.String" value="cy_GB" /> <!-- cy_GB? -->
+   </bean>
+  </property>
+
+  <property name="uriConverter">
+   <bean class="org.archive.wayback.archivalurl.ArchivalUrlResultURIConverter">
+    <property name="replayURIPrefix"
+     value="http://www.webarchive.org.uk/waybackhdfs/archive-cy/" />
+   </bean>
+  </property>
+ </bean>
+  
+
 
 <!--
 			===========================================================

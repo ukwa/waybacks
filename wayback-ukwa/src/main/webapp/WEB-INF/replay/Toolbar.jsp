@@ -324,4 +324,30 @@ function trackMouseMove(event,element) {
    disclaimElement(wmDisclaimBanner);
  }
 </script>
+<!-- Flowplayer overrides -->
+<script type="text/javascript">
+	if( typeof flowplayer != "function" ) {
+		var fScript = document.createElement( "script" );
+		fScript.setAttribute( "type", "text/javascript" );
+		fScript.setAttribute( "src", "http://www.webarchive.org.uk/flowplayer/flowplayer-3.1.4.min.js" );
+		document.getElementsByTagName( "head" )[0].appendChild( fScript );
+	}
+	var dScript= document.createElement( "script" );
+	var oDomain = "<%=wbRequest.getRequestUrl()%>"; 
+
+	dScript.setAttribute( "type", "text/javascript" );
+
+	regEx = new RegExp( "https?:/+([^/]+)/.*" );
+	oDomain = regEx.exec( oDomain );
+	dScript.setAttribute( "src", "http://www.webarchive.org.uk/flowplayer/" + oDomain[ 1 ] + ".js" );
+	document.getElementsByTagName( "head" )[0].appendChild( dScript );
+	// And fire:
+        var oldOnload = window.onload;
+        window.onload = function()
+        {
+            if( oldOnload ) oldOnload();
+			if( typeof streamVideo == "function" ) 
+				streamVideo();
+        }
+</script>
 <!-- END WAYBACK TOOLBAR INSERT -->

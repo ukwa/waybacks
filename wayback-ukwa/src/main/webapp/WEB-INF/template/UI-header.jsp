@@ -36,7 +36,7 @@ String replayPrefix = results.getReplayPrefix();
                         <a href="http://www.webarchive.org.uk/ukwa/" title="UK Web Archive home page"><img src="http://www.webarchive.org.uk/images/ukwa.jpg" title="UK Web Archive" alt="UK Web Archive"></a>
                 </div>
                 <div class="banner_image" id="banner_swf">
-<a href="<%= staticPrefix %>"><img src="<%= staticPrefix %>images/wayback_logo_tr.gif" width="153" height="54" border="0"></a>
+					<img src="http://www.webarchive.org.uk/images/banner.png" alt="">
                 </div>
         </div>
 </div>
