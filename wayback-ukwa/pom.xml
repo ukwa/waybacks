@@ -117,15 +117,20 @@
         <artifactId>maven-war-plugin</artifactId>
         <version>2.3</version>
         <configuration>
-		  <dependentWarExcludes>WEB-INF/web.xml,WEB-INF/wayback.xml,WEB-INF/CDXCollection.xml,WEB-INF/lib/jsp*.jar,WEB-INF/lib/servlet-api*.jar,WEB-INF/lib/hadoop-0.20*.jar</dependentWarExcludes>
           <overlays>
-            <overlay>
-              <groupId>org.archive.wayback</groupId>
-      			<artifactId>wayback-webapp</artifactId>
-              <version>1.7.1-SNAPSHOT</version>
-            </overlay>
+            <!-- first overlay takes precedence... -->
             <overlay>
               <!-- empty groupId/artifactId represents the current build -->
+            </overlay>
+            <overlay>
+              <groupId>org.archive.wayback</groupId>
+              <artifactId>wayback-webapp</artifactId>
+              <excludes>
+                <exclude>WEB-INF/lib/jsp*.jar</exclude>
+                <exclude>WEB-INF/lib/servlet-api*.jar</exclude>
+                <exclude>WEB-INF/lib/hadoop-0.20*.jar</exclude>
+                <exclude>WEB-INF/replay/Timeline.jsp</exclude>
+              </excludes>
             </overlay>
           </overlays>
         </configuration>
