@@ -231,7 +231,9 @@
  <bean name="80:archive-cy" parent="80:archive">
   <property name="locale">
    <bean class="java.util.Locale">
-    <constructor-arg type="java.lang.String" value="cy_GB" /> <!-- cy_GB? -->
+    <!-- cy_GB -->
+    <constructor-arg type="java.lang.String" value="cy" />
+    <constructor-arg type="java.lang.String" value="GB" />
    </bean>
   </property>
 

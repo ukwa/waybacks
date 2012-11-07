@@ -49,24 +49,9 @@ String replayPrefix = results.getReplayPrefix();
         <div class="british_library_logo">
                 <p>Provided by:</p>
                 <a href="http://www.bl.uk/" title="British Libary website"><img src="http://www.webarchive.org.uk/images/bl.jpg" title="British Library" alt="British Library logo"></a>
-        </div><div class="main_content"><div class="left_col">                <div class="main_navigation">
-                        <ol class="main_nav">
-                                                                        <li><a href="http://www.webarchive.org.uk/ukwa/" class="nav" title="Home">Home</a></li>
-                                                <li><a href="http://www.webarchive.org.uk/ukwa/info/about" class="nav" title="About">About</a></li>
-                                        <li><a href="http://www.webarchive.org.uk/ukwa/advancedsearch" class="nav" title="Advanced search">Search the archive</a></li>
-                                        <li><a href="http://www.webarchive.org.uk/ukwa/browse" class="nav" title="Browse the archive">Browse the archive</a></li>
-                                        <li><a href="http://www.webarchive.org.uk/ukwa/info/nominate" class="nav" title="Nominate a site">Nominate a site</a></li>
-                                        <li><a href="http://www.webarchive.org.uk/ukwa/info/faq" class="nav" title="Frequently asked questions">FAQ's</a></li>
-                                        <li><a href="http://www.webarchive.org.uk/ukwa/info/technical" class="nav" title="Technical information">Technical information</a></li>
-                                        <li><a href="http://www.webarchive.org.uk/ukwa/info/links" class="nav" title="Links">Links to other archives</a></li>
-                                        <li><a href="http://www.webarchive.org.uk/ukwa/statistics" class="nav" title="Statistics">Statistics</a></li>
-                                        <li><a href="http://www.webarchive.org.uk/ukwa/info/contact" class="nav" title="Contact">Contact</a></li>
-                        </ol>
-                </div>
-
-</div>
-        <div class="content_extended">
-        	<div class="content_panel search">
+        </div><div class="main_content">
+            <div class="content_extended" style="width:898px;">
+        	<div class="content_panel search" style="width:858px; min-height:250px; margin: 0 10px;">
          
         
         <!-- Start of Wayback code -->
@@ -80,7 +65,7 @@ String replayPrefix = results.getReplayPrefix();
 
 						<tr class="mainBColor">
 							<td colspan="2">
-								<table border="0" width="80%" align="center">
+								<table border="0" width="100%" align="center">
 
 
 									<!-- URL FORM -->
@@ -91,7 +76,7 @@ String replayPrefix = results.getReplayPrefix();
 											<td nowrap align="center"><img src="<%= staticPrefix %>images/shim.gif" width="1" height="20"> 
 
 												<b class="mainBodyW">
-													<font size="2" color="#FFFFFF" face="Arial, Helvetica, sans-serif">
+													<font size="2" color="black" face="Arial, Helvetica, sans-serif">
 														<%= fmt.format("UIGlobal.enterWebAddress") %>
 													</font> 
 													<input type="hidden" name="<%= WaybackRequest.REQUEST_TYPE %>" value="<%= WaybackRequest.REQUEST_CAPTURE_QUERY %>">
@@ -119,7 +104,7 @@ String replayPrefix = results.getReplayPrefix();
 												&nbsp;
 												<input type="submit" name="Submit" value="<%= fmt.format("UIGlobal.urlSearchButton") %>" align="absMiddle">
 												&nbsp;
-												<a href="<%= staticPrefix %>advanced_search.jsp" style="color:white;font-size:11px">
+												<a href="<%= staticPrefix %>advanced_search.jsp" style="color:black;font-size:11px">
 													<%= fmt.format("UIGlobal.advancedSearchLink") %>
 												</a>
 
