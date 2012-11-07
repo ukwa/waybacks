@@ -26,6 +26,11 @@ String replayPrefix = results.getReplayPrefix();
 <!--[if gte IE 7]><link href="http://www.webarchive.org.uk/css/ie7.css" type="text/css" rel="stylesheet" /><![endif]-->
 <!--[if IE 6]><link href="http://www.webarchive.org.uk/css/ie6.css" type="text/css" rel="stylesheet" /><![endif]-->
 <!--[if IE 5]><link href="http://www.webarchive.org.uk/css/ie5.css" type="text/css" rel="stylesheet" /><![endif]-->
+<!-- START OF Wayback CSS -->
+<link rel="stylesheet" type="text/css"
+                        href="<%= staticPrefix %>css/styles.css"
+                        src="<%= staticPrefix %>css/styles.css" />
+<!-- END OF Wayback CSS -->
 <link href="http://www.webarchive.org.uk/ukwa/favicon.ico" rel="shortcut icon">
 <title>UK Web Archive</title>
 </head><body class="js"><div class="header">
@@ -51,7 +56,7 @@ String replayPrefix = results.getReplayPrefix();
                 <a href="http://www.bl.uk/" title="British Libary website"><img src="http://www.webarchive.org.uk/images/bl.jpg" title="British Library" alt="British Library logo"></a>
         </div><div class="main_content">
             <div class="content_extended" style="width:898px;">
-        	<div class="content_panel search" style="width:858px; min-height:250px; margin: 0 10px;">
+        	<div class="content_panel search wayback" style="width:858px; min-height:250px; margin: 0 10px;">
          
         
         <!-- Start of Wayback code -->
