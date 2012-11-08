@@ -183,15 +183,14 @@
     <property name="replay" ref="archivalurlreplay" />
     <property name="query">
       <bean class="org.archive.wayback.query.Renderer">
-<!--
         <property name="captureJsp" value="/WEB-INF/query/CalendarResults.jsp" />
-        
+<!--
         This .jsp provides a "search engine" style listing of results vertically
         <property name="captureJsp" value="/WEB-INF/query/HTMLCaptureResults.jsp" />
         
         Using the following reproduces the historical UKWA behaviour.
--->
         <property name="captureJsp" value="/WEB-INF/query/XMLCaptureResults.jsp" />
+-->
       </bean>
     </property>
 
