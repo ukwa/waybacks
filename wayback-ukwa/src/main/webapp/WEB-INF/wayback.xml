@@ -15,7 +15,7 @@
     <property name="properties">
       <value>
 		wayback.basedir=/sips/wayback
-		wayback.urlprefix=http://www.webarchive.org.uk/waybackhdfs/archive/
+		wayback.urlprefix=http://www.webarchive.org.uk/waybackhdfs/
       </value>
     </property>
   </bean>
@@ -161,9 +161,9 @@
 	  requests by different URL prefixes
 	-->
 	
-    <property name="replayPrefix" value="${wayback.urlprefix}" />
-    <property name="queryPrefix" value="${wayback.urlprefix}" />
-    <property name="staticPrefix" value="${wayback.urlprefix}" />
+    <property name="replayPrefix" value="${wayback.urlprefix}archive/" />
+    <property name="queryPrefix" value="${wayback.urlprefix}archive/" />
+    <property name="staticPrefix" value="${wayback.urlprefix}archive/" />
 
 	<!--
 		The following property will cause only results matching the exact host
@@ -183,17 +183,21 @@
     <property name="replay" ref="archivalurlreplay" />
     <property name="query">
       <bean class="org.archive.wayback.query.Renderer">
-        <property name="captureJsp" value="/WEB-INF/query/CalendarResults.jsp" />
 <!--
+        <property name="captureJsp" value="/WEB-INF/query/CalendarResults.jsp" />
+        
         This .jsp provides a "search engine" style listing of results vertically
         <property name="captureJsp" value="/WEB-INF/query/HTMLCaptureResults.jsp" />
+        
+        Using the following reproduces the historical UKWA behaviour.
 -->
+        <property name="captureJsp" value="/WEB-INF/query/XMLCaptureResults.jsp" />
       </bean>
     </property>
 
     <property name="uriConverter">
       <bean class="org.archive.wayback.archivalurl.ArchivalUrlResultURIConverter">
-        <property name="replayURIPrefix" value="${wayback.urlprefix}"/>
+        <property name="replayURIPrefix" value="${wayback.urlprefix}archive/"/>
       </bean>
     </property>
 
@@ -231,6 +235,10 @@
    </bean>
   </property>
 
+    <property name="replayPrefix" value="${wayback.urlprefix}archive-cy/" />
+    <property name="queryPrefix" value="${wayback.urlprefix}archive-cy/" />
+    <property name="staticPrefix" value="${wayback.urlprefix}archive-cy/" />
+
   <property name="uriConverter">
    <bean class="org.archive.wayback.archivalurl.ArchivalUrlResultURIConverter">
     <property name="replayURIPrefix"
@@ -253,14 +261,14 @@
   The following import and two bean definitions enable Memento access to
   content in your collections.
 -->
-<!--
+
   <import resource="MementoReplay.xml"/>
-  <bean name="8080:memento" parent="8080:wayback">
-    <property name="replayPrefix" value="http://webarchive.org.uk:8080/memento/" />
-    <property name="queryPrefix" value="http://webarchive.org.uk:8080/list/" />
+  <bean name="80:memento" parent="80:archive">
+    <property name="replayPrefix" value="${wayback.urlprefix}memento/" />
+    <property name="queryPrefix" value="${wayback.urlprefix}list/" />
 	<property name="configs">
       <props>
-	    <prop key="aggregationPrefix">http://webarchive.org.uk:8080/list/</prop>
+	    <prop key="aggregationPrefix">${wayback.urlprefix}list/</prop>
       </props>
 	</property>
 
@@ -273,7 +281,7 @@
 
     <property name="uriConverter">
       <bean class="org.archive.wayback.archivalurl.ArchivalUrlResultURIConverter">
-        <property name="replayURIPrefix" value="http://webarchive.org.uk:8080/memento/"/>
+        <property name="replayURIPrefix" value="${wayback.urlprefix}memento/"/>
       </bean>
     </property>
     <property name="parser">
@@ -290,13 +298,13 @@
   </bean>
 
 
-  <bean name="8080:list" parent="8080:memento">
-    <property name="replayPrefix" value="http://webarchive.org.uk:8080/memento/" />
-    <property name="queryPrefix" value="http://webarchive.org.uk:8080/list/" />
-    <property name="staticPrefix" value="http://webarchive.org.uk:8080/list/" />
+  <bean name="80:list" parent="80:memento">
+    <property name="replayPrefix" value="${wayback.urlprefix}memento/" />
+    <property name="queryPrefix" value="${wayback.urlprefix}list/" />
+    <property name="staticPrefix" value="${wayback.urlprefix}list/" />
 	<property name="configs">
 	  <props>
-	    <prop key="Prefix">http://webarchive.org.uk:8080/memento/</prop>
+	    <prop key="Prefix">${wayback.urlprefix}memento/</prop>
 	  </props>
 	</property>
 
@@ -313,7 +321,7 @@
       </bean>
     </property>
   </bean>
--->
+
 
 <!--
     The following AccessPoint inherits all configuration from the 8080:wayback
@@ -325,7 +333,7 @@
  -->
  <!--
   <bean name="8080:opensearch" parent="8080:wayback">
-    <property name="queryPrefix" value="http://webarchive.org.uk:8080/opensearch/" />
+    <property name="queryPrefix" value="${wayback.urlprefix}opensearch/" />
     <property name="query">
       <bean class="org.archive.wayback.query.Renderer">
         <property name="captureJsp" value="/WEB-INF/query/OpenSearchCaptureResults.jsp" />

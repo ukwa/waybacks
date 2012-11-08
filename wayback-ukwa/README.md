@@ -7,14 +7,19 @@ This project build the Wayback we need for the live UKWA Wayback instance.
 
 Extensions:
  * Flowplayer.
- * Google Analytics embedding. [NOT REIMPLEMENTED YET]
- * [ARCHIVED] in page title? [NOT REIMPLEMENTED YET]
- * Controllable banner (minimise, move, etc) [NOT REIMPLEMENTED YET]
- * UK Theme in UI-header/footer JSPs, Toolbar branding, cross-linking, etc. [NOT REIMPLEMENTED YET]
- * Archive Query behaviour (i.e. wayback/archive/* returns XML not HTML). [NOT REIMPLEMENTED YET]
- * Memento access point (wayback/memento/) [NOT REIMPLEMENTED YET]
+ * TOTEST Google Analytics embedding.
+ * TODO [ARCHIVED] in page title?
+ * TODO Controllable banner (minimise, move, etc)
+ * UK Theme in UI-header/footer JSPs, Toolbar branding, etc.
+ * Archive Query behaviour (i.e. wayback/archive/* returns XML not HTML).
+ ** http://www.webarchive.org.uk/wayback/archive/*/http://www.bbc.co.uk
+ ** Not sure this is what we really want.
+ ** http://www.webarchive.org.uk/waybackhdfs/archive/xmlquery?url=http://www.nytimes.com
+ ** http://inkdroid.org/journal/2012/05/03/way-way-back/
+ * Memento access point (wayback/memento/ & wayback/list/)
+ ** Bugs found, see below.
  * Welsh language access point (wayback/archive-cy)
-
+ * TODO Cross-linking between languages, to/from main site too.
 
 Welsh Dates
 -----------
@@ -23,6 +28,21 @@ To support a Welsh UI, we need not just a localized properties file, but also su
 * See http://userguide.icu-project.org/icu4j-locale-service-provider
 
 The current live server has had the ICU4J jars (icu4j-50_1.jar and icu4j-localespi-50_1.jar) installed in /usr/java/jdk1.6.0_12/jre/lib/ext. If Java is upgraded, these JARs will presumably have to be re-installed.
+
+Memento Problems
+----------------
+
+ * "format" flag has changed, and ORE.jsp needed changing to keep up. Should use MementoConstants.
+ * Memento TimeBundle leads to a re-direct loop.
+
+Start here:
+  882  curl -v "http://www.webarchive.org.uk/waybackhdfs/memento/timegate/http://www.bbc.co.uk/"
+  883  curl -V "http://www.webarchive.org.uk/waybackhdfs/list/timebundle/http://www.bbc.co.uk/"
+  884  curl -v "http://www.webarchive.org.uk/waybackhdfs/list/timebundle/http://www.bbc.co.uk/"
+Goes back to:
+  885  curl -v "http://www.webarchive.org.uk/waybackhdfs/memento/timemap/rdf/http://www.bbc.co.uk/"
+Instead of:
+  886  curl -v "http://www.webarchive.org.uk/waybackhdfs/list/timemap/rdf/http://www.bbc.co.uk/"
 
 
 Differences

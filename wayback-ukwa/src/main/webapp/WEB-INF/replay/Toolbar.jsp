@@ -57,6 +57,16 @@ String graphImgUrl = graphJspPrefix + "jsp/graph.jsp?graphdata=" + encodedGraph;
 // TODO: this is archivalUrl specific:
 String starLink = fmt.escapeHtml(queryPrefix + wbRequest.getReplayTimestamp() + 
 		"*/" + searchUrl);
+// Adding language-switch logic:
+String switchLang = "Cymraeg";
+String switchSearchUrl = replayPrefix + wbRequest.getReplayTimestamp() + "/" + searchUrl;
+if(replayPrefix.endsWith("-cy/") ) {
+	// This is the Welsh, so offer to switch back to English:		
+	switchLang = "English";
+	switchSearchUrl = switchSearchUrl.replaceFirst("/archive-cy/", "/archive/");
+} else {
+	switchSearchUrl = switchSearchUrl.replaceFirst("/archive/", "/archive-cy/");
+}
 %>
 <!-- BEGIN WAYBACK TOOLBAR INSERT -->
 
@@ -168,7 +178,7 @@ function trackMouseMove(event,element) {
 <div id="wm-ipp-inside" style="position:fixed;padding:0!important;margin:0!important;width:97%;min-width:780px;border:5px solid #000;border-top:none;background-image:url(<%= staticPrefix %>images/toolbar/wm_tb_bk_trns.png);text-align:center;-moz-box-shadow:1px 1px 3px #333;-webkit-box-shadow:1px 1px 3px #333;box-shadow:1px 1px 3px #333;font-size:11px!important;font-family:'Lucida Grande','Arial',sans-serif!important;">
    <table style="border-collapse:collapse;margin:0;padding:0;width:100%;"><tbody><tr>
    <td style="padding:10px;vertical-align:top;min-width:110px;">
-   <a href="<%= queryPrefix %>" title="Wayback Machine home page" style="background-color:transparent;border:none;"><img src="<%= staticPrefix %>images/toolbar/wayback-toolbar-logo.png" alt="Wayback Machine" width="110" height="39" border="0"/></a>
+   <a href="<%= queryPrefix %>" title="Wayback Machine home page" style="background-color:transparent;border:none;"><img src="<%= staticPrefix %>images/toolbar/wayback-toolbar-logo.png" alt="Wayback Machine" width="40" height="40" border="0"/></a>
    </td>
    <td style="padding:0!important;text-align:center;vertical-align:top;width:100%;">
 
@@ -311,8 +321,9 @@ function trackMouseMove(event,element) {
        </tr></tbody></table>
    </td>
    <td style="text-align:right;padding:5px;width:65px;font-size:11px!important;">
-       <a href="javascript:;" onclick="document.getElementById('wm-ipp').style.display='none';" style="display:block;padding-right:18px;background:url(<%= staticPrefix %>images/toolbar/wm_tb_close.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;margin-bottom:23px;background-color:transparent;border:none;" title="<%= fmt.format("ToolBar.closeTitle") %>"><%= fmt.format("ToolBar.closeText") %></a>
-       <a href="https://webarchive.jira.com/wiki/display/WWMOS/FAQs" style="display:block;padding-right:18px;background:url(<%= staticPrefix %>images/toolbar/wm_tb_help.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;background-color:transparent;border:none;" title="<%= fmt.format("ToolBar.helpTitle") %>"><%= fmt.format("ToolBar.helpText") %></a>
+       <a href="javascript:;" onclick="document.getElementById('wm-ipp').style.display='none';" style="display:block;padding-right:18px;background:url(<%= staticPrefix %>images/toolbar/wm_tb_close.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;margin-bottom:7px;background-color:transparent;border:none;" title="<%= fmt.format("ToolBar.closeTitle") %>"><%= fmt.format("ToolBar.closeText") %></a>
+       <a href="<%= switchSearchUrl %>" style="display:block;padding-right:18px;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;margin-bottom:7px;background-color:transparent;border:none;" title="<%= switchLang %>"><%= switchLang %></a>
+       <a href="http://www.webarchive.org.uk/ukwa/info/faq" style="display:block;padding-right:18px;background:url(<%= staticPrefix %>images/toolbar/wm_tb_help.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;background-color:transparent;border:none;" title="<%= fmt.format("ToolBar.helpTitle") %>"><%= fmt.format("ToolBar.helpText") %></a>
    </td>
    </tr></tbody></table>
 
@@ -323,6 +334,20 @@ function trackMouseMove(event,element) {
  if(wmDisclaimBanner != null) {
    disclaimElement(wmDisclaimBanner);
  }
+</script>
+<!-- Google Analytics -->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-7571526-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
 </script>
 <!-- Flowplayer overrides -->
 <script type="text/javascript">
