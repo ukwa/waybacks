@@ -7,9 +7,7 @@ This project build the Wayback we need for the live UKWA Wayback instance.
 
 Extensions:
  * Flowplayer.
- * TOTEST Google Analytics embedding.
- * TODO [ARCHIVED] in page title?
- * TODO Controllable banner (minimise, move, etc)
+ * Google Analytics embedding.
  * UK Theme in UI-header/footer JSPs, Toolbar branding, etc.
  * Archive Query behaviour (i.e. wayback/archive/* returns XML not HTML).
  ** http://www.webarchive.org.uk/wayback/archive/*/http://www.bbc.co.uk
@@ -19,7 +17,11 @@ Extensions:
  * Memento access point (wayback/memento/ & wayback/list/)
  ** Bugs found, see below.
  * Welsh language access point (wayback/archive-cy)
- * TODO Cross-linking between languages, to/from main site too.
+ * Cross-linking between languages
+ * [ARCHIVED] in page title.
+ * TODO Welsh translation of 'ARCHIVED'.
+ * TODO Re-implement controllable banner (minimise, move, etc)
+ * TODO Cross-linking to/from main site too?
 
 Welsh Dates
 -----------

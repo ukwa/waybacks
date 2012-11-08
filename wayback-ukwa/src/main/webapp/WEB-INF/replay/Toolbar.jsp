@@ -367,12 +367,14 @@ function trackMouseMove(event,element) {
 	dScript.setAttribute( "src", "http://www.webarchive.org.uk/flowplayer/" + oDomain[ 1 ] + ".js" );
 	document.getElementsByTagName( "head" )[0].appendChild( dScript );
 	// And fire:
-        var oldOnload = window.onload;
-        window.onload = function()
-        {
-            if( oldOnload ) oldOnload();
-			if( typeof streamVideo == "function" ) 
-				streamVideo();
-        }
+	var oldOnload = window.onload;
+    window.onload = function()
+    {
+        if( oldOnload ) oldOnload();
+        // Attempt to change the page title:
+        document.title = "[ARCHIVED] " + document.title;
+        // Initiate the flowplayer override:
+		if( typeof streamVideo == "function" ) streamVideo();
+    }
 </script>
 <!-- END WAYBACK TOOLBAR INSERT -->
