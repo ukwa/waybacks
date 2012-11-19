@@ -14,14 +14,18 @@ Extensions:
  ** Not sure this is what we really want.
  ** http://www.webarchive.org.uk/waybackhdfs/archive/xmlquery?url=http://www.nytimes.com
  ** http://inkdroid.org/journal/2012/05/03/way-way-back/
+ ** REMOVED.
  * Memento access point (wayback/memento/ & wayback/list/)
  ** Bugs found, see below.
  * Welsh language access point (wayback/archive-cy)
  * Cross-linking between languages
  * [ARCHIVED] in page title.
- * TODO Welsh translation of 'ARCHIVED'.
- * TODO Re-implement controllable banner (minimise, move, etc)
+ * Embed the warning from resources, rather than directly in the page.
+ * prettyMonths is hard-coded English.
+ * Welsh translation of 'ARCHIVED'.
+ * TODO Re-implement controllable banner (minimise, move, main-frame-only, etc)
  * TODO Cross-linking to/from main site too?
+
 
 Welsh Dates
 -----------

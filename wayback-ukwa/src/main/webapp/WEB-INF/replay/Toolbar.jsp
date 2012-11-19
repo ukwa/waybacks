@@ -90,7 +90,7 @@ var trackerVal = "none";
 var displayDay = "<%= fmt.format("ToolBar.curDayText",data.curResult.getCaptureDate()) %>";
 var displayMonth = "<%= fmt.format("ToolBar.curMonthText",data.curResult.getCaptureDate()) %>";
 var displayYear = "<%= fmt.format("ToolBar.curYearText",data.curResult.getCaptureDate()) %>";
-var prettyMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+var prettyMonths = <%= fmt.format("ToolBar.prettyMonthsArray") %>;
 
 function showTrackers(val) {
 	if(val == trackerVal) {
@@ -178,7 +178,7 @@ function trackMouseMove(event,element) {
 <div id="wm-ipp-inside" style="position:fixed;padding:0!important;margin:0!important;width:97%;min-width:780px;border:5px solid #000;border-top:none;background-image:url(<%= staticPrefix %>images/toolbar/wm_tb_bk_trns.png);text-align:center;-moz-box-shadow:1px 1px 3px #333;-webkit-box-shadow:1px 1px 3px #333;box-shadow:1px 1px 3px #333;font-size:11px!important;font-family:'Lucida Grande','Arial',sans-serif!important;">
    <table style="border-collapse:collapse;margin:0;padding:0;width:100%;"><tbody><tr>
    <td style="padding:10px;vertical-align:top;min-width:200px;">
-   <a href="<%= queryPrefix %>" title="Wayback Machine home page" style="background-color:transparent;border:none;float:left;margin-right:4px;"><img src="<%= staticPrefix %>images/toolbar/wayback-toolbar-logo.png" alt="Wayback Machine" width="40" height="40" border="0"/></a><div style="font-size: 0.8em;color:#333;text-align:center;">External links, forms and search boxes may not function within archived websites.</div>
+   <a href="<%= queryPrefix %>" title="Wayback Machine home page" style="background-color:transparent;border:none;float:left;margin-right:4px;"><img src="<%= staticPrefix %>images/toolbar/wayback-toolbar-logo.png" alt="Wayback Machine" width="40" height="40" border="0"/></a><div style="font-size: 0.8em;color:#333;text-align:center;"><%= fmt.format("ToolBar.playbackWarning") %></div>
    </td>
    <td style="padding:0!important;text-align:center;vertical-align:top;width:100%;">
 
@@ -372,7 +372,7 @@ function trackMouseMove(event,element) {
     {
         if( oldOnload ) oldOnload();
         // Attempt to change the page title:
-        document.title = "[ARCHIVED] " + document.title;
+        document.title = "[<%= fmt.format("UIGlobal.ARCHIVED") %>] " + document.title;
         // Initiate the flowplayer override:
 		if( typeof streamVideo == "function" ) streamVideo();
     }
