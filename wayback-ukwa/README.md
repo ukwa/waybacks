@@ -16,6 +16,7 @@ Extensions:
  ** http://inkdroid.org/journal/2012/05/03/way-way-back/
  ** REMOVED.
  * Memento access point (wayback/memento/ & wayback/list/)
+ * Blocked selected websites via exclude.txt
  ** Bugs found, see below.
  * Welsh language access point (wayback/archive-cy)
  * Cross-linking between languages
@@ -23,8 +24,14 @@ Extensions:
  * Embed the warning from resources, rather than directly in the page.
  * prettyMonths is hard-coded English.
  * Welsh translation of 'ARCHIVED'.
- * TODO Re-implement controllable banner (minimise, move, main-frame-only, etc)
- * TODO Cross-linking to/from main site too?
+ * TODO Welsh disclaimer.
+ * TODO Ensure blocked content is blocked! 
+ * TODO Deploy modifed AccessRestlet to refer to correct xmlquery URI: /ukwa-access-restlet/src/main/java/uk/bl/AccessRestlet/UKWATarget.java
+ * TODO Deploy to production.
+
+ 
+ * LATER Re-implement controllable banner (minimise, move, main-frame-only, etc)
+ * LATER Cross-linking to/from main site too?
 
 
 Welsh Dates
