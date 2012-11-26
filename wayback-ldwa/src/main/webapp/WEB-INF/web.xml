@@ -76,11 +76,12 @@
 	<filter-mapping>
     	<filter-name>WaybackLockFilter</filter-name>
     	<url-pattern>/wayback/*</url-pattern>
-	</filter-mapping>
+	<!--  Memento Locking no longer required --
+	filter-mapping>
 		<filter-mapping>
     	<filter-name>MementoLockFilter</filter-name>
     	<url-pattern>/memento/*</url-pattern>
-	</filter-mapping>
+	</filter-mapping -->
 	<filter-mapping>
     	<filter-name>ListLockFilter</filter-name>
     	<url-pattern>/list/*</url-pattern>
