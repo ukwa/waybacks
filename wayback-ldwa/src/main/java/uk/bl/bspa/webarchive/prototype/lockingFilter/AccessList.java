@@ -181,7 +181,6 @@ public class AccessList {
      * 
      * @return
      */
-    @SuppressWarnings("unchecked")
 	public List<SessionDetailVO> getSessionDetail(){
     	
     	List<AccessDetailVO> accessDetails = getLockList();
