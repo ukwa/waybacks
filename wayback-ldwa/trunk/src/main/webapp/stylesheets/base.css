@@ -1,0 +1,663 @@
+/* 	
+	(tabsize: 4)
+
+	CSS guidelines :
+	- the stylesheet is not extensive, for flexibility css rules are only added as required
+	- always define a base rule (eg. 'p'), followed by specific rules (eg. '#footer p')
+	- the base rules always explicitly resets properties like margins and padding for consistency accross browsers
+	- do not redefine properties if they are the same as in the base rules
+	- classnames are not always declared with a base rule. A standard classname is sometimes used
+	  for consistency when the behaviour is similar accross elements to which it is applied. However in
+	  each specific rule where it appears, the properties can be different. For example 'align-right'
+	  may not have a base rule because it will be treated differently for 'p.align-right' and
+	  'div.align-right' although the behaviour is similar.
+	- if css rules need to be created for a specific screen, a class can be applied to the body element
+	  or to the #cstp-content container (eg. #cstp-content.login-page p.info { ... } ). Then rules can
+	  be redefined without adding extra ids or classes everywhere (for example if the heading color changes
+	  #cstp-container.login-page h2 { color:green; } ).
+	- margins: always put a bottom margin, and zero top margin, for consistency accross browsers
+	
+
+Pure Blue	 	#004DE5
+Navy Blue	 	#003366
+Turquoise Blue	#357AA3
+Blue 50 %	 	#C0D5E3
+Blue 25%	 	#DEE9ED
+
+*/
+
+/* base rules */
+
+body { 
+	font: 11px/1.2em Arial, sans-serif;
+	margin:0; padding:0; 
+	color: #000;
+	background:#cedeea url(../images/body_wrapper_bg.gif) repeat-y 50% 0;
+}
+
+p 		{ margin: 0 0 1em; padding: 0; }
+h1, h2, h3, h4, h5 { margin:0 0 1em; padding:0; font-weight:bold; }
+
+.bold 	{ font-weight:bold; }
+.red 	{ color:red; }
+
+a img 	{ border: 0; }
+p img 	{ display: inline; }
+
+/* links */
+
+a 		{ text-decoration:none; }
+a, a:visited { color:#0000ee; }
+a:hover { text-decoration:underline; }
+
+#bg {
+	position:fixed;
+	top:-50%;
+	left:-50%;
+	width:200%;
+	height:200%;
+}
+#bg img {
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	margin:auto;
+	min-width:50%;
+	min-height:50%;
+}
+
+
+/* form elements */
+/* note: because of padding on text fields NEVER use width:100%; on input fields */
+
+form { margin: 0; padding: 0; }
+input, select, textarea { font:11px Arial, sans-serif; color:#333; line-height:1.2em; }
+input, textarea { padding:1px 4px; }
+
+
+/* TABLES */
+
+ /* table cell alignments */
+td.va-top 	 { vertical-align:top; }
+td.va-middle { vertical-align:middle; }
+td.va-bottom { vertical-align:bottom; }
+
+td.acenter, th.acenter 	{ text-align:center; }
+td.aleft, th.aleft 		{ text-align:left; }
+td.aright, th.aright 	{ text-align:right; }
+
+
+ /* tables used for layout */
+td.gutter { width:10px; }
+td.gutter img { display:block; width:10px; }
+
+
+/* ICONS */
+
+ /* enough padding for the tallest icon image */
+span.icon { padding:2px 0; padding-left:20px; background-repeat:none; background-position:0 50%; }
+a.icon { padding:2px 0; padding-left:20px; background-position:0 50%; background-repeat:none; }
+#cstp-content p.icon { background-position:0 4px; padding:4px 0 2px; padding-left:24px;  }
+#cstp-content div.icon { padding-left:24px;  }
+#cstp-content li.icon { background-position:0 0; }
+#cstp-content td.icon { padding-left:20px; }
+
+#cstp-content .ico_addnewitem { background:url(../images/icons/ico_addnewitem.gif) no-repeat 0 50%; }
+#cstp-content .ico_allowed { background:url(../images/icons/ico_allowed.gif) no-repeat 0 50%; }
+#cstp-content .ico_calendar { background:url(../images/icons/ico_calendar.gif) no-repeat 0 50%; }
+#cstp-content .ico_checked { background:url(../images/icons/ico_checked.gif) no-repeat 0 50%; }
+#cstp-content .ico_collapse { background:url(../images/icons/ico_collapse.gif) no-repeat 0 50%; }
+#cstp-content .ico_containeropen { background:url(../images/icons/ico_containeropen.gif) no-repeat 0 50%; }
+#cstp-content .ico_contexthelp { background:url(../images/icons/ico_contexthelp.gif) no-repeat 0 50%; }
+#cstp-content .ico_deleteitem { background:url(../images/icons/ico_deleteitem.gif) no-repeat 0 50%; }
+#cstp-content .ico_edititem { background:url(../images/icons/ico_edititem.gif) no-repeat 0 50%; }
+#cstp-content .ico_expand { background:url(../images/icons/ico_expand.gif) no-repeat 0 50%; }
+#cstp-content .ico_forbidden { background:url(../images/icons/ico_forbidden.gif) no-repeat 0 50%; }
+#cstp-content .ico_formatpdf { background:url(../images/icons/ico_formatpdf.gif) no-repeat 0 50%; }
+#cstp-content .ico_formatxls { background:url(../images/icons/ico_formatxls.gif) no-repeat 0 50%; }
+#cstp-content .ico_gobegin { background:url(../images/icons/ico_gobegin.gif) no-repeat 0 50%; }
+#cstp-content .ico_goend { background:url(../images/icons/ico_goend.gif) no-repeat 0 50%; }
+#cstp-content .ico_gonext { background:url(../images/icons/ico_gonext.gif) no-repeat 0 50%; }
+#cstp-content .ico_goprevious { background:url(../images/icons/ico_goprevious.gif) no-repeat 0 50%; }
+#cstp-content .ico_important { background:url(../images/icons/ico_important.gif) no-repeat 0 50%; }
+#cstp-content .ico_linknewwindow { background:url(../images/icons/ico_linknewwindow.gif) no-repeat 0 50%; }
+#cstp-content .ico_locked { background:url(../images/icons/ico_locked.gif) no-repeat 0 50%; }
+#cstp-content .ico_movedown { background:url(../images/icons/ico_movedown.gif) no-repeat 0 50%; }
+#cstp-content .ico_moveup { background:url(../images/icons/ico_moveup.gif) no-repeat 0 50%; }
+#cstp-content .ico_print { background:url(../images/icons/ico_print.gif) no-repeat 0 50%; }
+#cstp-content .ico_refresh { background:url(../images/icons/ico_refresh.gif) no-repeat 0 50%; }
+#cstp-content .ico_rssfeed { background:url(../images/icons/ico_rssfeed.gif) no-repeat 0 50%; }
+#cstp-content .ico_search { background:url(../images/icons/ico_search.gif) no-repeat 0 50%; }
+#cstp-content .ico_sendemail { background:url(../images/icons/ico_sendemail.gif) no-repeat 0 50%; }
+#cstp-content .ico_settings { background:url(../images/icons/ico_settings.gif) no-repeat 0 50%; }
+#cstp-content .ico_showgraphicsbar { background:url(../images/icons/ico_showgraphicsbar.gif) no-repeat 0 50%; }
+#cstp-content .ico_showgraphicschain { background:url(../images/icons/ico_showgraphicschain.gif) no-repeat 0 50%; }
+#cstp-content .ico_showgraphicspie { background:url(../images/icons/ico_showgraphicspie.gif) no-repeat 0 50%; }
+#cstp-content .ico_upload { background:url(../images/icons/ico_upload.gif) no-repeat 0 50%; }
+#cstp-content .ico_user { background:url(../images/icons/ico_user.gif) no-repeat 0 50%; }
+#cstp-content .ico_usergroup { background:url(../images/icons/ico_usergroup.gif) no-repeat 0 50%; }
+#cstp-content .ico_valuenegative { background:url(../images/icons/ico_valuenegative.gif) no-repeat 0 50%; }
+#cstp-content .ico_valuepositive { background:url(../images/icons/ico_valuepositive.gif) no-repeat 0 50%; }
+#cstp-content .ico_warning { background:url(../images/icons/ico_warning.gif) no-repeat 0 50%; }
+#cstp-content .ico_processing { background:url(../images/icons/ico_processing.gif) no-repeat 0 50%; }
+#cstp-content .ico_backtotop,
+#cstp-footer  .ico_backtotop { background:url(../images/icons/ico_backtotop.gif) no-repeat 0 50%; padding-left:12px; }
+
+
+/******************************************************************************
+  LAYOUT
+  *****************************************************************************/
+
+div.clearer { clear:both; }
+div.ieclearer { clear:both; width:100%; overflow:hidden; height:0; } /* used for clearing floats in IE without buggy vertical spacing */
+
+/* flexible min/max width container with expressions for ie6 (ie7 understands min-/max-width) */
+
+#cstp-container { margin: 0 auto; width:auto; min-width:980px; max-width:2500px; }
+* html #cstp-container {
+	width:980px; /*fallback value if js is disabled*/
+	width:expression(document.documentElement.clientWidth<980?"980px":(document.documentElement.clientWidth>2500?"2500px":"auto"));
+}
+
+#cstp-container2 { padding:0 10px; } /* inner padding on elastic layout */
+
+/******************************************************************************
+  HEADER
+  *****************************************************************************/
+
+/*----------------------------------------------------------------------------
+  HEADER :: TOOLBAR
+  ----------------------------------------------------------------------------*/
+
+#cstp-header .toolbar {
+    background-color:#848484;
+    width:100%;
+    padding:1px 0 0;
+    border-bottom:1px solid #fff;
+    font-size:10px;
+}
+#cstp-header > .toolbar { padding-bottom:2px; }
+#cstp-header .toolbar span, #cstp-header .toolbar a { line-height:1.9em; }
+#cstp-header .toolbar ul { margin:0; padding:0; display:block; float:right; }
+#cstp-header .toolbar li { display:block;float:right; padding:0 6px; color:#fff; }
+#cstp-header .toolbar li.no-padding { padding:0; }
+#cstp-header .toolbar span { text-decoration:none; color:#fff; }
+#cstp-header .toolbar span.sep { color:#ccc; }
+#cstp-header .toolbar img { vertical-align:middle; padding-top:2px; }
+#cstp-header .toolbar a { font-weight:normal; text-decoration:none; color:#fff; }
+#cstp-header .toolbar a:hover { color:#ccc; }
+#cstp-header .toolbar select,
+#cstp-header .toolbar input { font-family:Arial; font-size:1em; }
+
+
+/*----------------------------------------------------------------------------
+  HEADER :: LOGO & NAVIGATION
+  ----------------------------------------------------------------------------*/
+
+ /* parent div for logo, illustration and nav,
+    position relative affects script positioning of header menu! */
+#cstp-header-main { width:100%; position:relative; }
+
+#cstp-header .logoFortis img,
+#cstp-header .illustration img { display:block; }
+
+ /* div containing site logo */
+#cstp-header .logoFortis { 
+	background:#fff;
+	clear:both;
+	padding-top:6px; height:66px;/* padding+height should be high enough that the right image wont overlap the main nav
+		if there are many items */
+}
+
+ /* illustration in top right */
+#cstp-header .illustration {
+	position:absolute; right:0; top:0; 
+	border-left:1px solid #fff; border-bottom:1px solid #fff;
+}
+
+
+/*----------------------------------------------------------------------------
+  HEADER :: NAVIGATION
+  ----------------------------------------------------------------------------*/
+
+ /* once logged in, the navigation */
+#cstp-header .navigation { 
+	width:100%; padding-top:13px;/* the part of the block overlaid by the top right image */ 
+}
+
+ /* THEMES for navigation */
+#cstp-header .navigation.dark-blue { background:#013567; }
+
+
+/* HEADER MENU : see header_menu.css */
+
+
+/*----------------------------------------------------------------------------
+  BREADCRUMB TRAIL
+  ----------------------------------------------------------------------------*/
+
+#cstp-header .breadcrumb_trail { }
+#cstp-header .breadcrumb_trail.a { }
+#cstp-header .breadcrumb_trail.current_page { }
+
+
+/******************************************************************************
+  CONTENT
+  *****************************************************************************/
+
+/* the content defines the margins to the header/footer */
+
+#cstp-content { padding:2em 0; }
+
+#cstp-content h1 { font-size:14px; line-height:1.2em; color:#3379a3; }
+#cstp-content h2 { font-size:18px; line-height:1.2em; color:#003366; margin-bottom:0.6em; }
+#cstp-content h3 { }
+#cstp-content h4 { }
+
+
+/* FORMS */
+
+ /* global server feedback message */
+div.form-global-message { padding-left:8px;	font-weight:bold;  line-height:1.2em; }
+
+ /* the message color can be set based on the icon type */
+div.form-global-message p.ico_warning { color:red; }
+div.form-global-message p.ico_contexthelp { color:#0f6190; }
+
+
+ /* the form block */
+
+.form { border:1px solid #c4d8e4; background:#ecf3f7; padding:8px 4px; margin-bottom:1em; }
+
+.form fieldset { border:none; margin:0; padding:0; }
+
+.form table .row td { padding-bottom:4px; }
+
+.form td.label { vertical-align:top; padding-top:4px; line-height:1.2em; padding-right:10px; padding-left:4px; }
+.form td.field { vertical-align:top; padding-right:4px; }
+
+.form td.label label { color:#3379a2; width:33%; font-weight:bold; }
+.form td.field label { padding-left:4px; } /* labels for checkboxes and radio buttons */
+.form td.field img { vertical-align:middle; }
+
+.form .buttons { text-align:right; width:100%; padding:4px 0 4px; }
+
+.form .comment { color:#667882; }
+.form .comment em { color:#000; }
+
+.form span.required { color:red; }
+.form .label .required { float:right; }
+
+ /* form label usability enhancement for ie<7 (http://web.tampabay.rr.com/bmerkey/examples/clickable-labels-behavior.html) */
+label.clickable { behavior: expression(this.onclick=function() {this.children[0].click()}) }
+label[class="clickable"] { behavior: none; }
+
+ /* standardized form field sizes */
+.form input.long 	{ width:250px; }
+.form select.long 	{ width:262px; }
+.form input.medium 	{ width:150px; }
+.form select.medium { width:162px; }
+.form input.short 	{ width:70px; }
+.form select.short 	{ width:82px; }
+
+
+  /* more for dates */
+.form table.date td { padding:0; padding-right:4px; }
+.form table.date td span { display:block; text-align:center; font-size:0.9em; }
+
+.form input.date-dd { width:20px; }
+.form input.date-mm { width:20px; }
+.form input.date-yyyy { width:40px; }
+.form select.date-yyyy { width:52px; }
+
+
+ /* separators for complex layout forms */
+.form td.vertical-separator { width:32px; background:url(../images/forms/vertical_separator.gif) repeat-y 50% 0; }
+.form td.horizontal-separator { width:32px; background:url(../images/forms/horizontal_separator.gif) repeat-x 0 45%; }
+
+/* error messages and indicators */
+.form tr.error td.label { border: 1px solid #FF0000; background:#FEE1E3;border-right:none; padding-top:8px;padding-left:3px; }
+.form tr.error td.field { border: 1px solid #FF0000; background:#FEE1E3;border-left:none;  padding-top:3px;padding-right:3px; }
+.form tr.error td.label label { color:#444; }
+
+.form tr.error span.error-message { color:red; font-weight:bold; }
+
+
+/*----------------------------------------------------------------------------
+  WIDGETS / PANELS
+  ----------------------------------------------------------------------------*/
+
+.cstp-panel { width:100%; }
+.cstp-panel .panel-title { 
+	padding:3px 0; color:#fff; background:#357aa3; 
+	border-bottom:1px solid #003864; padding-left:10px;
+	font-weight:bold;
+}
+.cstp-panel .panel-block { margin:1em 2px 1.5em; }
+
+
+/*----------------------------------------------------------------------------
+  APPLICATION
+  ----------------------------------------------------------------------------*/
+
+/* APP TITLE */
+
+h1.app-title { 
+	font-size:14px; font-weight:bold; line-height:1.2em;
+	margin:0 6px 1em; padding:0;
+	color:#3379a3;
+}
+
+/* PAGE TITLE */
+
+h2.page-title { 
+	font-size:18px; font-weight:bold;
+	margin:0 6px 1em; padding:0;
+	color:#003366;
+}
+
+table#app-title-table { margin-bottom:1em; }
+table#app-title-table td h1.app-title { margin-bottom:0; }
+
+/* MULTI ITEM COMMANDS */
+
+div.multi-item-commands {
+	padding-left:6px;
+	margin-bottom:1em;
+}
+
+table.table-commands { margin-bottom:1em; }
+table.table-commands td,
+table.table-commands td input,
+table.table-commands td img { vertical-align:middle; }
+
+
+table.system-message { margin:0 0 1.5em;  }
+table.system-message td { background:#e5e5e5; padding:0px 6px; border:1px solid #ccc; }
+table.system-message p { margin:0; }
+
+
+/* EXPORT FUNCTIONS */
+
+td.export_functions { text-align:right; padding-right:8px; }
+td.export_functions img { vertical-align:middle; }
+
+
+/* APP PRIMARY NAV */
+
+#cstp-content .primary-tabs { width:100%; }
+
+#cstp-content .primary-tabs ul {
+	float: left;
+	width: 100%;
+	background: url("../images/forms/bg.gif") repeat-x bottom;
+	margin:0;
+	padding:0;
+	list-style: none;
+	font-size: 1.1em;
+}
+
+#cstp-content .primary-tabs ul li {
+	float: left;
+	background: #fff; /*url("../_img/tabs/groups/left.gif") no-repeat left top;*/
+	border:1px solid #accad0;border-bottom:none;
+	margin: 0;
+	margin-left:6px;display:inline;/*ie float dbl margin bug*/
+	padding: 0 0 0 7px;
+}
+#cstp-content .primary-tabs ul a {
+	float: left;
+	display: block;
+	/*background: url("../_img/tabs/groups/right.gif") no-repeat right top;*/
+	padding: 4px 7px 3px 0;
+	text-decoration: none;
+	line-height: 1em;
+	color:#97bcc3; font-weight:bold;
+}
+#cstp-content .primary-tabs ul a:hover { text-decoration: none; color:#545454; }
+#cstp-content .primary-tabs ul li.current {
+	border:1px solid #3379a2;border-bottom:none;
+	background: #dee9f0; /* url("../_img/tabs/groups/left_on.gif");*/
+}
+#cstp-content .primary-tabs ul li.current a {
+	background: #dee9f0; /* url("../_img/tabs/groups/right_on.gif");*/
+	padding-bottom: 4px;
+	color: #4d7492;
+}
+#cstp-content .primary-tabs ul li.current a:hover { text-decoration: none; color:#000; }
+
+
+ /* spacing to align with fixed column in tabular data */
+#cstp-content .primary-tabs ul li.col-master { border:none; padding-right:8px; }
+
+
+
+/* APP SECONDARY NAV */
+
+.secondary-app-nav { width:100%; background:#dee9f0; margin-top:0; margin-bottom:1em; }
+.secondary-app-nav td { padding:4px 8px 3px; }
+.secondary-app-nav a { color:#0e608f; text-decoration:underline; }
+.secondary-app-nav .active { font-weight:bold; color:#003366; }
+.secondary-app-nav .sep { color:#6080a0; padding:0 8px; }
+
+
+/*----------------------------------------------------------------------------
+  HYPERLINKS
+  ----------------------------------------------------------------------------*/
+
+/*
+#cstp-content a { color:#2929FD; text-decoration:none; }
+#cstp-content a:hover { text-decoration:underline; }
+*/
+
+/* functionnal link like 'more' 'edit', etc. */
+#cstp-content a.functional { text-decoration:underline; }
+
+
+/*----------------------------------------------------------------------------
+  BUTTONS
+  ----------------------------------------------------------------------------*/
+
+#cstp-content .button,
+#cstp-content .button_disabled,
+#cstp-content .button_primary {
+	padding:1px 4px;
+	border:2px solid;
+	font-weight:bold;
+}
+#cstp-content input.button,
+#cstp-content input.button_disabled,
+#cstp-content input.button_primary {
+	overflow:hidden;
+	width:1;
+}
+#cstp-content button.button,
+#cstp-content button.button_disabled,
+#cstp-content button.button_primary {
+	height:auto;padding:0;font-size:11px;line-height:1.4em;
+}
+
+#cstp-content .button {
+	border-color:#90ABBE #083360 #083360 #90ABBE;
+	background:#BBD2E2;
+	color:#073559;
+}
+#cstp-content .button_disabled {
+	border-color:#A8A8A8 #3B3B3B #3B3B3B #A8A8A8;
+	background:#CECECE;
+	color:#777777;
+}
+#cstp-content .button_primary {
+	border-color: #667589 #073559 #073559 #667589;
+	background:#377C9D;
+	color:white;
+}
+
+#cstp-content a.button { color:#083360; }
+#cstp-content a.button_disabled { color:#555; }
+#cstp-content a.button_primary { color:#fff; }
+
+
+/******************************************************************************
+  FOOTER
+  *****************************************************************************/
+
+#cstp-footer {
+	font-size:1em;
+	border-top:1px solid #83aebf;
+	padding:13px 4px 2px;
+	color:#032a63;
+	font-weight:bold;
+}
+#cstp-footer span.sep { padding:0 6px; color:#8397b3; }
+#cstp-footer a { color:#032a63; text-decoration:none; }
+#cstp-footer a:hover { text-decoration:underline; }
+#cstp-footer .right { text-align:right; }
+
+
+/*----------------------------------------------------------------------------
+  LISTS
+  ----------------------------------------------------------------------------*/
+
+
+/* List container */
+.cstp-list{ margin:0 0 2em; padding:0; }
+.cstp-list .list_title { font-size:12px; line-height:1.2em; font-weight:bold; margin: 0 0 0.5em; }
+.cstp-list ul { margin:0 0 0.5em; padding:0; }
+.cstp-list li {
+	list-style:none;
+	margin:0; margin-bottom:0.5em; 
+	padding:0; padding-left:20px;
+	background: url(../images/icons/list_bullet_default.gif) no-repeat 4px 3px;
+}
+.cstp-list li .item_title { 
+	line-height:16px; /*min height for the list bullet icon*/
+	margin:0 0 2px; font-weight:bold;
+}
+
+/* date, author, etc ... */
+.cstp-list li .item_metadata {  color:#808080; }
+.cstp-list li .item_comment { }
+
+/* more, download, ... */
+.cstp-list li .item_related_command_set { padding:2px 0 2px; }
+
+/* leads to a more complete list */
+.cstp-list .continuation_link { margin:0.5em 0 1em; font-weight:bold; }
+
+/* right-aligned item commands and links */
+.cstp-list .item_comment .item_related_command_set, /* if commands are IN comment */
+.cstp-list .continuation_link { text-align:right; }
+
+
+/*----------------------------------------------------------------------------
+  TABLES
+  ----------------------------------------------------------------------------*/
+
+table.layout td { padding:0; }
+
+
+/*----------------------------------------------------------------------------
+  TABULAR TABLE HEADER
+  ----------------------------------------------------------------------------*/
+
+ /* title + paging device area */
+table.cstp-tabular-header { }
+table.cstp-tabular-header td { background:#DEE9ED; padding:2px 0 3px; }
+
+ /* table title */
+table.cstp-tabular-header td.table_caption { padding-left:8px; font-weight:bold; color:#296284; font-size:14px; }
+
+ /* paging device */
+table.cstp-tabular-header td.table_paging { 
+	text-align:right; vertical-align:middle; font-weight:bold; color:#296284; line-height:1.6em; padding-right:8px;
+}
+table.cstp-tabular-header .table_paging .separator { background:url(../images/icons/pager_separator.gif) no-repeat 0 50%; margin:0 11px; }
+table.cstp-tabular-header .table_paging input,
+table.cstp-tabular-header .table_paging select { vertical-align:middle; margin:0 4px; font-weight:bold; color:#296284; }
+table.cstp-tabular-header .table_paging input { width:20px; text-align:center; }
+table.cstp-tabular-header .table_paging select /* rows per page */ { width:45px; }
+table.cstp-tabular-header .table_paging a img { vertical-align:middle; }
+table.cstp-tabular-header .table_paging input { padding:1px 4px; }
+
+
+/*----------------------------------------------------------------------------
+  TABULAR DATA
+  ----------------------------------------------------------------------------*/
+
+/* table data : row & cell formatting (defaults) */
+
+.cstp-tabular thead th.checkbox, 
+.cstp-tabular tbody td.checkbox { text-align:center; } /* cell with just checkbox */
+
+.cstp-tabular tbody td { padding:4px 8px 4px; line-height:1.1em;  }
+ /* :: ... column heading highlight used by script */
+.cstp-tabular tr.hover td { background-color: #eeeeee; }
+
+thead th.checkbox, tbody td.checkbox { text-align:center; padding:0; } /* cell with just checkbox */
+.cstp-tabular input.check { margin:0; height:13px; margin-right:3px; }
+
+ /* data alignment */
+.cstp-tabular td.date { text-align:right; }
+.cstp-tabular td.number { text-align:right; }
+
+
+/* COLUMN HEADINGS */
+ 
+ /* :: ... default padding etc */
+.col-headings th { padding:4px 8px 2px; text-align:center; font-weight:bold; 
+	border-bottom:1px solid #9cbed4; background: #C0D5E3;
+	border-top:1px solid #9cbed4;
+	border-right:1px solid #dee9f0;
+}
+/* :: ... special case for the accounts heading */
+.col-headings th#data-accounts-head { padding-left:15px; padding-right:15px; text-align:left; }
+ /* :: ... default text & link colours */
+.col-headings th, .col-headings th a { color:#296284; }
+.col-headings th a { display:block; }
+.col-headings th a:hover { text-decoration:underline; }
+ /* :: ... column heading highlight used by script */
+.col-headings th.hover { background-color: #eaf1f8; }
+ /* :: ... column being sorted with arrow indicating sorting mode */
+.col-headings th.active, .col-headings th.active a { background-color:#003366; color:#fff; }
+
+/*.col-headings th.active div { background:url(../images/ico/col_sort_down.gif) no-repeat 100% 0; }*/
+.col-headings th.sortasc a { padding-right: 10px; background:url(../images/tables/col_sort_down.gif) no-repeat right 50%; }
+.col-headings th.sortdesc a { padding-right: 10px; background:url(../images/tables/col_sort_up.gif) no-repeat right 50%; }
+
+
+ /* :: ... group headers in column headings (remove the border between multiple col heading rows) */
+.col-headings th.merged { border-bottom:0; color:#000; }
+
+ /* :: ... styles for text alignment */
+.col-headings th.aleft { text-align:left; }
+.col-headings th.aright { text-align:right; }
+
+.col-headings th.number, .col-headings th.date { text-align:right; }
+
+
+/* FIXED COLUMN */
+
+ /* vertical separation style */
+.cstp-tabular td.col-master,
+.cstp-tabular th.col-master,
+.cstp-tabular-header td.col-master {
+	background-image:url(../images/tables/fixedcol_separation.gif); background-repeat:repeat-y; background-position:100% 0;
+	border-right:none;
+	font-weight:bold;
+}
+.cstp-tabular-header td.col-master { padding-left:8px;padding-right:8px; } /* same padding as 'col-headings th' to align */
+
+ /* the default width */
+.primary-tabs li.col-master, .cstp-tabular-header td.col-master, .cstp-tabular th.col-master { 
+	width:150px;
+}
+
+ /* a specific width based on the view, using class on #cstp-content to identify view */
+#cstp-content.example-view .primary-tabs li.col-master,
+#cstp-content.example-view .cstp-tabular-header td.col-master,
+#cstp-content.example-view .cstp-tabular th.col-master { width:160px; }
+
+#cstp-content.example-view .primary-tabs li.col-master { margin-left:-7px; }
