@@ -113,8 +113,11 @@
     <property name="selectors">
       <list>
 
-        <!-- WARN CLIENT ABOUT PATH REDIRECTS -->
         <bean class="org.archive.wayback.replay.selector.RedirectSelector">
+<!--
+          <property name="renderer" ref="identityreplayrenderer"/>
+-->
+          <!-- WARN CLIENT ABOUT PATH REDIRECTS -->
           <property name="renderer">
             <bean class="org.archive.wayback.replay.JSPReplayRenderer">
               <property name="targetJsp" value="/WEB-INF/replay/UrlRedirectNotice.jsp" />

@@ -245,7 +245,7 @@
   <property name="uriConverter">
    <bean class="org.archive.wayback.archivalurl.ArchivalUrlResultURIConverter">
     <property name="replayURIPrefix"
-     value="http://www.webarchive.org.uk/waybackhdfs/archive-cy/" />
+     value="http://www.webarchive.org.uk/wayback/archive-cy/" />
    </bean>
   </property>
  </bean>

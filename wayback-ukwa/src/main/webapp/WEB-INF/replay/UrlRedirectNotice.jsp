@@ -50,7 +50,7 @@ String safeTargetReplayUrl = fmt.escapeHtml(targetReplayUrl);
 String safeTargetReplayUrlJS = fmt.escapeJavaScript(targetReplayUrl);
 
 String prettyDate = fmt.format("MetaReplay.captureDateDisplay",captureDate);
-int secs = 2;
+int secs = 0;
 
 %>
     <jsp:include page="/WEB-INF/template/UI-header.jsp" flush="true" />
