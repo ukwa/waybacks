@@ -76,9 +76,9 @@
 	<filter-mapping>
     	<filter-name>WaybackLockFilter</filter-name>
     	<url-pattern>/wayback/*</url-pattern>
-	<!--  Memento Locking no longer required --
+	</filter-mapping>
+	<!--  Memento Locking no longer required -
 	filter-mapping>
-		<filter-mapping>
     	<filter-name>MementoLockFilter</filter-name>
     	<url-pattern>/memento/*</url-pattern>
 	</filter-mapping -->

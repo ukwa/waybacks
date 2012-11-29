@@ -31,8 +31,8 @@ public class FilterTest {
 	public void testOpenMutltiPages() {
 
 		DefaultHttpClient httpclient1 = new DefaultHttpClient();
-		HttpGet httpGet1 = new HttpGet("http://localhost:8080/wayback/http://www.bbc.co.uk/news/uk-16896731");
-		HttpGet httpGet2 = new HttpGet("http://localhost:8080/wayback/http://www.bbc.co.uk/news/uk-16896731");
+		HttpGet httpGet1 = new HttpGet("http://localhost:8080/wayback/http://www.bl.uk");
+		HttpGet httpGet2 = new HttpGet("http://localhost:8080/wayback/http://www.bl.uk");
 		String cookieName = "www.bbc.co.uk/news/uk-16896731";
 		
 		removeAllCookies(httpclient1);
@@ -112,7 +112,7 @@ public class FilterTest {
 		
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpContext localContext = new BasicHttpContext();
-		HttpGet httpget = new HttpGet("http://localhost:8080/WALockingFilter/wayback/http://www.bbc.co.uk/news/uk-16896731"); 
+		HttpGet httpget = new HttpGet("http://localhost:8080/wayback/http://www.bl.uk"); 
 		@SuppressWarnings("unused")
 		HttpResponse response = httpclient.execute(httpget, localContext);
 		CookieOrigin cookieOrigin = (CookieOrigin) localContext.getAttribute(

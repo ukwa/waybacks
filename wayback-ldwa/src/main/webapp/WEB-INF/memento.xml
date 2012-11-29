@@ -15,6 +15,8 @@
     <property name="properties">
       <value>
         wayback.basedir=/wayback
+        wayback.host=${wayback.host}
+        wayback.urlprefix=${wayback.urlprefix}
       </value>
     </property>
   </bean>
@@ -82,7 +84,7 @@
 -->
   <import resource="ArchivalUrlReplay.xml"/>
   <bean name="8080:wayback" class="org.archive.wayback.webapp.AccessPoint">
-    <property name="staticPrefix" value="http://localhost:8080/wayback/" />
+    <property name="staticPrefix" value="${wayback.urlprefix}" />
   	
     <property name="collection" ref="localbdbcollection" />
     <property name="replay" ref="archivalurlreplay" />
@@ -93,7 +95,7 @@
     </property>
     <property name="uriConverter">
       <bean class="org.archive.wayback.archivalurl.ArchivalUrlResultURIConverter">
-	    <property name="replayURIPrefix" value="http://localhost:8080/wayback/"/>
+	    <property name="replayURIPrefix" value="${wayback.urlprefix}"/>
       </bean>
     </property>
 
@@ -108,10 +110,10 @@
 
   <import resource="MementoReplay.xml"/>
   <bean name="8080:memento" parent="8080:wayback">
-    <property name="staticPrefix" value="http://localhost:8080/memento/" />
+    <property name="staticPrefix" value="http://${wayback.host}:8080/memento/" />
 	<property name="configs">
       <props>
-	    <prop key="aggregationPrefix">http://localhost:8080/ore/</prop>
+	    <prop key="aggregationPrefix">http://${wayback.host}:8080/ore/</prop>
       </props>
 	</property>
 
@@ -124,7 +126,7 @@
 
     <property name="uriConverter">
       <bean class="org.archive.wayback.archivalurl.ArchivalUrlResultURIConverter">
-        <property name="replayURIPrefix" value="http://localhost:8080/memento/"/>
+        <property name="replayURIPrefix" value="http://${wayback.host}:8080/memento/"/>
       </bean>
     </property>
     <property name="parser">
@@ -143,10 +145,10 @@
 
 
   <bean name="8080:ore" parent="8080:memento">
-    <property name="staticPrefix" value="http://localhost:8080/ore/" />
+    <property name="staticPrefix" value="http://${wayback.host}:8080/ore/" />
 	<property name="configs">
 	  <props>
-	    <prop key="Prefix">http://localhost:8080/memento/</prop>
+	    <prop key="Prefix">http://${wayback.host}:8080/memento/</prop>
 	  </props>
 	</property>
 
@@ -159,7 +161,7 @@
 
     <property name="uriConverter">
       <bean class="org.archive.wayback.archivalurl.ArchivalUrlResultURIConverter">
-        <property name="replayURIPrefix" value="http://localhost:8080/ore/"/>
+        <property name="replayURIPrefix" value="http://${wayback.host}:8080/ore/"/>
       </bean>
     </property>
 
