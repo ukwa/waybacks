@@ -8,7 +8,7 @@
 UIResults results = UIResults.extractException(request);
 WaybackException e = results.getException();
 StringFormatter fmt = results.getWbRequest().getFormatter();
-//response.setStatus(e.getStatus());
+response.setStatus(e.getStatus());
 
 %>
 <wayback>
