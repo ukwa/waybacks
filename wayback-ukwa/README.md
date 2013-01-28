@@ -24,14 +24,16 @@ Extensions:
  * Embed the warning from resources, rather than directly in the page.
  * prettyMonths is hard-coded English.
  * Welsh translation of 'ARCHIVED'.
- * TODO Welsh disclaimer.
- * TODO Ensure blocked content is blocked! 
- * TODO Deploy modifed AccessRestlet to refer to correct xmlquery URI: /ukwa-access-restlet/src/main/java/uk/bl/AccessRestlet/UKWATarget.java
- * TODO Deploy to production.
+ * Welsh disclaimer.
+ * Ensure blocked content is blocked! 
 
  
  * LATER Re-implement controllable banner (minimise, move, main-frame-only, etc)
  * LATER Cross-linking to/from main site too?
+ * LATER Get back to TEP page instead of Captures page?
+
+
+Note http://faq.web.archive.org/page-without-wayback-code/ - the id_ suffix thing avoids any re-writing and returns raw responses.
 
 
 Welsh Dates
