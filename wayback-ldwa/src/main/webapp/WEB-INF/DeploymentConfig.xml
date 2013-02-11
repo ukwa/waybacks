@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
+       default-init-method="init">
+
+  <!-- Specific configuration details that vary between deployments -->
+
+  <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="properties">
+      <value>
+        wayback.basedir=${wayback.basedir}
+        wayback.host=${wayback.host}
+        wayback.port=${wayback.port}
+        wayback.urlprefix=${wayback.urlprefix}
+      </value>
+    </property>
+  </bean>
+
+      
+      
+</beans>

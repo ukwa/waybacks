@@ -1,13 +1,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   
-  <groupId>uk.bl.bspa.webarchive.prototype.lockingFilter</groupId>
-  <artifactId>WALockingFilter</artifactId>
+  <groupId>uk.bl.wap.wayback</groupId>
+  <artifactId>wayback-ldwa</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>war</packaging>
   
-  <name>WA Locking Filter</name>
-  <description>Prototype Locking Filter for Web Archive</description>
+  <name>Legal Deposit Wayback Webapp</name>
+  <description>Legal Deposit Wayback Webapp with Locking Request Filter</description>
+  <properties>
+    <wayback.basedir>/wayback</wayback.basedir>
+    <wayback.port>8080</wayback.port>
+    <wayback.host>ldwa-bl.wayback.wa.bl.uk</wayback.host>
+    <wayback.urlprefix>http://${wayback.host}:${wayback.port}/wayback/</wayback.urlprefix>
+  </properties>
   
   <developers>
         <developer>
@@ -85,9 +91,9 @@
   			<version>1.7.2</version>
 		</dependency>
 	  	<dependency>
-      		<groupId>org.archive.wayback</groupId>
-      		<artifactId>wayback-webapp</artifactId>
-      		<version>1.7.1-SNAPSHOT</version>
+      		<groupId>uk.bl.wap.wayback</groupId>
+      		<artifactId>wayback-ukwa</artifactId>
+      		<version>2.0.1-SNAPSHOT</version>
       		<type>war</type>
       		<scope>runtime</scope>
     	</dependency>
@@ -100,7 +106,7 @@
   </dependencies> 
   
   <build>               
-	<finalName>WALockingFilter</finalName>
+	<finalName>ROOT</finalName>
 	<plugins>
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
@@ -117,14 +123,23 @@
         <artifactId>maven-war-plugin</artifactId>
         <version>2.3</version>
         <configuration>
-		  <dependentWarExcludes>WEB-INF/web.xml,WEB-INF/wayback.xml,WEB-INF/memento.xml,WEB-INF/lib/jsp*.jar</dependentWarExcludes>
+   <webResources>
+     <resource>
+       <filtering>true</filtering>
+       <directory>src/main/webapp/</directory>
+       <includes>
+         <include>WEB-INF/DeploymentConfig.xml</include>
+       </includes>
+     </resource>
+   </webResources>        
           <overlays>
-            <overlay>
-              <groupId>org.archive.wayback</groupId>
-      			<artifactId>wayback-webapp</artifactId>
-            </overlay>
+            <!-- first overlay takes precedence... -->
             <overlay>
               <!-- empty groupId/artifactId represents the current build -->
+            </overlay>
+            <overlay>
+              <groupId>uk.bl.wap.wayback</groupId>
+      		  <artifactId>wayback-ukwa</artifactId>
             </overlay>
           </overlays>
         </configuration>
