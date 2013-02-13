@@ -29,8 +29,12 @@
   <bean id="localcdxcollection" class="org.archive.wayback.webapp.WaybackCollection">
 
     <property name="resourceStore">
-      <bean class="org.archive.wayback.resourcestore.SimpleResourceStore">
-                        <property name="prefix" value="http://194.66.239.121/" />
+      <bean class="org.archive.wayback.resourcestore.LocationDBResourceStore">
+        <property name="db">
+          <bean class="org.archive.wayback.resourcestore.locationdb.FlatFileResourceFileLocationDB">
+            <property name="path" value="${wayback.basedir}/path-index.txt" />
+          </bean>
+        </property>
       </bean>
     </property>
 

@@ -14,6 +14,7 @@
         wayback.host=${wayback.host}
         wayback.port=${wayback.port}
         wayback.urlprefix=${wayback.urlprefix}
+        wayback.borderserver=${wayback.borderserver}
       </value>
     </property>
   </bean>
