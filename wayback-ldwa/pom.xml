@@ -44,7 +44,58 @@
   
   <build>               
 	<finalName>ROOT</finalName>
-	<plugins>
+    <plugins>
+       <plugin>
+         <groupId>org.apache.maven.plugins</groupId>
+         <artifactId>maven-dependency-plugin</artifactId>
+         <version>2.6</version>
+         <executions>
+           <execution>
+             <id>unpack</id>
+             <phase>generate-sources</phase>
+             <goals>
+               <goal>unpack</goal>
+             </goals>
+             <configuration>
+               <artifactItems>
+                 <artifactItem>
+                   <groupId>uk.bl.wa.wayback</groupId>
+                   <artifactId>wayback-ukwa</artifactId>
+                   <type>war</type>
+                   <overWrite>true</overWrite>
+                   <includes>WEB-INF/config-templates/wayback.xml</includes>
+                 </artifactItem>
+               </artifactItems>
+               <outputDirectory>${project.build.directory}/unpacked-config/</outputDirectory>
+             </configuration>
+           </execution>
+         </executions>
+       </plugin>
+    <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.6</version>
+        <executions>
+          <execution>
+            <id>copy-resources</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <resources>          
+                <resource>
+                  <directory>${project.build.directory}/unpacked-config/WEB-INF/config-templates</directory>
+                  <includes>
+                    <include>*.xml</include>
+                  </includes>
+                  <filtering>false</filtering>
+                </resource>
+              </resources>              
+              <outputDirectory>${project.build.directory}/tmp-config/WEB-INF</outputDirectory>
+            </configuration>            
+          </execution>
+        </executions>
+      </plugin>
         <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
@@ -53,12 +104,19 @@
    <webResources>
      <resource>
        <filtering>true</filtering>
-       <directory>src/main/webapp/</directory>
+       <directory>${project.build.directory}/tmp-config</directory>
+       <includes>
+         <include>WEB-INF/*.xml</include>
+       </includes>
+     </resource>
+     <resource>
+       <filtering>true</filtering>
+       <directory>src/main/webapp</directory>
        <includes>
          <include>WEB-INF/DeploymentConfig.xml</include>
        </includes>
      </resource>
-   </webResources>        
+   </webResources>
           <overlays>
             <!-- first overlay takes precedence... -->
             <overlay>
@@ -71,7 +129,7 @@
           </overlays>
         </configuration>
       </plugin>
-	<plugin>
+      <plugin>
         <groupId>org.apache.tomcat.maven</groupId>
         <artifactId>tomcat6-maven-plugin</artifactId>
         <version>2.0</version>
@@ -83,7 +141,7 @@
         <resource>
         <directory>src/main/webapp/WEB-INF</directory>
             <includes>
-                <include> **/filter.properties</include>
+                <include>**/filter.properties</include>
             </includes>
         </resource>
     </resources>
