@@ -131,7 +131,7 @@
     uriConverter.
 
     This AccessPoint currently will provide access only from the machine
-    running Tomcat. To provide external access, replace "webarchive.org.uk"
+    running Tomcat. To provide external access, replace "${wayback.host}"
     with your fully qualified hostname of the computer running Tomcat.
 -->
   <import resource="ArchivalUrlReplay.xml"/>
@@ -238,8 +238,7 @@
 
   <property name="uriConverter">
    <bean class="org.archive.wayback.archivalurl.ArchivalUrlResultURIConverter">
-    <property name="replayURIPrefix"
-     value="http://www.webarchive.org.uk/wayback/archive-cy/" />
+      <property name="replayURIPrefix" value="${wayback.urlprefix}archive-cy/"/>
    </bean>
   </property>
  </bean>
@@ -355,24 +354,24 @@
     Note: using this AccessPoint requires adding a "Connector" on port 8081
          in your Tomcat's server.xml file.
          
-    Note: the hostname suffix webarchive.org.uk has a special DNS wildcard
+    Note: the hostname suffix ${wayback.host} has a special DNS wildcard
          entry, so all hostnames suffixed with this value resolve to 127.0.0.1 
  -->
 <!--
   <import resource="DomainPrefixReplay.xml"/>
   <bean name="8081" parent="${wayback.port}:wayback">
-    <property name="queryPrefix" value="http://webarchive.org.uk:8081/" />
-    <property name="replayPrefix" value="http://webarchive.org.uk:8081/" />
-    <property name="staticPrefix" value="http://webarchive.org.uk:8081/" />
+    <property name="queryPrefix" value="http://${wayback.host}:8081/" />
+    <property name="replayPrefix" value="http://${wayback.host}:8081/" />
+    <property name="staticPrefix" value="http://${wayback.host}:8081/" />
     <property name="replay" ref="domainprefixreplay" />
     <property name="uriConverter">
       <bean class="org.archive.wayback.domainprefix.DomainPrefixResultURIConverter">
-        <property name="hostPort" value="webarchive.org.uk:8081" />
+        <property name="hostPort" value="${wayback.host}:8081" />
       </bean>
     </property>
     <property name="parser">
       <bean class="org.archive.wayback.domainprefix.DomainPrefixCompositeRequestParser">
-        <property name="hostPort" value="webarchive.org.uk:8081" />
+        <property name="hostPort" value="${wayback.host}:8081" />
         <property name="maxRecords" value="1000" />
       </bean>
     </property>
@@ -395,20 +394,20 @@
     <property name="bounceToQueryPrefix" value="false" />
     <property name="refererAuth" value="" />
 
-    <property name="staticPrefix" value="http://webarchive.org.uk:8090/" />
-    <property name="replayPrefix" value="http://webarchive.org.uk:8090/" />
-    <property name="queryPrefix" value="http://webarchive.org.uk:8090/" />
+    <property name="staticPrefix" value="http://${wayback.host}:8090/" />
+    <property name="replayPrefix" value="http://${wayback.host}:8090/" />
+    <property name="queryPrefix" value="http://${wayback.host}:8090/" />
     <property name="replay" ref="proxyreplay" />
     <property name="uriConverter">
       <bean class="org.archive.wayback.proxy.RedirectResultURIConverter">
-        <property name="redirectURI" value="http://webarchive.org.uk:8090/jsp/QueryUI/Redirect.jsp" />
+        <property name="redirectURI" value="http://${wayback.host}:8090/jsp/QueryUI/Redirect.jsp" />
       </bean>
     </property>
     <property name="parser">
       <bean class="org.archive.wayback.proxy.ProxyRequestParser">
         <property name="localhostNames">
           <list>
-            <value>webarchive.org.uk</value>
+            <value>${wayback.host}</value>
           </list>
         </property>
         <property name="maxRecords" value="1000" />
