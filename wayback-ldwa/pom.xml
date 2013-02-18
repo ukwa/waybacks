@@ -101,6 +101,7 @@
         <artifactId>maven-war-plugin</artifactId>
         <version>2.3</version>
         <configuration>
+			<dependentWarExcludes>WEB-INF/web.xml,WEB-INF/wayback.xml,WEB-INF/memento.xml,WEB-INF/lib/jsp*.jar</dependentWarExcludes>
    <webResources>
      <resource>
        <filtering>true</filtering>
