@@ -29,7 +29,7 @@
   <bean id="localcdxcollection" class="org.archive.wayback.webapp.WaybackCollection">
 
     <property name="resourceStore">
-      <bean class="org.archive.wayback.resourcestore.SimpleResourceStore">
+      <bean class="uk.bl.wa.wayback.ModifiedSimpleResourceStore">
                         <property name="prefix" value="${wayback.borderserver}" />
       </bean>
     </property>

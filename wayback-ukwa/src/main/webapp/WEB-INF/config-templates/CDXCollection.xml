@@ -41,7 +41,7 @@
 -->
 
 	<property name="resourceStore">
-		<bean class="org.archive.wayback.resourcestore.SimpleResourceStore">
+		<bean class="uk.bl.wa.wayback.ModifiedSimpleResourceStore">
 			<property name="prefix" value="hdfs://nellie:54310" />
 		</bean>
 	</property>

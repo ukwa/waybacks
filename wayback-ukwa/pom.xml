@@ -95,4 +95,12 @@
     </plugins>
   </build>
 
+  <dependencies>
+     <dependency>
+        <groupId>org.archive.wayback</groupId>
+        <artifactId>wayback-core</artifactId>
+        <version>1.7.1-SNAPSHOT</version>
+        <scope>provided</scope>
+     </dependency>
+  </dependencies>
 </project>
