@@ -21,27 +21,27 @@ String replayPrefix = results.getReplayPrefix();
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta content="UK Web Archive, preserving UK website" name="description">
 <meta content="UKWA, UK Web Archive, webarchive.org.uk" name="keywords">
-<link media="screen" rel="stylesheet" href="http://www.webarchive.org.uk/css/reset.css" type="text/css">
-<link media="screen" rel="stylesheet" href="http://www.webarchive.org.uk/css/styles.css" type="text/css">
-<!--[if gte IE 7]><link href="http://www.webarchive.org.uk/css/ie7.css" type="text/css" rel="stylesheet" /><![endif]-->
-<!--[if IE 6]><link href="http://www.webarchive.org.uk/css/ie6.css" type="text/css" rel="stylesheet" /><![endif]-->
-<!--[if IE 5]><link href="http://www.webarchive.org.uk/css/ie5.css" type="text/css" rel="stylesheet" /><![endif]-->
+<link media="screen" rel="stylesheet" href="<%= staticPrefix %>css/web_arch_reset.css" type="text/css">
+<link media="screen" rel="stylesheet" href="<%= staticPrefix %>css/web_arch_styles.css" type="text/css">
+<!--[if gte IE 7]><link href="<%= staticPrefix %>css/ie7.css" type="text/css" rel="stylesheet" /><![endif]-->
+<!--[if IE 6]><link href="<%= staticPrefix %>css/ie6.css" type="text/css" rel="stylesheet" /><![endif]-->
+<!--[if IE 5]><link href="<%= staticPrefix %>css/ie5.css" type="text/css" rel="stylesheet" /><![endif]-->
 <!-- START OF Wayback CSS -->
 <link rel="stylesheet" type="text/css"
                         href="<%= staticPrefix %>css/styles.css"
                         src="<%= staticPrefix %>css/styles.css" />
 <!-- END OF Wayback CSS -->
-<link href="http://www.webarchive.org.uk/ukwa/favicon.ico" rel="shortcut icon">
+<link href="<%= staticPrefix %>images/ukwa/favicon.ico" rel="shortcut icon">
 <title>UK Web Archive</title>
 </head><body class="js"><div class="header">
 
         <div class="banner">
                 <div class="logo">
                         <h1>UK Web Archive</h1>
-                        <a href="http://www.webarchive.org.uk/ukwa/" title="UK Web Archive home page"><img src="http://www.webarchive.org.uk/images/ukwa.jpg" title="UK Web Archive" alt="UK Web Archive"></a>
+                        <a href="http://www.webarchive.org.uk/ukwa/" title="UK Web Archive home page"><img src="<%= staticPrefix %>images/ukwa/ukwa.jpg" title="UK Web Archive" alt="UK Web Archive"></a>
                 </div>
                 <div class="banner_image" id="banner_swf">
-					<img src="http://www.webarchive.org.uk/images/banner.png" alt="">
+					<img src="<%= staticPrefix %>images/ukwa/banner.png" alt="">
                 </div>
         </div>
 </div>
@@ -53,7 +53,7 @@ String replayPrefix = results.getReplayPrefix();
 <div class="main">
         <div class="british_library_logo">
                 <p>Provided by:</p>
-                <a href="http://www.bl.uk/" title="British Libary website"><img src="http://www.webarchive.org.uk/images/bl.jpg" title="British Library" alt="British Library logo"></a>
+                <a href="http://www.bl.uk/" title="British Libary website"><img src="<%= staticPrefix %>images/ukwa/bl.jpg" title="British Library" alt="British Library logo"></a>
         </div><div class="main_content">
             <div class="content_extended" style="width:898px;">
         	<div class="content_panel search wayback" style="width:858px; min-height:250px; margin: 0 10px;">

@@ -1,0 +1,13 @@
+li p {
+	font-size:11px;
+}
+.questions ol li a {
+	margin-left:10px;
+}
+.info ul.anchor_links {
+	list-style-position:outside;
+	padding-left:15px;	
+}
+.main_content {
+	padding-bottom:10px;
+}

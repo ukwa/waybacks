@@ -1,0 +1,37 @@
+.breadcrumbs, .main {
+	width:961px;
+	float:left;
+	margin-left:30px;
+}
+input.radio {
+	width:auto;
+}
+.panels {
+	width:125px;
+}
+.collections {
+	border:none;
+}
+.end {
+	padding-right:8px;
+	margin-bottom:0;
+}
+.last {
+	padding-right:0;
+	margin-right:0;
+}
+form label.prompt { 
+	width:100%;
+}
+input#submit, input#clear {
+	width:auto;
+}
+.nested_fieldsets, .nested_fieldsets {
+	padding:10px 0 0 10px;
+}
+.logo {
+	margin-right:-3px;
+}
+li span {
+	float:left;
+}

@@ -30,6 +30,7 @@ public class FilterTest {
 	@Test
 	public void testOpenMutltiPages() {
 
+		/* NEED TO HAVE INSTANCE RUNNING
 		DefaultHttpClient httpclient1 = new DefaultHttpClient();
 		HttpGet httpGet1 = new HttpGet("http://localhost:8080/wayback/http://www.bl.uk");
 		HttpGet httpGet2 = new HttpGet("http://localhost:8080/wayback/http://www.bl.uk");
@@ -100,6 +101,7 @@ public class FilterTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		*/
 	}
 	
 	@Test
@@ -110,6 +112,7 @@ public class FilterTest {
 	@Test
 	public void testCookieSpec() throws ClientProtocolException, IOException {
 		
+		/* NEED TO HAVE INSTANCE RUNNING
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpContext localContext = new BasicHttpContext();
 		HttpGet httpget = new HttpGet("http://localhost:8080/wayback/http://www.bl.uk"); 
@@ -121,7 +124,7 @@ public class FilterTest {
 		CookieSpec cookieSpec = (CookieSpec) localContext.getAttribute(
 		        ClientContext.COOKIE_SPEC);
 		System.out.println("Cookie spec used: " + cookieSpec);
-		
+		*/
 	}
 	
 	/*
@@ -154,6 +157,7 @@ public class FilterTest {
 	@Test
 	public void testMementoCall() {
 
+		/* NEED TO HAVE INSTANCE RUNNING
 		DefaultHttpClient httpclient = new DefaultHttpClient();
 		HttpGet httpGet = new HttpGet("http://localhost:8080/memento/20100514031252/http://www.democracyclub.org.uk/aboutus/");
 		
@@ -187,6 +191,7 @@ public class FilterTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		*/
 	}
 
 	/**

@@ -84,16 +84,16 @@ public abstract class BaseLockFilter implements Filter {
 	    AccessList accessList = (AccessList) httpRequest.getSession().getServletContext().getAttribute("lockList");
 	    URL url = new URL(httpRequest.getRequestURL().toString());
 	    
-	    logger.info("Host: " + url.getHost()+" Path: " + url.getPath());
+	    logger.debug("Host: " + url.getHost()+" Path: " + url.getPath());
 	    
 	    // DEBUG - View Headers
 	    @SuppressWarnings("unchecked")
 		Enumeration<String> headerNames = httpRequest.getHeaderNames();
 		while (headerNames.hasMoreElements()) {
 			String headerName = headerNames.nextElement();
-			logger.info("Header Name: " + headerName);
+			logger.debug("Header Name: " + headerName);
 			String headerValue = httpRequest.getHeader(headerName);
-			logger.info(", Header Value:" + headerValue);
+			logger.debug(", Header Value:" + headerValue);
 		}
 	    
 	    
@@ -101,7 +101,7 @@ public abstract class BaseLockFilter implements Filter {
         String userAgent = httpRequest.getHeader("User-Agent");
         if (!userAgent.contains(FIREFOX)&&!userAgent.contains(CHROME)){
         	if( url.getPath().endsWith(UNSUPPORTED_BROWSER_PAGE) != true ) {
-        		logger.info("Redirecting from "+httpRequest.getRequestURI() + " to "+ UNSUPPORTED_BROWSER_PAGE);
+        		logger.debug("Redirecting from "+httpRequest.getRequestURI() + " to "+ UNSUPPORTED_BROWSER_PAGE);
         		httpResponse.sendRedirect(UNSUPPORTED_BROWSER_PAGE);
         	} else {
             	chain.doFilter(req, res);
@@ -196,7 +196,7 @@ public abstract class BaseLockFilter implements Filter {
        		String paramUrl = httpRequest.getParameter("url");
        		String paramDate = httpRequest.getParameter("date");
        		
-       		logger.info("Filtering Query params url: " + paramUrl + " and date: " + paramDate);
+       		logger.debug("Filtering Query params url: " + paramUrl + " and date: " + paramDate);
         		
        		if(paramDate != null && paramUrl != null){
        			shortPath = paramDate + "/" + paramUrl;
