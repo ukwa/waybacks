@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 
@@ -45,9 +45,9 @@
         						</tr>
 		
         						<c:forEach items="${session.sessionDetail}" var="detail">
-								<tr>                                    	
-                					<td class="field"><c:out value="${detail.page}"/></td>
-                				</tr>
+									<tr>                                    	
+                						<td class="field"><c:out value="${detail.page}"/></td>
+                					</tr>
                 				</c:forEach>
 								
         					</c:forEach>
