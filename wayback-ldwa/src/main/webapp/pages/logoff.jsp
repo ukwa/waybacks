@@ -13,7 +13,7 @@
       			<td width="125" valign="top"></td>
       			<td width="615" valign="top">
 					<br/>
-			    	<h2><font color="red">You have sucessfully Logged Off.</font></h2>																		
+			    	<h2><font color="red">You have successfully logged off.</font></h2>																		
 				</td>
 			</tr>
 		</table>

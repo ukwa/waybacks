@@ -13,7 +13,7 @@
       			<td width="125" valign="top"></td>
       			<td width="615" valign="top">
 					<br/>
-			    	<h2><font color="red">The page you have requested is currently in Use.</font></h2>																												
+			    	<h2><font color="red">The page you have requested is currently in use.</font></h2>																												
 				</td>
 			</tr>
 		</table>

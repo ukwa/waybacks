@@ -75,7 +75,7 @@
 	
 	<filter-mapping>
     	<filter-name>WaybackLockFilter</filter-name>
-    	<url-pattern>/wayback/*</url-pattern>
+    	<url-pattern>/archive/*</url-pattern>
 	</filter-mapping>
 	<!--  Memento Locking no longer required -
 	filter-mapping>
@@ -98,14 +98,14 @@
 
   	<servlet-mapping>
     	<servlet-name>sessionList</servlet-name>
-    	<url-pattern>/wayback/pages/sessionList</url-pattern>
+    	<url-pattern>/archive/pages/sessionList</url-pattern>
   	</servlet-mapping>
 
 	<!-- Locking Filter security -->
 	<security-constraint>
     	<web-resource-collection>
       		<web-resource-name>Admin-Pages</web-resource-name>
-      		<url-pattern>/wayback/pages/*</url-pattern>
+      		<url-pattern>/archive/pages/*</url-pattern>
     	</web-resource-collection>
     	<auth-constraint>
       		<role-name>administrator</role-name>
