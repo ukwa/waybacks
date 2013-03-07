@@ -229,7 +229,18 @@ public abstract class BaseLockFilter implements Filter {
 	        
 	    	// Attempt to add a lock page
 		    if(accessList.addPageLock(accessPage) == 0){
-		    	chain.doFilter(req, res);
+		    	
+		    	// Wrap the response so we can access the status later:
+		    	StatusExposingServletResponse response = new StatusExposingServletResponse((HttpServletResponse)res);
+
+		    	// So the chain:
+		    	chain.doFilter(req, response);
+
+		    	// Response is now available, so release the lock if the request failed:
+		    	if( (response.getStatus()/100) != 2 ) {
+		    		logger.info("Releasing lock as this page raised an non 2xx status code: "+accessPage.getPage());
+		    		accessList.removePageLock(accessPage);
+		    	}
 
 	        }else{
 	        	// Page is already locked
