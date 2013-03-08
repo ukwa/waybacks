@@ -320,7 +320,10 @@ public abstract class BaseLockFilter implements Filter {
         }  
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
             ip = request.getRemoteAddr();  
-        }  
+        }
+        // Proxied IPs may be listed as a comma-space-separated list.
+        if( ip.indexOf( "," ) != -1 )
+        	ip = ip.split( "," )[ 0 ].trim();
         return ip;  
     }  
 
