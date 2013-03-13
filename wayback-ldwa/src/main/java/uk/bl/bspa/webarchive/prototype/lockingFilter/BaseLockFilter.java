@@ -225,23 +225,19 @@ public abstract class BaseLockFilter implements Filter {
         }
         
         // Check for Page Lock
-	    logger.info("Checking for page lock...");
+	    logger.debug("Checking for page lock...");
 	    synchronized (this) {
 	    	String ip = getClientIpAddr(httpRequest);
 	    	String hostName = getHostNameFromIP(ip);
 	    	AccessDetailVO accessPage = new AccessDetailVO(httpRequest.getSession().getId(), shortPath, new Date(),ip, hostName);
 	        
 	    	// Attempt to add a lock page
-		    logger.info("Attempting to lock page...");
+		    logger.debug("Attempting to lock page...");
 		    if(accessList.addPageLock(accessPage) == 0){
 		    	
 		    	// Wrap the response so we can access the status later:
 		    	StatusExposingServletResponse response = new StatusExposingServletResponse((HttpServletResponse)res);
-
-		    	// So the chain:
-			    logger.info("Passing down the chain...");
 		    	chain.doFilter(req, response);
-			    logger.info("Examining the response...");
 
 		    	// Response is now available, so release the lock if the request failed:
 		    	if( (response.getStatus()/100) != 2 ) {

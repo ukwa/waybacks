@@ -76,6 +76,7 @@
 	<filter-mapping>
     	<filter-name>WaybackLockFilter</filter-name>
     	<url-pattern>/archive/*</url-pattern>
+		<url-pattern>/archive-cy/*</url-pattern>
 	</filter-mapping>
 	<!--  Memento Locking no longer required -
 	filter-mapping>
