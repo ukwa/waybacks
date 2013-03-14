@@ -82,7 +82,7 @@ var wbCurrentUrl = "<%= searchUrlJS %>";
 var curYear = -1;
 var curMonth = -1;
 var yearCount = 15;
-var firstYear = 1996;
+var firstYear = 1991;
 var imgWidth=<%= imgWidth %>;
 var yearImgWidth = <%= yearWidth %>;
 var monthImgWidth = <%= monthWidth %>;
@@ -151,7 +151,7 @@ function trackMouseMove(event,element) {
 		zeroPad(day,2) + "000000";
 
 	var monthString = prettyMonths[monthOfYear];
-	document.getElementById("displayYearEl").innerHTML = year + 1996;
+	document.getElementById("displayYearEl").innerHTML = year + 1991;
 	document.getElementById("displayMonthEl").innerHTML = monthString;
 	// looks too jarring when it changes..
 	//document.getElementById("displayDayEl").innerHTML = zeroPad(day,2);

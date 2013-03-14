@@ -283,7 +283,7 @@
     <property name="parser">
       <bean class="org.archive.wayback.memento.MementoRequestParser">
         <property name="maxRecords" value="10000" />
-        <property name="earliestTimestamp" value="1996" />
+        <property name="earliestTimestamp" value="1991" />
       </bean>
     </property>
     <property name="exception">

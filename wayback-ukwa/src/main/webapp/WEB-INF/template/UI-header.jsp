@@ -90,6 +90,9 @@ String replayPrefix = results.getReplayPrefix();
 												</b> 
 												<select name="<%= WaybackRequest.REQUEST_DATE %>" size="1">
 													<option value="" selected><%= fmt.format("UIGlobal.selectYearAll") %></option>
+                                                    <option>2013</option>
+                                                    <option>2012</option>
+                                                    <option>2011</option>
 													<option>2010</option>
 													<option>2009</option>
 													<option>2008</option>
@@ -105,6 +108,11 @@ String replayPrefix = results.getReplayPrefix();
 													<option>1998</option>
 													<option>1997</option>
 													<option>1996</option>
+                                                    <option>1995</option>
+                                                    <option>1994</option>
+                                                    <option>1993</option>
+                                                    <option>1992</option>
+                                                    <option>1991</option>
 												</select>
 												&nbsp;
 												<input type="submit" name="Submit" value="<%= fmt.format("UIGlobal.urlSearchButton") %>" align="absMiddle">
