@@ -89,7 +89,7 @@ public abstract class BaseLockFilter implements Filter {
 	    URL url = new URL(httpRequest.getRequestURL().toString());
 	    logger.debug("Host: " + url.getHost()+" Path: " + url.getPath());
 	    
-	    // DEBUG - View Headers
+	    /* DEBUG - View Headers
 	    @SuppressWarnings("unchecked")
 		Enumeration<String> headerNames = httpRequest.getHeaderNames();
 		while (headerNames.hasMoreElements()) {
@@ -98,7 +98,7 @@ public abstract class BaseLockFilter implements Filter {
 			String headerValue = httpRequest.getHeader(headerName);
 			logger.debug(", Header Value:" + headerValue);
 		}
-	    
+	    */
 	    
         // Filter unsupported browsers
         String userAgent = httpRequest.getHeader("User-Agent");

@@ -68,6 +68,10 @@
         	uk.bl.bspa.webarchive.prototype.lockingFilter.ListLockFilter
     	</filter-class>
 	</filter>
+	 <filter>
+        <filter-name>ResourceFilter</filter-name>
+        <filter-class>uk.bl.bspa.webarchive.prototype.lockingFilter.resource.MissingResourceLoggingFilter</filter-class>
+    </filter>
     <filter>
         <filter-name>RequestFilter</filter-name>
         <filter-class>org.archive.wayback.util.webapp.RequestFilter</filter-class>
@@ -87,6 +91,12 @@
     	<filter-name>ListLockFilter</filter-name>
     	<url-pattern>/list/*</url-pattern>
 	</filter-mapping>
+	<filter-mapping>
+        <filter-name>ResourceFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <url-pattern>/archive/*</url-pattern>
+		<url-pattern>/archive-cy/*</url-pattern>
+    </filter-mapping>
     <filter-mapping>
         <filter-name>RequestFilter</filter-name>
         <url-pattern>/*</url-pattern>

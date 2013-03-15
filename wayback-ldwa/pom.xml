@@ -17,9 +17,9 @@
   <properties>
     <wayback.basedir>/wayback</wayback.basedir>
     <wayback.port>8080</wayback.port>
-    <wayback.host>ldwa-bl.wayback.wa.bl.uk</wayback.host>
+    <wayback.host>localhost</wayback.host>
     <wayback.urlprefix>http://${wayback.host}/</wayback.urlprefix>
-    <wayback.borderserver>http://192.168.218.20/</wayback.borderserver>
+    <wayback.borderserver>http://localhost/</wayback.borderserver>
   </properties>
   
   <developers>
@@ -87,6 +87,7 @@
                   <directory>${project.build.directory}/unpacked-config/WEB-INF/config-templates</directory>
                   <includes>
                     <include>*.xml</include>
+                    <include>*.properties</include>
                   </includes>
                   <filtering>false</filtering>
                 </resource>
@@ -143,6 +144,7 @@
         <directory>src/main/webapp/WEB-INF</directory>
             <includes>
                 <include>**/filter.properties</include>
+                <include>**/log4j.properties</include>
             </includes>
         </resource>
     </resources>
