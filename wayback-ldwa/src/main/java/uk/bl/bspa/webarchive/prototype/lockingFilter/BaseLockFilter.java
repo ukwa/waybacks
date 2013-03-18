@@ -191,6 +191,11 @@ public abstract class BaseLockFilter implements Filter {
         shortPath = url.getPath().substring((FILTER_DOMAIN + "/").length());
         logger.debug("Short Path: " + shortPath);
         
+        // Remove -xx (like -cy) from archive extension
+        if(shortPath.startsWith("-")){
+        	shortPath = shortPath.substring(3);
+        }
+        
         /*
          * Special Page - Query. Lock at parameter level
          */
