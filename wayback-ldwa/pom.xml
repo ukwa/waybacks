@@ -17,9 +17,9 @@
   <properties>
     <wayback.basedir>/wayback</wayback.basedir>
     <wayback.port>8080</wayback.port>
-    <wayback.host>localhost</wayback.host>
+    <wayback.host>ldwa-bl.wayback.wa.bl.uk</wayback.host>
     <wayback.urlprefix>http://${wayback.host}/</wayback.urlprefix>
-    <wayback.borderserver>http://localhost/</wayback.borderserver>
+    <wayback.borderserver>http://192.168.218.60/</wayback.borderserver>
   </properties>
   
   <developers>
