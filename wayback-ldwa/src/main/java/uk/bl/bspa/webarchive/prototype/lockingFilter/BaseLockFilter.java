@@ -11,7 +11,6 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
@@ -340,8 +339,7 @@ public abstract class BaseLockFilter implements Filter {
 			String host = inetAddress.getHostName(); 
 			return host;
 		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("Unknown Host: " + ip);
 		}  
     	
 		return null;

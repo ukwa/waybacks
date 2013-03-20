@@ -51,6 +51,10 @@
   	</listener>
 	
 	<filter>
+        <filter-name>MimeFilter</filter-name>
+        <filter-class>uk.bl.bspa.webarchive.prototype.lockingFilter.mimeConvert.MimeConversionFilter</filter-class>
+    </filter>
+	<filter>
     	<filter-name>WaybackLockFilter</filter-name>
     	<filter-class>
         	uk.bl.bspa.webarchive.prototype.lockingFilter.WaybackLockFilter
@@ -76,7 +80,13 @@
         <filter-name>RequestFilter</filter-name>
         <filter-class>org.archive.wayback.util.webapp.RequestFilter</filter-class>
     </filter>
+ 
 	
+	<filter-mapping>
+        <filter-name>MimeFilter</filter-name>
+        <url-pattern>/archive/*</url-pattern>
+		<url-pattern>/archive-cy/*</url-pattern>
+    </filter-mapping>
 	<filter-mapping>
     	<filter-name>WaybackLockFilter</filter-name>
     	<url-pattern>/archive/*</url-pattern>

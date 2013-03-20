@@ -23,7 +23,7 @@ import uk.bl.bspa.webarchive.prototype.lockingFilter.StatusExposingServletRespon
 /**
  * @author JoeObrien
  *
- *	Web Archive Abstract Locking Filter Prototype
+ *	Web Archive 404 Filter
  */
 public class MissingResourceLoggingFilter implements Filter {
 	
