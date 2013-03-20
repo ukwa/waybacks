@@ -9,17 +9,14 @@ import java.io.InputStream;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
@@ -30,7 +27,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.tika.Tika;
 
 import uk.bl.bspa.webarchive.prototype.lockingFilter.BaseLockFilter;
-import uk.bl.bspa.webarchive.prototype.lockingFilter.StatusExposingServletResponse;
 
 
 
@@ -70,7 +66,6 @@ public class MimeConversionFilter implements Filter {
         	return;
         }     
 	    
-	    URL url = new URL(httpRequest.getRequestURL().toString());
 	    Tika tika = new Tika();
 	    String strMime = tika.detect(httpRequest.getRequestURL().toString());
 
