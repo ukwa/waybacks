@@ -79,11 +79,11 @@ public abstract class BaseLockFilter implements Filter {
 		HttpServletRequest httpRequest = (HttpServletRequest) req;
 	    HttpServletResponse httpResponse = (HttpServletResponse) res;
 	    
-	    logger.info("Starting BaseLockFilter: "+httpRequest.getRequestURL());
+	    logger.debug("Starting BaseLockFilter: "+httpRequest.getRequestURL());
 	    
 	    // Check if the page is locked
 	    AccessList accessList = (AccessList) httpRequest.getSession().getServletContext().getAttribute("lockList");
-	    logger.info("Got accessList.");
+	    logger.debug("Got accessList.");
 	    
 	    URL url = new URL(httpRequest.getRequestURL().toString());
 	    logger.debug("Host: " + url.getHost()+" Path: " + url.getPath());
@@ -241,11 +241,15 @@ public abstract class BaseLockFilter implements Filter {
 		    	
 		    	// Wrap the response so we can access the status later:
 		    	StatusExposingServletResponse response = new StatusExposingServletResponse((HttpServletResponse)res);
+
+		    	// So the chain:
+    		        logger.debug("Passing down the chain...");
 		    	chain.doFilter(req, response);
+		        logger.debug("Examining the response...");
 
 		    	// Response is now available, so release the lock if the request failed:
 		    	if( (response.getStatus()/100) != 2 ) {
-		    		logger.info("Releasing lock as this page raised an non 2xx status code: "+accessPage.getPage());
+		    		logger.debug("Releasing lock as this page raised an non 2xx status code: "+accessPage.getPage());
 		    		accessList.removePageLock(accessPage);
 		    	}
 
