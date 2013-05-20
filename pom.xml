@@ -9,9 +9,16 @@
   <name>Waybacks for our services</name>
   <description>Parent project for our various wayback deployments.</description>
   
+  <properties>
+    <wayback.groupId>org.archive.wayback</wayback.groupId>
+    <wayback.version>1.8.0-SNAPSHOT</wayback.version>
+  </properties>
+  
+  
    <modules>
       <module>wayback-ldwa</module>
       <module>wayback-ukwa</module>
+      <module>wayback-play</module>
    </modules>
    
   <developers>
@@ -89,10 +96,15 @@
   			<artifactId>slf4j-log4j12</artifactId>
   			<version>1.7.2</version>
 		</dependency>
+      <dependency>
+            <groupId>${wayback.groupId}</groupId>
+            <artifactId>wayback-core</artifactId>
+            <version>${wayback.version}</version>
+      </dependency>
 	  	<dependency>
-      		<groupId>org.archive.wayback</groupId>
+      		<groupId>${wayback.groupId}</groupId>
       		<artifactId>wayback-webapp</artifactId>
-      		<version>1.7.1-SNAPSHOT</version>
+      		<version>${wayback.version}</version>
       		<type>war</type>
       		<scope>runtime</scope>
     	</dependency>

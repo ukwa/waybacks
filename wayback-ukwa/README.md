@@ -10,7 +10,7 @@ Build Instructions
 
 By default 
 
-    mvn install
+    mvn clean install
 
 will create a WAR suitable for local deployment and testing. You can run it directly, using
 
@@ -18,11 +18,11 @@ will create a WAR suitable for local deployment and testing. You can run it dire
 
 The production version is build using
 
-    mvn install -Pproduction
+    mvn clean install -Pproduction
 
 and that version expects to be deployed at webarchive.org.uk/wayback/, and to recover resources from HDFS.There is also a version that deploys as /wayback-beta/, for live system test prior to production launch.
 
-    mvn install -Pproduction-beta
+    mvn clean install -Pproduction-beta
 
 which is otherwise identical to the production build.
 
