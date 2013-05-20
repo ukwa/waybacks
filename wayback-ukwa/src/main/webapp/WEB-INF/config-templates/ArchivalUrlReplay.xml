@@ -26,7 +26,7 @@
       <list>
       <!-- ANJ Preventing CSS comment insertion as this breaks @include CSS syntax.
         <value>/WEB-INF/replay/ArchiveCSSComment.jsp</value>
-       -->
+      -->
       </list>
     </property>
   </bean>
@@ -34,7 +34,9 @@
     <constructor-arg><ref bean="archivalurlhttpheaderprocessor"/></constructor-arg>
     <property name="jspInserts">
       <list>
+      <!-- ANJ Preventing JS comment insertion as this breaks AJAX calls
         <value>/WEB-INF/replay/ArchiveCSSComment.jsp</value>
+      -->
       </list>
     </property>
   </bean>
@@ -83,6 +85,10 @@
  -->
  <bean id="fastArchivalSAXDelegator" class="org.archive.wayback.archivalurl.FastArchivalUrlReplayParseEventHandler" >
    <property name="jspInsertPath" value="/WEB-INF/replay/DisclaimChooser.jsp"/>
+   <!-- Also insert some additional JavaScript at the start of the HEAD element, to hold overrides. -->
+   <!-- 
+   <property name="headInsertJsp" value="/WEB-INF/replay/HTMLHeadInsert.jsp"/>
+    -->
  </bean>
 
 <!-- 

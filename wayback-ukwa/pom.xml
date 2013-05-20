@@ -15,15 +15,50 @@
   <description>Wayback configured as required for the main UKWA service.</description>
   
   <properties>
-    <wayback.basedir>/sips/wayback</wayback.basedir>
-    <wayback.port>80</wayback.port>
-    <wayback.host>www.webarchive.org.uk</wayback.host>
-    <wayback.urlprefix>http://${wayback.host}:${wayback.port}/${project.build.finalName}/</wayback.urlprefix>
+    <jettyVersion>9.0.3.v20130506</jettyVersion>
+    <wayback.port>8080</wayback.port>
+    <wayback.host>localhost</wayback.host>
+    <wayback.urlprefix>http://localhost:8080/wayback/</wayback.urlprefix>
+    <wayback.basedir>src/test/resources</wayback.basedir>
+    <wayback.resourcestore.prefix>src/test/resources/warcs/</wayback.resourcestore.prefix>
+    <wayback.cdx.name>sopa-wikipedia-homepage.cdx</wayback.cdx.name>
   </properties>
   
+  <profiles>
+    <profile>
+      <id>production</id>
+      <properties>
+        <wayback.port>80</wayback.port>
+        <wayback.host>www.webarchive.org.uk</wayback.host>
+        <wayback.urlprefix>http://${wayback.host}:${wayback.port}/${project.build.finalName}/</wayback.urlprefix>      
+        <wayback.basedir>/sips/wayback</wayback.basedir>
+        <wayback.resourcestore.prefix>hdfs://nellie:54310</wayback.resourcestore.prefix>
+        <wayback.cdx.name>hdfs.cdx</wayback.cdx.name>
+      <!-- Production build skips the test (well, the integration tests, at least) -->
+        <maven.test.skip>true</maven.test.skip>
+      </properties>
+    </profile>
+    <profile>
+      <id>production-beta</id>
+      <properties>
+        <wayback.port>80</wayback.port>
+        <wayback.host>www.webarchive.org.uk</wayback.host>
+        <wayback.urlprefix>http://${wayback.host}:${wayback.port}/${project.build.finalName}/</wayback.urlprefix>      
+        <wayback.basedir>/sips/wayback</wayback.basedir>
+        <wayback.resourcestore.prefix>hdfs://nellie:54310</wayback.resourcestore.prefix>
+        <wayback.cdx.name>hdfs.cdx</wayback.cdx.name>
+      <!-- Production build skips the test (well, the integration tests, at least) -->
+        <maven.test.skip>true</maven.test.skip>
+      </properties>
+      <build>
+        <!-- Override the finalName for beta testing: -->
+        <finalName>wayback-beta</finalName>
+      </build>
+    </profile>
+  </profiles>
+    
   <build>               
-    <!-- Configure the name of the WAR - see also wayback.urlprefix in  wayback.xml -->
-<!-- 	<finalName>wayback-beta</finalName> -->
+    <!-- Configure the name of the WAR - reused, via ${wayback.urlprefix}, in wayback.xml -->
     <finalName>wayback</finalName>
    <plugins>
     <plugin>
@@ -71,7 +106,7 @@
               <!-- empty groupId/artifactId represents the current build -->
             </overlay>
             <overlay>
-              <groupId>org.archive.wayback</groupId>
+              <groupId>${wayback.groupId}</groupId>
               <artifactId>wayback-webapp</artifactId>
               <excludes>
                 <exclude>WEB-INF/lib/jsp*.jar</exclude>
@@ -92,15 +127,23 @@
             <warDirectory>${project.build.directory}/${project.build.finalName}</warDirectory>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+        <version>${jettyVersion}</version>
+        <configuration>
+          <webAppSourceDirectory>${project.build.directory}/${project.build.finalName}</webAppSourceDirectory>
+          <webApp>
+            <contextPath>/${project.build.finalName}</contextPath>
+          </webApp>
+          <systemProperties>
+            <systemProperty>
+              <name>java.util.logging.config.file</name>
+              <value>src/main/resources/logging.properties</value>
+            </systemProperty>
+          </systemProperties>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
-
-  <dependencies>
-     <dependency>
-        <groupId>org.archive.wayback</groupId>
-        <artifactId>wayback-core</artifactId>
-        <version>1.7.1-SNAPSHOT</version>
-        <scope>provided</scope>
-     </dependency>
-  </dependencies>
 </project>

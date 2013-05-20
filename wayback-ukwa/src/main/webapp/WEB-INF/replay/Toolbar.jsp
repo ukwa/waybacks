@@ -72,8 +72,24 @@ if(replayPrefix.endsWith("-cy/") ) {
 
 <script type="text/javascript" src="<%= staticPrefix %>js/disclaim-element.js" ></script>
 <script type="text/javascript" src="<%= staticPrefix %>js/graph-calc.js" ></script>
+<!-- 
 <script type="text/javascript" src="<%= staticPrefix %>jflot/jquery.min.js" ></script>
+ -->
 <script type="text/javascript">
+/*
+ * Experimental jQuery AJAX method override.
+ * 
+jQuery.ajaxBase = jQuery.ajax;
+jQuery.ajax = function( s ) {
+    console.log("jQuery.ajax.1 "+s.url);
+	  if ( s.url != undefined ) {
+		  s.url = convertToWaybackURL( s.url );
+		  console.log("jQuery.ajax.2 "+s.url);
+	  }
+	  return jQuery.ajaxBase(s);	
+};
+*/
+
 var firstDate = <%= firstYearDate.getTime() %>;
 var lastDate = <%= lastYearDate.getTime() %>;
 var wbPrefix = "<%= replayPrefix %>";
@@ -172,11 +188,6 @@ function trackMouseMove(event,element) {
    }
 }
 </script>
-
-<!-- Include JavaScript function overrides -->
-<!-- 
-<script type="text/javascript" src="<%= staticPrefix %>/js/javascript-overrides.js"></script>
- -->
 
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <div id="wm-ipp" style="display:none; position:relative;padding:0 5px;min-height:70px;min-width:800px; z-index:9000;">

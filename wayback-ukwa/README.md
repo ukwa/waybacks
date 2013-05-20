@@ -5,7 +5,31 @@ This project build the Wayback we need for the live UKWA Wayback instance.
   i.e. as running at http://www.webarchive.org.uk/wayback/
 
 
-Extensions:
+Build Instructions
+------------------
+
+By default 
+
+    mvn install
+
+will create a WAR suitable for local deployment and testing. You can run it directly, using
+
+    mvn jetty:run-war
+
+The production version is build using
+
+    mvn install -Pproduction
+
+and that version expects to be deployed at webarchive.org.uk/wayback/, and to recover resources from HDFS.There is also a version that deploys as /wayback-beta/, for live system test prior to production launch.
+
+    mvn install -Pproduction-beta
+
+which is otherwise identical to the production build.
+
+
+Extensions
+----------
+
  * Flowplayer.
  * Google Analytics embedding.
  * UK Theme in UI-header/footer JSPs, Toolbar branding, etc.
@@ -34,6 +58,7 @@ Extensions:
 
 
 Note http://faq.web.archive.org/page-without-wayback-code/ - the id_ suffix thing avoids any re-writing and returns raw responses.
+
 
 
 Welsh Dates
