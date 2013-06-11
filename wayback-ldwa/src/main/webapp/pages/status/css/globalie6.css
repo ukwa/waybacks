@@ -1,0 +1,69 @@
+/* IE6 stylesheet */
+
+/*#maincol {
+
+	width: 461px;
+
+}*/
+
+#banner
+{
+    float: left;
+    margin: 0px;
+    padding: 0px;
+    height: 100px;
+}
+
+#leftcol li
+{
+    padding: 0;
+    margin: 0;
+    vertical-align: bottom;
+}
+#leftcol li.active
+{
+    padding: 6px 0 6px 18px;
+    display: block;
+    margin: 0;
+}
+.curveadjustment
+{
+    border: 0 solid #000000;
+    clear: all;
+    margin: 0 -1px;
+    position: relative;
+    height: 8px;
+}
+
+
+
+#maincolleft
+{
+    margin: 10px 0 0;
+    padding: 0 0 0 45px;
+    width: 486px;
+}
+
+
+
+
+#bl_homepage #skiptocontent
+{
+    display: none;
+}
+#bl_homepage #menu .last
+{
+    width: auto;
+}
+#bl_homepage #mainnav
+{
+    margin: 0 0 0 53px;
+}
+#bl_homepage .mega
+{
+    display: block;
+    float: left;
+    width: 25px;
+}
+
+

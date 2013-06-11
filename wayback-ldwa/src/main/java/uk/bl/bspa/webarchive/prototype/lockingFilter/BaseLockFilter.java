@@ -41,8 +41,8 @@ public abstract class BaseLockFilter implements Filter {
 	
 	public static String FILTER_DOMAIN = "/";
 	// Do not change relative paths
-	public static final String ERROR_PAGE ="/pages/error.jsp"; 	// Relative path
-	public static final String LOCK_PAGE = "/pages/pageLocked.jsp";	// Relative path
+	public static final String ERROR_PAGE ="/pages/status/SystemProblem.html"; 	// Relative path
+	public static final String LOCK_PAGE = "/pages/status/ItemAlreadyInUse.html";	// Relative path
 	public static final String LOGOFF_PAGE = "/logoff"; // Relative path
 	public static final String UNSUPPORTED_BROWSER_PAGE = "/pages/unsupportedBrowser.jsp"; //Relative path
 	public static final String SESSION_PAGE = "/pages/maintainSessions.jsp";
@@ -232,7 +232,9 @@ public abstract class BaseLockFilter implements Filter {
 	    logger.debug("Checking for page lock...");
 	    synchronized (this) {
 	    	String ip = getClientIpAddr(httpRequest);
-	    	String hostName = getHostNameFromIP(ip);
+	    	// Perform reverse DNS lookup of the client ID. Not informative and very slow, so removing it.
+	    	//String hostName = getHostNameFromIP(ip);
+	    	String hostName = null;
 	    	AccessDetailVO accessPage = new AccessDetailVO(httpRequest.getSession().getId(), shortPath, new Date(),ip, hostName);
 	        
 	    	// Attempt to add a lock page
@@ -335,7 +337,7 @@ public abstract class BaseLockFilter implements Filter {
      * Retrieve the host name from the IP Address
      * 
      */
-    public static String getHostNameFromIP(String ip){
+    private static String getHostNameFromIP(String ip){
     	
     	InetAddress inetAddress;
 		try {

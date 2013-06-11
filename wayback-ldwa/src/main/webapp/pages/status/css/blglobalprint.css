@@ -1,0 +1,44 @@
+@charset "utf-8";
+/* CSS Document */
+/* start printer styles*/ 
+
+#pagewidth {
+	width: 721px;
+}
+#breadcrumb, #mainnav, #leftcol, #rightcol {
+	display:none;
+}
+#header {
+	padding-left: 0px;
+	width:721px;
+	margin-top: 0px;
+}
+#colwrap {
+	margin-left: 0px;
+	width:721px;
+	padding-top: 20px;
+}
+#maincol {
+	width: 721px;
+}
+.pagecontent {
+	padding-left: 0px;
+}
+#footer {
+	display:none;
+}
+#copyright {
+	display: inline;
+	margin-left: 0px;
+	height:20px;
+	padding-top: 10px;
+	padding-bottom: 20px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 80%;
+	font-weight: normal;
+	color: #000;
+}
+
+
+ /* end printer styles*/
+
