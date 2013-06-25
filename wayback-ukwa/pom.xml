@@ -18,7 +18,7 @@
     <jettyVersion>9.0.3.v20130506</jettyVersion>
     <wayback.port>8080</wayback.port>
     <wayback.host>localhost</wayback.host>
-    <wayback.urlprefix>http://localhost:8080/wayback/</wayback.urlprefix>
+    <wayback.urlprefix>http://${wayback.host}:${wayback.port}/${project.build.finalName}/</wayback.urlprefix>      
     <wayback.basedir>src/test/resources</wayback.basedir>
     <wayback.resourcestore.prefix>src/test/resources/warcs/</wayback.resourcestore.prefix>
     <wayback.cdx.name>sopa-wikipedia-homepage.cdx</wayback.cdx.name>

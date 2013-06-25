@@ -145,6 +145,10 @@
     <property name="matchPort" value="${wayback.port}" />
     <property name="useCollection" value="true" />
   </bean>
+  
+  <!-- 
+  at org.archive.wayback.webapp.AccessPoint.go(AccessPoint.java:1)
+   -->
 
   <bean name="${wayback.port}:archive" class="org.archive.wayback.webapp.AccessPoint">
     <property name="serveStatic" value="true" />

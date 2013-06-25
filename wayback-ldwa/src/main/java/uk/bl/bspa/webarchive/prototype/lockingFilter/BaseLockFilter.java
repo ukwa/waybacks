@@ -59,7 +59,7 @@ public abstract class BaseLockFilter implements Filter {
 	public static final String FIREFOX = "Firefox";
 	public static final String CHROME = "Chrome";
 	public static final String VALID_ACCEPT = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
-	public static String WAYBACK_QUERY = "/wayback/query";
+	public static String WAYBACK_QUERY = "/archive/query";
 	protected static Logger logger = LoggerFactory.getLogger(BaseLockFilter.class);
 	
 	public Properties propertiesConfig;

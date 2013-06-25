@@ -17,12 +17,11 @@
   <properties>
     <wayback.basedir>/wayback</wayback.basedir>
     <wayback.port>8080</wayback.port>
-    <wayback.host>ldwa-bl.wayback.wa.bl.uk</wayback.host>
+    <wayback.host>DLS-BSP-WB01</wayback.host>
     <wayback.urlprefix>http://${wayback.host}/</wayback.urlprefix>
-    <ld.message.suffix.default></ld.message.suffix.default>
-    <!-- Prefix to refer to Border Server: -->
-    <wayback.resourcestore.prefix>http://192.168.218.20/</wayback.resourcestore.prefix>
+    <wayback.resourcestore.prefix>http://DLS-BSP-AC01/</wayback.resourcestore.prefix>
     <wayback.cdx.name>index.cdx</wayback.cdx.name>
+    <ld.message.suffix.default></ld.message.suffix.default>
   </properties>
   
   <developers>

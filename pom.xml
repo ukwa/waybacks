@@ -11,7 +11,7 @@
   
   <properties>
     <wayback.groupId>org.archive.wayback</wayback.groupId>
-    <wayback.version>1.7.1-SNAPSHOT</wayback.version>
+    <wayback.version>1.8.0-SNAPSHOT</wayback.version>
   </properties>
   
   

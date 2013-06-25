@@ -182,9 +182,6 @@ function trackMouseMove(event,element) {
 <div id="wm-ipp" style="display:none; position:relative;padding:0 5px;min-height:70px;min-width:800px; z-index:9000;">
 <div id="wm-ipp-inside" style="position:fixed;padding:0!important;margin:0!important;width:97%;min-width:780px;border:5px solid #000;border-top:none;background-image:url(<%= staticPrefix %>images/toolbar/wm_tb_bk_trns.png);text-align:center;-moz-box-shadow:1px 1px 3px #333;-webkit-box-shadow:1px 1px 3px #333;box-shadow:1px 1px 3px #333;font-size:11px!important;font-family:'Lucida Grande','Arial',sans-serif!important;">
    <table style="border-collapse:collapse;margin:0;padding:0;width:100%;"><tbody><tr>
-   <td>
-		<a href="previous.html" onClick="history.back();return false;" title="Back" style="background-color:transparent;border:none;float:left;margin-right:0px;"><img src="<%= staticPrefix %>images/icons/back_button1.jpg" alt="Back" width="60" height="60" border="0"/></a>
-   </td>
    <td style="padding:10px;vertical-align:top;width:180px;">
    <a href="<%= queryPrefix %>" title="Wayback Machine home page" style="background-color:transparent;border:none;float:left;margin-right:4px;"><img src="<%= staticPrefix %>images/toolbar/wayback-toolbar-logo.png" alt="Wayback Machine" width="40" height="40" border="0"/></a><div style="font-size: 9px !important;color:#333;text-align:center;"><%= fmt.format("ToolBar.playbackWarning") %></div>
    </td>

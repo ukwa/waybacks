@@ -16,6 +16,9 @@ log4j.rootLogger=WARN, stdout, file
 log4j.logger.uk.bl=INFO
 #log4j.logger.net.sourceforge.stripes=INFO=%d{ISO8601} %20.30c %-5p %m%n 
 
+# Quieter? ANJ
+log4j.org.archive.wayback.webapp.PerfStats.level = WARNING
+
 ### Missing Resource Log
 log4j.logger.uk.bl.bspa.webarchive.prototype.lockingFilter.resource=DEBUG, resourceAppender
 log4j.additivity.uk.bl.bspa.webarchive.prototype.lockingFilter.resource=false
