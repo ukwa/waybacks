@@ -20,6 +20,6 @@
     </property>
   </bean>
 
-      
+  <!-- uk.bl.wa.wayback.replay.RedirectRewritingInlineHttpHeaderProcessor -->      
       
 </beans>
