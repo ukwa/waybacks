@@ -17,7 +17,7 @@
   <properties>
     <wayback.basedir>/wayback</wayback.basedir>
     <wayback.port>8080</wayback.port>
-    <wayback.host>DLS-BSP-WB01</wayback.host>
+    <wayback.host>DLS-BSP-WB03</wayback.host>
     <wayback.urlprefix>http://${wayback.host}/</wayback.urlprefix>
     <wayback.resourcestore.prefix>http://DLS-BSP-AC01/</wayback.resourcestore.prefix>
     <wayback.cdx.name>index.cdx</wayback.cdx.name>
