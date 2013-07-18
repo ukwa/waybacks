@@ -326,7 +326,6 @@ function trackMouseMove(event,element) {
        </tr></tbody></table>
    </td>
    <td style="text-align:right;padding:5px;width:65px;font-size:11px!important;">
-       <a href="/ukdomain/" style="display:block;padding-right:18px;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;margin-bottom:7px;background-color:transparent;border:none;" title="LDWA Search">LDWA Search</a>
        <a href="<%= switchSearchUrl %>" style="display:block;padding-right:18px;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;margin-bottom:7px;background-color:transparent;border:none;" title="<%= switchLang %>"><%= switchLang %></a>
    </td>
    </tr></tbody></table>

@@ -45,9 +45,7 @@ String replayPrefix = results.getReplayPrefix();
         </div>
 </div>
 <div class="breadcrumbs"><p>
-        <span class="crumbs">
-                <a href="/archive/">LDWA Wayback</a>
-                        </span> | <a href="/ukdomain/">LDWA Search</a>
+        <span class="crumbs"> <a href="/ukdomain/">LDWA Search</a> </span>
 </p></div>
 <div class="main">
         <div class="british_library_logo"><div style="width:60px;">&nbsp;</div>
