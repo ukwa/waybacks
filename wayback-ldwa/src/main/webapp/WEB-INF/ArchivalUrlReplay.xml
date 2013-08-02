@@ -12,8 +12,10 @@
 	the original HTTP headers as-is (except for Content-Length) comment out the
 	"prefix" property. This has significant implications on caching and cookies.
  -->
-  <bean id="archivalurlhttpheaderprocessor" class="org.archive.wayback.replay.RedirectRewritingHttpHeaderProcessor">
+  <bean id="archivalurlhttpheaderprocessor" class="uk.bl.wa.wayback.RedirectRewritingHttpHeaderProcessor">
     <property name="prefix" value="X-Archive-Orig-" />
+    <!-- Whether or not to allow the Content-Disposition header through: -->
+    <property name="passThroughContentDisposition" value="false"/>
   </bean>
 
 <!-- 

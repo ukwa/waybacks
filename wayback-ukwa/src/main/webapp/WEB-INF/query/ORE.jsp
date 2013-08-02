@@ -111,7 +111,7 @@
 	linkbf.append(",<" + replayPrefix
 			+ "timegate/" + u + ">;rel=\"timegate\"\n");
 	linkbf.append(",<" + queryPrefix + "timemap/" + format + "/" + u
-			+ ">;rel=\"timemap\";type=\"application/link-format\"\n");
+			+ ">;rel=\"self\";type=\"application/link-format\"\n");// TODO ANJ Check change from 'timemap' to 'self' didn't break anything.
 
 	String firstmemento = null;
 	int count = 0;

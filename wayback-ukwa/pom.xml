@@ -61,31 +61,6 @@
     <!-- Configure the name of the WAR - reused, via ${wayback.urlprefix}, in wayback.xml -->
     <finalName>wayback</finalName>
    <plugins>
-    <plugin>
-        <artifactId>maven-resources-plugin</artifactId>
-        <version>2.6</version>
-        <executions>
-          <execution>
-            <id>copy-resources</id>
-            <phase>generate-sources</phase>
-            <goals>
-              <goal>copy-resources</goal>
-            </goals>
-            <configuration>
-              <resources>          
-                <resource>
-                  <directory>src/main/webapp/WEB-INF/config-templates</directory>
-                  <includes>
-                    <include>*.xml</include>
-                  </includes>
-                  <filtering>false</filtering>
-                </resource>
-              </resources>              
-              <outputDirectory>${basedir}/target/tmp-config/WEB-INF</outputDirectory>
-            </configuration>            
-          </execution>
-        </executions>
-      </plugin>
         <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
@@ -94,9 +69,9 @@
    <webResources>
      <resource>
        <filtering>true</filtering>
-       <directory>${basedir}/target/tmp-config</directory>
+       <directory>src/main/webapp</directory>
        <includes>
-         <include>WEB-INF/*.xml</include>
+         <include>WEB-INF/DeploymentConfig.xml</include>
        </includes>
      </resource>
    </webResources>

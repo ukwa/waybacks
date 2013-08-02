@@ -150,13 +150,18 @@
   at org.archive.wayback.webapp.AccessPoint.go(AccessPoint.java:1)
    -->
 
-  <bean name="${wayback.port}:archive" class="org.archive.wayback.webapp.AccessPoint">
+  <bean name="wayback" class="org.archive.wayback.webapp.AccessPoint">
+    <property name="accessPointPath" value="${wayback.port}:archive"/>
+  
     <property name="serveStatic" value="true" />
     <property name="bounceToReplayPrefix" value="false" />
     <property name="bounceToQueryPrefix" value="false" />
     
     <!--  Hack to prevent XML queries being redirected. -->
     <property name="forceCleanQueries" value="false" />
+
+    <!--  Enable Memento API  -->
+    <property name="enableMemento" value="true" />
 
 	<!--
 	  These properties enable customized handling of query, replay, and static
@@ -230,7 +235,8 @@
   </bean>
 
   <!-- Welsh front-end -->
- <bean name="${wayback.port}:archive-cy" parent="${wayback.port}:archive">
+ <bean name="wayback-cy" parent="wayback">
+    <property name="accessPointPath" value="${wayback.port}:archive-cy"/>
   <property name="locale">
    <bean class="java.util.Locale">
     <!-- cy_GB -->
@@ -264,7 +270,7 @@
   The following import and two bean definitions enable Memento access to
   content in your collections.
 -->
-
+<!-- 
   <import resource="MementoReplay.xml"/>
   <bean name="${wayback.port}:memento" parent="${wayback.port}:archive">
     <property name="replayPrefix" value="${wayback.urlprefix}memento/" />
@@ -324,6 +330,7 @@
       </bean>
     </property>
   </bean>
+ -->
 
 
 <!--
