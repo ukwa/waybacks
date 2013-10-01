@@ -22,6 +22,7 @@
     <wayback.resourcestore.prefix>http://DLS-BSP-AC01/</wayback.resourcestore.prefix>
     <wayback.cdx.name>index.cdx</wayback.cdx.name>
     <ld.message.suffix.default></ld.message.suffix.default>
+    <wayback.cdx.2.name>index-2.cdx</wayback.cdx.2.name>
   </properties>
   
   <developers>
