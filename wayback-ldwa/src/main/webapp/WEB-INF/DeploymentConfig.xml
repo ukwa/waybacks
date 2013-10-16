@@ -11,14 +11,15 @@
     <property name="properties">
       <value>
         wayback.basedir=${wayback.basedir}
-        wayback.host=${wayback.host}
+        wayback.host=${HOSTNAME}
         wayback.port=${wayback.port}
-        wayback.urlprefix=${wayback.urlprefix}
+        wayback.urlprefix=http://${wayback.host}/
         wayback.resourcestore.prefix=${wayback.resourcestore.prefix}
         wayback.cdx.name=${wayback.cdx.name}
         wayback.cdx.2.name=${wayback.cdx.2.name}
       </value>
     </property>
+    <property name="searchSystemEnvironment" value="true" />
   </bean>
 
   <!-- uk.bl.wa.wayback.replay.RedirectRewritingInlineHttpHeaderProcessor -->      

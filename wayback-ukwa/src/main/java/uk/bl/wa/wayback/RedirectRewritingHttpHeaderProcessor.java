@@ -68,6 +68,11 @@ public class RedirectRewritingHttpHeaderProcessor
 	public void setPassThroughContentDisposition(
 			boolean passThroughContentDisposition) {
 		this.passThroughContentDisposition = passThroughContentDisposition;
+		if( passThroughContentDisposition ) {
+			passThroughHeaders.add( HTTP_CONTENT_DISP_HEADER_UP );
+		} else {
+			passThroughHeaders.remove( HTTP_CONTENT_DISP_HEADER_UP );
+		}
 	}
 
 	/* (non-Javadoc)
