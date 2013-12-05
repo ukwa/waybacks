@@ -19,9 +19,8 @@ import uk.bl.bspa.webarchive.prototype.lockingFilter.VO.AccessDetailVO;
  *
  */
 public class SessionListServlet extends HttpServlet {
-
-
 	private static final long serialVersionUID = 7742890416006752069L;
+	private static final String PAGE_REQUEST_PREFIX = "pageRequest=";
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
 		
@@ -68,8 +67,8 @@ public class SessionListServlet extends HttpServlet {
 	 * Remove Session by Page Id
 	 */
 	private void removeByPage(HttpServletRequest request,HttpServletResponse response)throws ServletException, IOException {
-			
-		String page = request.getParameter("pageRequest");
+		String queryString = request.getQueryString();
+		String page = queryString.substring( queryString.indexOf( PAGE_REQUEST_PREFIX ) + PAGE_REQUEST_PREFIX.length() );
 	    AccessList accessList = (AccessList) request.getSession().getServletContext().getAttribute("lockList");
 	    accessList.removeSessionByPage(page);
 	    
