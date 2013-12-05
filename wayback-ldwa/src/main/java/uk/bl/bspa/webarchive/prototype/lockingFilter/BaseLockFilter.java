@@ -84,8 +84,14 @@ public abstract class BaseLockFilter implements Filter {
 	    // Check if the page is locked
 	    AccessList accessList = (AccessList) httpRequest.getSession().getServletContext().getAttribute("lockList");
 	    logger.debug("Got accessList.");
-	    
-	    URL url = new URL(httpRequest.getRequestURL().toString());
+
+	    StringBuffer sb = httpRequest.getRequestURL();
+	    String queryString = httpRequest.getQueryString();
+	    if( queryString != null ) {
+	    	sb.append( "?" );
+	    	sb.append( queryString );
+	    }
+	    URL url = new URL( sb.toString() );
 	    logger.debug("Host: " + url.getHost()+" Path: " + url.getPath());
 	    
 	    /* DEBUG - View Headers
@@ -187,7 +193,7 @@ public abstract class BaseLockFilter implements Filter {
         }
 		
         String shortPath = null;
-        shortPath = url.getPath().substring((FILTER_DOMAIN + "/").length());
+        shortPath = url.getFile().substring((FILTER_DOMAIN + "/").length());
         logger.debug("Short Path: " + shortPath);
         
         // Remove -xx (like -cy) from archive extension
