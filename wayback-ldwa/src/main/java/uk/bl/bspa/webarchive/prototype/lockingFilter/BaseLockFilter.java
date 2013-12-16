@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetAddress;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,6 +23,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -46,6 +48,7 @@ public abstract class BaseLockFilter implements Filter {
 	public static final String LOGOFF_PAGE = "/logoff"; // Relative path
 	public static final String UNSUPPORTED_BROWSER_PAGE = "/pages/unsupportedBrowser.jsp"; //Relative path
 	public static final String SESSION_PAGE = "/pages/maintainSessions.jsp";
+	public static final String COOKIE_PREFIX = "sessionid-";
 	
 	public static String MSG_PAGE = FILTER_DOMAIN+"/pages/";
 	public static final String LOGOFF_JSP_PAGE = "/pages/logoff.jsp";
@@ -241,15 +244,19 @@ public abstract class BaseLockFilter implements Filter {
 	    	// Perform reverse DNS lookup of the client ID. Not informative and very slow, so removing it.
 	    	//String hostName = getHostNameFromIP(ip);
 	    	String hostName = null;
-	    	AccessDetailVO accessPage = new AccessDetailVO(httpRequest.getSession().getId(), shortPath, new Date(),ip, hostName);
+	    	AccessDetailVO accessPage = new AccessDetailVO(httpRequest.getSession().getId(), URLDecoder.decode( shortPath, "UTF-8" ), new Date(),ip, hostName);
 	        
 	    	// Attempt to add a lock page
 		    logger.debug("Attempting to lock page...");
 		    if(accessList.addPageLock(accessPage) == 0){
-		    	
+
 		    	// Wrap the response so we can access the status later:
 		    	StatusExposingServletResponse response = new StatusExposingServletResponse((HttpServletResponse)res);
-
+		    	// Set a cookie so the session ID can be picked up.
+		    	String sessionId = httpRequest.getSession().getId();
+		    	Cookie cookie = new Cookie( COOKIE_PREFIX + sessionId, sessionId );
+		    	cookie.setMaxAge( Integer.MAX_VALUE );
+		    	response.addCookie( cookie );
 		    	// So the chain:
     		        logger.debug("Passing down the chain...");
 		    	chain.doFilter(req, response);
@@ -267,7 +274,6 @@ public abstract class BaseLockFilter implements Filter {
         		rd.forward(httpRequest, httpResponse);
 	        }
 	    }
-        
 	}
 
 

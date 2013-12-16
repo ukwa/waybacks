@@ -37,7 +37,7 @@
 									<td class="field" align="right"><c:out value="${session.sessionDetail[0].ipAddress}"/></td>
 									<td class="field" align="right"><c:out value="${session.sessionDetail[0].hostName}"/></td>
         							<td class="field" align="right">
-        								<a href="<c:out value="${pageContext.request.contextPath}"/>/pages/sessionList?sessionId=<c:out value="${session.sessionId}"/>">
+        								<a href="/archive/pages/sessionList?sessionId=<c:out value="${session.sessionId}"/>">
                 							<img id="pic" alt="Delete Session" src="../images/icons/ico_deleteitem.gif" border="0"/>
                 						</a>
         							

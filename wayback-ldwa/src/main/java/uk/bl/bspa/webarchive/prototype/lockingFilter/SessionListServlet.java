@@ -3,6 +3,7 @@ package uk.bl.bspa.webarchive.prototype.lockingFilter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.net.URLDecoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -70,7 +71,7 @@ public class SessionListServlet extends HttpServlet {
 		String queryString = request.getQueryString();
 		String page = queryString.substring( queryString.indexOf( PAGE_REQUEST_PREFIX ) + PAGE_REQUEST_PREFIX.length() );
 	    AccessList accessList = (AccessList) request.getSession().getServletContext().getAttribute("lockList");
-	    accessList.removeSessionByPage(page);
+	    accessList.removeSessionByPage( URLDecoder.decode( page, "UTF-8" ) );
 	    
 	    URL url = new URL(request.getRequestURL().toString());
 	    
