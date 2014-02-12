@@ -54,25 +54,24 @@
 <!--
 	A single CDX SearchResultSource example.
 -->
+<!--
           <bean class="org.archive.wayback.resourceindex.cdx.CDXIndex">
             <property name="path" value="${wayback.basedir}/cdx-index/${wayback.cdx.name}" />
           </bean>
- 
+-->
 <!--
 	A CompositeSearchResultSource example, that allows searching through 
 	multiple sorted CDX files on each request, merging results into a single
 	logical index.
 -->
-<!-- 
           <bean class="org.archive.wayback.resourceindex.CompositeSearchResultSource">
             <property name="CDXSources">
               <list>
-                <value>${wayback.basedir}/cdx-index/hdfs.cdx</value>
-                <value>${wayback.basedir}/cdx-index/index.cdx</value>
+                <value>${wayback.basedir}/cdx-index/${wayback.cdx.name}</value>
+                <value>${wayback.basedir}/cdx-index/${wayback.ld.cdx.name}</value>
               </list>
             </property>
           </bean>
- -->
           
         </property>
         

@@ -34,6 +34,7 @@
         <wayback.basedir>/sips/wayback</wayback.basedir>
         <wayback.resourcestore.prefix>hdfs://nellie:54310</wayback.resourcestore.prefix>
         <wayback.cdx.name>hdfs.cdx</wayback.cdx.name>
+        <wayback.ld.cdx.name>legal-deposit-hdfs.cdx</wayback.ld.cdx.name>
       <!-- Production build skips the test (well, the integration tests, at least) -->
         <maven.test.skip>true</maven.test.skip>
       </properties>
