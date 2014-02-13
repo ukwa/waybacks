@@ -22,6 +22,7 @@
     <wayback.basedir>src/test/resources</wayback.basedir>
     <wayback.resourcestore.prefix>src/test/resources/warcs/</wayback.resourcestore.prefix>
     <wayback.cdx.name>sopa-wikipedia-homepage.cdx</wayback.cdx.name>
+    <wayback.ld.cdx.name>legal-deposit-hdfs.cdx</wayback.ld.cdx.name>
   </properties>
   
   <profiles>
@@ -83,7 +84,7 @@
             </overlay>
             <overlay>
               <groupId>${wayback.groupId}</groupId>
-              <artifactId>wayback-webapp</artifactId>
+              <artifactId>openwayback-webapp</artifactId>
               <excludes>
                 <exclude>WEB-INF/lib/jsp*.jar</exclude>
                 <exclude>WEB-INF/lib/servlet-api*.jar</exclude>

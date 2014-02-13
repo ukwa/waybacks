@@ -16,7 +16,7 @@ will create a WAR suitable for local deployment and testing. You can run it dire
 
     mvn jetty:run-war
 
-The production version is build using
+The production version is built using
 
     mvn clean install -Pproduction
 
