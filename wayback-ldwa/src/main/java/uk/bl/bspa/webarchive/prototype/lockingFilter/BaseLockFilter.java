@@ -107,18 +107,6 @@ public abstract class BaseLockFilter implements Filter {
 			logger.debug(", Header Value:" + headerValue);
 		}
 	    */
-	    
-        // Filter unsupported browsers
-        String userAgent = httpRequest.getHeader("User-Agent");
-        if (!userAgent.contains(FIREFOX)&&!userAgent.contains(CHROME)){
-        	if( url.getPath().endsWith(UNSUPPORTED_BROWSER_PAGE) != true ) {
-        		logger.debug("Redirecting from "+httpRequest.getRequestURI() + " to "+ UNSUPPORTED_BROWSER_PAGE);
-        		httpResponse.sendRedirect(UNSUPPORTED_BROWSER_PAGE);
-        	} else {
-            	chain.doFilter(req, res);
-        	}
-        	return;
-        }
      
         
         // Don't filter Message Pages
