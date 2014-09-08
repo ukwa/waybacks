@@ -1,38 +1,37 @@
 package org.archive.wayback.resourceindex.filterfactory;
 
-import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
+import org.archive.util.SurtPrefixSet;
 import org.archive.wayback.UrlCanonicalizer;
 import org.archive.wayback.core.WaybackRequest;
 import org.archive.wayback.exception.BadQueryException;
 import org.archive.wayback.resourceindex.LocalResourceIndex;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class HostCaptureFilterGroupFactory implements FilterGroupFactory {
-    List<String> permittedHosts = new ArrayList<String>();
+public class SURTCaptureFilterGroupFactory implements FilterGroupFactory {
+    protected static Logger logger = LoggerFactory
+	    .getLogger(SURTCaptureFilterGroupFactory.class);
+    SurtPrefixSet permittedSurts = new SurtPrefixSet();
 
-    public HostCaptureFilterGroupFactory(String path) {
-	String line;
+    public SURTCaptureFilterGroupFactory(String path) {
 	try {
 	    FileReader fileReader = new FileReader(path);
-	    BufferedReader bufferedReader = new BufferedReader(fileReader);
-	    while ((line = bufferedReader.readLine()) != null) {
-		permittedHosts.add(line.trim());
-	    }
-	    bufferedReader.close();
+	    permittedSurts.importFrom(fileReader);
+	    fileReader.close();
 	} catch (IOException e) {
 	    e.printStackTrace();
 	}
+	logger.debug("Added " + permittedSurts.size() + " SURTS to inclusion filter.");
     }
 
     @Override
     public CaptureFilterGroup getGroup(WaybackRequest request,
 	    UrlCanonicalizer canonicalizer, LocalResourceIndex index)
 	    throws BadQueryException {
-	return new HostCaptureFilterGroup(request, permittedHosts);
+	return new SURTCaptureFilterGroup(request, permittedSurts);
     }
 
 }

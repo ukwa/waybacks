@@ -48,7 +48,7 @@ import org.archive.wayback.resourceindex.filterfactory.ClosestTrackingCaptureFil
 import org.archive.wayback.resourceindex.filterfactory.CoreCaptureFilterGroupFactory;
 import org.archive.wayback.resourceindex.filterfactory.ExclusionCaptureFilterGroupFactory;
 import org.archive.wayback.resourceindex.filterfactory.FilterGroupFactory;
-import org.archive.wayback.resourceindex.filterfactory.HostCaptureFilterGroupFactory;
+import org.archive.wayback.resourceindex.filterfactory.SURTCaptureFilterGroupFactory;
 import org.archive.wayback.resourceindex.filterfactory.QueryCaptureFilterGroupFactory;
 import org.archive.wayback.resourceindex.filterfactory.WindowFilterGroup;
 import org.archive.wayback.util.ObjectFilter;
@@ -126,15 +126,15 @@ public class LocalResourceIndex implements ResourceIndex {
 	
 	protected List<FilterGroupFactory> fgFactories = null;
 
-	private String hostsfile;
+	private String surtFile;
 
-	public void setHostsfile(String hostsfile) {
-	    this.hostsfile = hostsfile;
-	    fgFactories.add(new HostCaptureFilterGroupFactory(hostsfile));
+	public void setSurtFile(String surtFile) {
+	    this.surtFile = surtFile;
+	    fgFactories.add(new SURTCaptureFilterGroupFactory(surtFile));
 	}
 
-	public String getHostsfile() {
-	    return this.hostsfile;
+	public String getSurtFile() {
+	    return this.surtFile;
 	}
 
 	public LocalResourceIndex() {
