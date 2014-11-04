@@ -36,7 +36,7 @@ StringFormatter fmt = results.getWbRequest().getFormatter();
             <div id="error">
 
                 <h2><%= fmt.format(e.getTitleKey()) %></h2>
-                <p><%= fmt.format(e.getMessageKey(),e.getMessage()) %></p>
+                <p><%= fmt.escapeHtml(fmt.format(e.getMessageKey(),e.getMessage())) %></p>
 <%
 if(e instanceof ResourceNotInArchiveException) {
 	ResourceNotInArchiveException niae = (ResourceNotInArchiveException) e;
@@ -112,8 +112,8 @@ if(e instanceof ResourceNotInArchiveException) {
 	}
 %>			
 			
-			  <li><a href="<%= requestUrl %>">Visiting the current, live site</a></li>
-			  <li><a href="http://www.webarchive.org.uk/mementos/search/<%= requestUrl %>">Seeing if other archives hold copies of this URL</a></li>
+			  <li><a href="<%= fmt.escapeHtml(requestUrl) %>">Visiting the current, live site</a></li>
+			  <li><a href="http://www.webarchive.org.uk/mementos/search/<%= fmt.escapeHtml(requestUrl) %>">Seeing if other archives hold copies of this URL</a></li>
 			</ul>
 
             </div>
