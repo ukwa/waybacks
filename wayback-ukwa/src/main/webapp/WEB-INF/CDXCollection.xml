@@ -74,7 +74,8 @@
           </bean>
           
         </property>
-        
+
+        <property name="surtFile" value="${wayback.ld.surts.name}" />
         <property name="maxRecords" value="10000" />
         <property name="dedupeRecords" value="true" />    
       </bean>

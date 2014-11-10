@@ -17,6 +17,7 @@
         wayback.resourcestore.prefix=${wayback.resourcestore.prefix}
         wayback.cdx.name=${wayback.cdx.name}
         wayback.ld.cdx.name=${wayback.ld.cdx.name}
+        wayback.ld.surts.name=${wayback.ld.surts.name}
       </value>
     </property>
   </bean>

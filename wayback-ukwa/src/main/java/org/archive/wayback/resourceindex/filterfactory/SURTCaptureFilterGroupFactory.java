@@ -1,5 +1,6 @@
 package org.archive.wayback.resourceindex.filterfactory;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -14,17 +15,14 @@ import org.slf4j.LoggerFactory;
 public class SURTCaptureFilterGroupFactory implements FilterGroupFactory {
     protected static Logger logger = LoggerFactory
 	    .getLogger(SURTCaptureFilterGroupFactory.class);
-    SurtPrefixSet permittedSurts = new SurtPrefixSet();
+    private SurtPrefixSet permittedSurts;
+    private Thread updateThread;
+    private File includeFile;
+    private int updateInterval = 1200;
 
     public SURTCaptureFilterGroupFactory(String path) {
-	try {
-	    FileReader fileReader = new FileReader(path);
-	    permittedSurts.importFrom(fileReader);
-	    fileReader.close();
-	} catch (IOException e) {
-	    e.printStackTrace();
-	}
-	logger.debug("Added " + permittedSurts.size() + " SURTS to inclusion filter.");
+	includeFile = new File(path);
+	startUpdaterThread();
     }
 
     @Override
@@ -34,4 +32,49 @@ public class SURTCaptureFilterGroupFactory implements FilterGroupFactory {
 	return new SURTCaptureFilterGroup(request, permittedSurts);
     }
 
+    private void loadFile() throws IOException {
+	permittedSurts = new SurtPrefixSet();
+	FileReader fileReader = new FileReader(includeFile);
+	permittedSurts.importFrom(fileReader);
+	fileReader.close();
+	logger.info("Added " + permittedSurts.size()
+		+ " SURTS to inclusion filter.");
+    }
+
+    private void startUpdaterThread() {
+	if (updateThread == null) {
+	    updateThread = new UpdaterThread(this, updateInterval);
+	    updateThread.start();
+	}
+    }
+
+    private class UpdaterThread extends Thread {
+	private SURTCaptureFilterGroupFactory service = null;
+	private int runInterval;
+
+	public UpdaterThread(SURTCaptureFilterGroupFactory service,
+		int runInterval) {
+	    super("UpdaterThread");
+	    super.setDaemon(true);
+	    this.service = service;
+	    this.runInterval = runInterval;
+	    logger.info("UpdaterThread is alive.");
+	}
+
+	public void run() {
+	    while (true) {
+		try {
+		    try {
+			service.loadFile();
+		    } catch (IOException e) {
+			logger.warn(e.getMessage());
+		    }
+		    Thread.sleep(runInterval * 1000);
+		} catch (InterruptedException i) {
+		    logger.warn(i.getMessage());
+		    return;
+		}
+	    }
+	}
+    }
 }
