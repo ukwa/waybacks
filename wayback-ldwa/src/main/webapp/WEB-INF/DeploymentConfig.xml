@@ -14,7 +14,7 @@
         wayback.host=${HOSTNAME}
         wayback.port=${wayback.port}
         wayback.urlprefix=http://${wayback.host}/
-        wayback.resourcestore.prefix=${DLSHOSTNAME}
+        wayback.resourcestore.prefix=http://${DLSHOSTNAME}/
         wayback.cdx.name=${wayback.cdx.name}
         wayback.cdx.2.name=${wayback.cdx.2.name}
       </value>
