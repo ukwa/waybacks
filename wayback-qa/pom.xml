@@ -1,0 +1,68 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+      <groupId>uk.bl.wa.wayback</groupId>
+      <artifactId>waybacks</artifactId>
+      <version>2.0.1-SNAPSHOT</version>
+      <relativePath>..</relativePath>
+   </parent>
+  
+  <artifactId>wayback-qa</artifactId>
+  <packaging>war</packaging>
+  
+  <name>QA OpenWayback Webapp</name>
+  <description>OpenWayback installation for QA purposes</description>
+
+  <properties>
+    <wayback.basedir>/heritrix/output/wayback</wayback.basedir>
+    <wayback.port>8080</wayback.port>
+    <wayback.resourcestore.prefix>hdfs://nellie-private:54310</wayback.resourcestore.prefix>
+    <wayback.cdx.name>index.cdx</wayback.cdx.name>
+  </properties>
+  
+  <developers>
+        <developer>
+            <id>rcoram</id>
+            <name>Roger G. Coram</name>
+            <email>roger.coram@bl.uk</email>
+            <organization>The British Library</organization>
+            <organizationUrl>http://www.bl.uk</organizationUrl>
+        </developer>
+  </developers>
+  
+  <build>               
+	<finalName>ROOT</finalName>
+    <plugins>
+        <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.3</version>
+        <configuration>
+			<dependentWarExcludes>WEB-INF/web.xml,WEB-INF/wayback.xml,WEB-INF/memento.xml,WEB-INF/lib/jsp*.jar</dependentWarExcludes>
+   <webResources>
+     <resource>
+       <filtering>true</filtering>
+       <directory>src/main/webapp</directory>
+       <includes>
+         <include>WEB-INF/DeploymentConfig.xml</include>
+       </includes>
+     </resource>
+   </webResources>
+          <overlays>
+            <!-- first overlay takes precedence... -->
+            <overlay>
+              <!-- empty groupId/artifactId represents the current build -->
+            </overlay>
+            <overlay>
+              <groupId>${wayback.groupId}</groupId>
+              <artifactId>openwayback-webapp</artifactId>
+            </overlay>
+          </overlays>
+        </configuration>
+      </plugin>
+    </plugins>
+
+  </build>
+
+</project>
