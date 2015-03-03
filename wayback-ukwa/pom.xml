@@ -46,7 +46,7 @@
       <properties>
         <wayback.port>8080</wayback.port>
         <wayback.host>www.webarchive.org.uk</wayback.host>
-        <wayback.urlprefix>http://${wayback.host}:${wayback.port}/${project.build.finalName}/</wayback.urlprefix>      
+        <wayback.urlprefix>http://${wayback.host}/${project.build.finalName}/</wayback.urlprefix>      
         <wayback.basedir>/wayback</wayback.basedir>
         <wayback.resourcestore.prefix>http://192.168.218.101/</wayback.resourcestore.prefix>
         <wayback.cdx.name>ukwa-dls.cdx</wayback.cdx.name>
