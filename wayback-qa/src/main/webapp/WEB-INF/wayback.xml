@@ -168,9 +168,9 @@
 	  requests by different URL prefixes
 	-->
 	
-    <property name="replayPrefix" value="${wayback.urlprefix}archive/" />
-    <property name="queryPrefix" value="${wayback.urlprefix}archive/" />
-    <property name="staticPrefix" value="${wayback.urlprefix}archive/" />
+    <property name="replayPrefix" value="${wayback.urlprefix}" />
+    <property name="queryPrefix" value="${wayback.urlprefix}" />
+    <property name="staticPrefix" value="${wayback.urlprefix}" />
 
 	<!--
 		The following property will cause only results matching the exact host
@@ -203,7 +203,7 @@
 
     <property name="uriConverter">
       <bean class="org.archive.wayback.archivalurl.ArchivalUrlResultURIConverter">
-        <property name="replayURIPrefix" value="${wayback.urlprefix}archive/"/>
+        <property name="replayURIPrefix" value="${wayback.urlprefix}"/>
       </bean>
     </property>
 

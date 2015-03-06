@@ -13,7 +13,7 @@
         wayback.basedir=${wayback.basedir}
         wayback.host=${HOSTNAME}
         wayback.port=${wayback.port}
-        wayback.urlprefix=http://${wayback.host}:${wayback.port}/
+        wayback.urlprefix=https://www.webarchive.org.uk/act/wayback/
         wayback.resourcestore.prefix=${wayback.resourcestore.prefix}
         wayback.cdx.name=${wayback.cdx.name}
       </value>
