@@ -17,6 +17,7 @@
         wayback.resourcestore.prefix=http://${DLSHOSTNAME}/
         wayback.cdx.name=${wayback.cdx.name}
         wayback.cdx.2.name=${wayback.cdx.2.name}
+        wayback.embargo=604800000
       </value>
     </property>
     <property name="searchSystemEnvironment" value="true" />

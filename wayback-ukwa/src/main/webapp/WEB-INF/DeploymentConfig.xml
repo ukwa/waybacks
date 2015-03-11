@@ -18,6 +18,7 @@
         wayback.cdx.name=${wayback.cdx.name}
         wayback.ld.cdx.name=${wayback.ld.cdx.name}
         wayback.ld.surts.name=${wayback.ld.surts.name}
+        wayback.embargo=-1
       </value>
     </property>
   </bean>

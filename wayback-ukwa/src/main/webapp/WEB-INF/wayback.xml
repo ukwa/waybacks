@@ -156,6 +156,8 @@
     <property name="serveStatic" value="true" />
     <property name="bounceToReplayPrefix" value="false" />
     <property name="bounceToQueryPrefix" value="false" />
+
+    <property name="embargoMS" value="${wayback.embargo}" />
     
     <!--  Hack to prevent XML queries being redirected. -->
     <property name="forceCleanQueries" value="false" />
