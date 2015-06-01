@@ -16,20 +16,21 @@ import org.archive.wayback.util.ObjectFilterChain;
 public class SURTCaptureFilterGroup implements CaptureFilterGroup {
     private ObjectFilterChain<CaptureSearchResult> chain = null;
 
-    public SURTCaptureFilterGroup(WaybackRequest request, SurtPrefixSet permittedSurts) {
-	chain = new ObjectFilterChain<CaptureSearchResult>();
-	chain.addFilter(new SURTFilter(request, permittedSurts));
+    public SURTCaptureFilterGroup(WaybackRequest request,
+            SurtPrefixSet permittedSurts) {
+        chain = new ObjectFilterChain<CaptureSearchResult>();
+        chain.addFilter(new SURTFilter(request, permittedSurts));
     }
 
     @Override
     public void annotateResults(SearchResults results)
-	    throws ResourceNotInArchiveException, BadQueryException,
-	    AccessControlException {
+            throws ResourceNotInArchiveException, BadQueryException,
+            AccessControlException {
     }
 
     @Override
     public List<ObjectFilter<CaptureSearchResult>> getFilters() {
-	return chain.getFilters();
+        return chain.getFilters();
     }
 
 }

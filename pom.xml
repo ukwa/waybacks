@@ -9,7 +9,7 @@
 	<description>Parent project for our various wayback deployments.</description>
 	<properties>
 		<wayback.groupId>org.netpreserve.openwayback</wayback.groupId>
-		<wayback.version>2.1.0</wayback.version>
+		<wayback.version>2.2.0.RC.1</wayback.version>
 	</properties>
 	<modules>
 		<module>wayback-ldwa</module>
