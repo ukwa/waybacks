@@ -50,31 +50,16 @@
       <bean class="org.archive.wayback.resourceindex.LocalResourceIndex">
         <property name="canonicalizer" ref="waybackCanonicalizer" />
         <property name="source">
-
-<!--
-	A single CDX SearchResultSource example.
--->
-<!--
-          <bean class="org.archive.wayback.resourceindex.cdx.CDXIndex">
-            <property name="path" value="${wayback.basedir}/cdx-index/${wayback.cdx.name}" />
-          </bean>
--->
-<!--
-	A CompositeSearchResultSource example, that allows searching through 
-	multiple sorted CDX files on each request, merging results into a single
-	logical index.
--->
-          <bean class="org.archive.wayback.resourceindex.CompositeSearchResultSource">
-            <property name="CDXSources">
-              <list>
-                <value>${wayback.basedir}/cdx-index/${wayback.cdx.name}</value>
-                <value>${wayback.basedir}/cdx-index/${wayback.ld.cdx.name}</value>
-              </list>
-            </property>
-          </bean>
-          
+            <bean class="org.archive.wayback.resourceindex.WatchedCDXSource">
+                <property name="recursive" value="false" />
+                <property name="filters">
+                    <list>
+                        <value>^.+\.cdx$</value>
+                    </list>
+                </property>
+                <property name="path" value="${wayback.basedir}/cdx-index/" />
+            </bean>
         </property>
-
         <property name="surtFile" value="${wayback.ld.surts.name}" />
         <property name="maxRecords" value="10000" />
         <property name="dedupeRecords" value="true" />    
