@@ -18,18 +18,3 @@ To Do
 
 http://ldwa-bl.wayback.wa.bl.uk:8080/wayback/20040504230000/http://www.bl.uk/
 
-Using the command-line tool
----------------------------
-
-To build the tool:
-
-    mvn clean install -Pcli-util
-
-
-To run it, posting to a suitable Solr server (e.g. ../warc-solr-test-server):
-
-    java -jar -Xmx512M target/warc-indexer-1.1.1-SNAPSHOT-jar-with-dependencies.jar -s http://localhost:8080/ -t output.warc.gz
-
-If you now query Solr, you can explore your web archive contents.
-
-
