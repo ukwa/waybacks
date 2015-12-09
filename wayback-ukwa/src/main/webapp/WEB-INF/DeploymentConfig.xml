@@ -10,23 +10,24 @@
   <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <property name="properties">
       <value>
-        wayback.host=${wayback.host}
-        wayback.port=${wayback.port}
-        wayback.urlprefix=${wayback.urlprefix}
-        
-        wayback.basedir=/mnt/store/open-ukwa-wayback
-
-        wayback.cdx.folder=${wayback.basedir}/cdx-index
+        wayback.protocol=http
+        wayback.host=192.168.45.15
+        wayback.port=8080
+        wayback.service=open-ukwa-wayback
         wayback.httpfs.prefix=http://192.168.45.13:14000
+        
+        wayback.urlprefix=${wayback.protocol}://${wayback.host}${wayback.port}/${wayback.service}
+        wayback.basedir=/mnt/store/${wayback.service}
+        wayback.cdx.folder=${wayback.basedir}/cdx-index
         wayback.dls.mapping.file=${wayback.basedir}/dls-mapping.txt
         wayback.ld.surts.file=${wayback.basedir}/ld-surts.txt
         wayback.exclude.file=${wayback.basedir}/exclude.txt
         wayback.embargo=-1
       </value>
     </property>
-    <property name="searchSystemEnvironment" value="true" />
+    <property name="searchSystemEnvironment" value="true" /> <!-- e.g. wayback.host=${HOSTNAME}  -->
   </bean>
 
-      
+  <!-- uk.bl.wa.wayback.replay.RedirectRewritingInlineHttpHeaderProcessor -->      
       
 </beans>
