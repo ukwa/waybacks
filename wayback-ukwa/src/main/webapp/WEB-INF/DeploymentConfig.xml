@@ -10,17 +10,21 @@
   <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <property name="properties">
       <value>
-        wayback.basedir=${wayback.basedir}
         wayback.host=${wayback.host}
         wayback.port=${wayback.port}
         wayback.urlprefix=${wayback.urlprefix}
-        wayback.resourcestore.prefix=${wayback.resourcestore.prefix}
-        wayback.cdx.name=${wayback.cdx.name}
-        wayback.ld.cdx.name=${wayback.ld.cdx.name}
-        wayback.ld.surts.name=${wayback.ld.surts.name}
+        
+        wayback.basedir=/mnt/store/open-ukwa-wayback
+
+        wayback.cdx.folder=${wayback.basedir}/cdx-index
+        wayback.httpfs.prefix=http://192.168.45.13:14000
+        wayback.dls.mapping.file=${wayback.basedir}/dls-mapping.txt
+        wayback.ld.surts.file=${wayback.basedir}/ld-surts.txt
+        wayback.exclude.file=${wayback.basedir}/exclude.txt
         wayback.embargo=-1
       </value>
     </property>
+    <property name="searchSystemEnvironment" value="true" />
   </bean>
 
       

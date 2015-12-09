@@ -99,7 +99,7 @@
      from being returned from the index.
 -->
   <bean id="excluder-factory-static" class="org.archive.wayback.accesscontrol.staticmap.StaticMapExclusionFilterFactory">
-    <property name="file" value="${wayback.basedir}/exclude.txt" />
+    <property name="file" value="${wayback.exclude.file}" />
     <!-- Seems that this does not work:
     <property name="file" value="classpath:exclude.txt" />
      -->
@@ -402,9 +402,9 @@
     Note: using this AccessPoint requires adding a "Connector" on port 8090
          in your Tomcat's server.xml file.
  -->
-<!--
+
   <import resource="ProxyReplay.xml"/>
-  <bean name="8090" parent="${wayback.port}:wayback">
+  <bean name="8090" parent="wayback">
     <property name="serveStatic" value="true" />
     <property name="bounceToReplayPrefix" value="false" />
     <property name="bounceToQueryPrefix" value="false" />
@@ -431,6 +431,5 @@
       </bean>
     </property>
   </bean>
--->
 
 </beans>

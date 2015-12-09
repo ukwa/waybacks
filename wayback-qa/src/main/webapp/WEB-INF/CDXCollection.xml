@@ -19,23 +19,26 @@
 	Be sure to set the environment variable LC_ALL to "C" before sorting CDX
 	files and path-index.txt files.
 
-	All paths in this file reference the Spring property placeholder 
-	"wayback.basedir" defined in wayback.xml. That value may be changed to
-	alter top-level prefixes for these paths, or the values in this file can
-	be changed directly for further flexibility.
-
 -->
 
   <bean id="localcdxcollection" class="org.archive.wayback.webapp.WaybackCollection">
 
-    <property name="resourceStore">
-        <bean class="org.archive.wayback.resourcestore.SimpleResourceStore">
-            <property name="prefix" value="${wayback.resourcestore.prefix}"/>
-        </bean>
-    </property>
+	<property name="resourceStore">
+     <bean class="org.archive.wayback.resourcestore.MultipleResourceStore">
+      	<property name="failOnFirstUnavailable" value="false"/>
+        <property name="stores">
+          <list>
+          <!-- 
+            <ref bean="dlsresourcestore" />
+           -->
+            <ref bean="httpfsresourcestore" />
+          </list>
+ 	    </property>
+      </bean>
+	</property>
 
     <property name="resourceIndex">
-      <bean class="org.archive.wayback.resourceindex.LocalResourceIndex">
+      <bean class="org.archive.wayback.resourceindex.LocalSurtFilteringResourceIndex">
         <property name="canonicalizer" ref="waybackCanonicalizer" />
         <property name="source">
             <bean class="org.archive.wayback.resourceindex.WatchedCDXSource">
@@ -45,13 +48,31 @@
                         <value>^.+\.cdx$</value>
                     </list>
                 </property>
-                <property name="path" value="${wayback.basedir}/cdx-index/" />
+                <property name="path" value="${wayback.cdx.folder}" />
             </bean>
         </property>
+        <!-- 
+        <property name="surtFile" value="${wayback.open.ld.surts.file}" />
+         -->
         <property name="maxRecords" value="10000" />
         <property name="dedupeRecords" value="true" />    
       </bean>
     </property>
+  </bean>
+
+  <!-- This ResourceStore looks for mappings into DLS, using a sorted file that maps HDFS paths to full DLS URLs: -->
+  <bean id="dlsresourcestore" class="org.archive.wayback.resourcestore.LocationDBResourceStore">
+    <property name="db">
+      <bean class="org.archive.wayback.resourcestore.locationdb.FlatFileResourceFileLocationDB">
+        <property name="path" value="${wayback.dls.mapping.file}" />
+      </bean>
+    </property>
+  </bean>
+
+  <!-- This ResourceStore looks in HDFS via HttpFS: -->
+  <bean id="httpfsresourcestore" class="org.archive.wayback.resourcestore.ModifiedSimpleResourceStore">
+    <property name="regex" value="^(.*)#+$" />
+    <property name="replace" value="${wayback.httpfs.prefix}/webhdfs/v1/$1?user.name=hdfs&amp;op=OPEN"/>
   </bean>
 
 </beans>
