@@ -49,7 +49,7 @@
                 <property name="path" value="${wayback.cdx.folder}" />
             </bean>
         </property>
-        <property name="surtFile" value="${wayback.open.ld.surts.file}" />
+        <property name="surtFile" value="${wayback.ld.surts.file}" />
         <property name="maxRecords" value="10000" />
         <property name="dedupeRecords" value="true" />    
       </bean>
