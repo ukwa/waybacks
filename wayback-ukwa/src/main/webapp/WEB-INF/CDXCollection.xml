@@ -67,7 +67,7 @@
 
   <!-- This ResourceStore looks in HDFS via HttpFS: -->
   <bean id="httpfsresourcestore" class="org.archive.wayback.resourcestore.ModifiedSimpleResourceStore">
-    <property name="regex" value="^(.*)#+$" />
+    <property name="regex" value="^(.*)#?$" />
     <property name="replace" value="${wayback.httpfs.prefix}/webhdfs/v1/$1?user.name=hdfs&amp;op=OPEN"/>
   </bean>
 
