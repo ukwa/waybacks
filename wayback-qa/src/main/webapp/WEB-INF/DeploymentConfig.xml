@@ -10,8 +10,8 @@
   <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <property name="properties">
       <value>
-        wayback.host=${HOSTNAME}
-        wayback.port=${wayback.port}
+        wayback.host=192.168.45.16
+        wayback.port=8080
         wayback.urlprefix=https://www.webarchive.org.uk/act/wayback/
 
         wayback.basedir=/mnt/store/qa-wayback
@@ -24,7 +24,7 @@
         wayback.embargo=-1
       </value>
     </property>
-    <property name="searchSystemEnvironment" value="true" />
+    <property name="searchSystemEnvironment" value="true" /> <!-- e.g. wayback.host=${HOSTNAME}  -->
   </bean>
 
   <!-- uk.bl.wa.wayback.replay.RedirectRewritingInlineHttpHeaderProcessor -->      

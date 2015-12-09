@@ -16,27 +16,12 @@
   
   <properties>
     <jettyVersion>9.0.3.v20130506</jettyVersion>
-    <wayback.port>8080</wayback.port>
-    <wayback.host>localhost</wayback.host>
-    <wayback.urlprefix>http://${wayback.host}:${wayback.port}/${project.build.finalName}/</wayback.urlprefix>      
-    <wayback.basedir>src/test/resources</wayback.basedir>
-    <wayback.resourcestore.prefix>src/test/resources/warcs/</wayback.resourcestore.prefix>
-    <wayback.cdx.name>sopa-wikipedia-homepage.cdx</wayback.cdx.name>
-    <wayback.ld.cdx.name>legal-deposit-hdfs.cdx</wayback.ld.cdx.name>
-    <wayback.ld.surts.name>/wayback/ldhosts.txt</wayback.ld.surts.name>
   </properties>
   
   <profiles>
     <profile>
       <id>production</id>
       <properties>
-        <wayback.port>80</wayback.port>
-        <wayback.host>www.webarchive.org.uk</wayback.host>
-        <wayback.urlprefix>http://${wayback.host}:${wayback.port}/${project.build.finalName}/</wayback.urlprefix>      
-        <wayback.basedir>/sips/wayback</wayback.basedir>
-        <wayback.resourcestore.prefix>hdfs://nellie:54310</wayback.resourcestore.prefix>
-        <wayback.cdx.name>hdfs.cdx</wayback.cdx.name>
-        <wayback.ld.cdx.name>legal-deposit-hdfs.cdx</wayback.ld.cdx.name>
       <!-- Production build skips the test (well, the integration tests, at least) -->
         <maven.test.skip>true</maven.test.skip>
       </properties>
@@ -44,15 +29,6 @@
     <profile>
       <id>production-beta</id>
       <properties>
-        <wayback.port>8080</wayback.port>
-        <wayback.host>www.webarchive.org.uk</wayback.host>
-        <wayback.urlprefix>http://${wayback.host}/${project.build.finalName}/</wayback.urlprefix>      
-        <wayback.basedir>/wayback</wayback.basedir>
-        <wayback.resourcestore.prefix>http://192.168.218.101/</wayback.resourcestore.prefix>
-        <wayback.cdx.name>ukwa-dls.cdx</wayback.cdx.name>
-        <wayback.ld.cdx.name>legal-deposit-dls.cdx</wayback.ld.cdx.name>
-        <wayback.ld.surts.name>${wayback.basedir}/ldhosts.txt</wayback.ld.surts.name>
-      <!-- Production build skips the test (well, the integration tests, at least) -->
         <maven.test.skip>true</maven.test.skip>
       </properties>
       <build>

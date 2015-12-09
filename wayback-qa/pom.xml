@@ -12,10 +12,6 @@
   <name>QA OpenWayback Webapp</name>
   <description>OpenWayback installation for QA purposes</description>
   <properties>
-    <wayback.basedir>/heritrix/output/wayback</wayback.basedir>
-    <wayback.port>8080</wayback.port>
-    <wayback.resourcestore.prefix>hdfs://nellie-private:54310</wayback.resourcestore.prefix>
-    <wayback.cdx.name>index.cdx</wayback.cdx.name>
   </properties>
   <developers>
     <developer>
