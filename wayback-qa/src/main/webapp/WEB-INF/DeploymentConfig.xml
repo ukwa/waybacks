@@ -10,19 +10,13 @@
   <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <property name="properties">
       <value>
-        <!-- wayback.protocol=#{systemEnvironment['WAYBACK_PROTOCOL']}
         wayback.host=#{systemEnvironment['WAYBACK_HOST']}
         wayback.port=#{systemEnvironment['WAYBACK_PORT']}
         wayback.service=#{systemEnvironment['WAYBACK_SERVICE']}
-        wayback.httpfs.prefix=#{systemEnvironment['WAYBACK_HTTPFS_PREFIX']} -->
-        wayback.protocol=http
-        wayback.host=192.168.45.16
-        wayback.port=:8080
-        wayback.service=qa-wayback
-        wayback.httpfs.prefix=http://192.168.45.13:14000/
-        
-        wayback.urlprefix=${wayback.protocol}://${wayback.host}${wayback.port}/${wayback.service}/
-        wayback.basedir=/mnt/store/${wayback.service}/
+        wayback.httpfs.prefix=#{systemEnvironment['WAYBACK_HTTPFS_PREFIX']}
+        wayback.urlprefix=#{systemEnvironment['WAYBACK_URLPREFIX']}
+
+        wayback.basedir=/mnt/store/${wayback.service}
         wayback.cdx.folder=${wayback.basedir}/cdx-index
         wayback.dls.mapping.file=${wayback.basedir}/dls-mapping.txt
         wayback.ld.surts.file=${wayback.basedir}/ld-surts.txt
