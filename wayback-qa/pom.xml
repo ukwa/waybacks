@@ -52,7 +52,7 @@
           <dependentWarExcludes>WEB-INF/web.xml,WEB-INF/wayback.xml,WEB-INF/memento.xml,WEB-INF/lib/jsp*.jar</dependentWarExcludes>
           <webResources>
             <resource>
-              <filtering>true</filtering>
+              <filtering>false</filtering>
               <directory>src/main/webapp</directory>
               <includes>
                 <include>WEB-INF/DeploymentConfig.xml</include>
