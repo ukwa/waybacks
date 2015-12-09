@@ -10,14 +10,15 @@
   <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <property name="properties">
       <value>
+        wayback.protocol=http
         wayback.host=192.168.45.16
         wayback.port=8080
-        wayback.urlprefix=https://www.webarchive.org.uk/act/wayback/
-
-        wayback.basedir=/mnt/store/qa-wayback
-
-        wayback.cdx.folder=${wayback.basedir}/cdx-index
+        wayback.service=qa-wayback
         wayback.httpfs.prefix=http://192.168.45.13:14000
+        
+        wayback.urlprefix=${wayback.protocol}://${wayback.host}${wayback.port}/${wayback.service}
+        wayback.basedir=/mnt/store/${wayback.service}
+        wayback.cdx.folder=${wayback.basedir}/cdx-index
         wayback.dls.mapping.file=${wayback.basedir}/dls-mapping.txt
         wayback.ld.surts.file=${wayback.basedir}/ld-surts.txt
         wayback.exclude.file=${wayback.basedir}/exclude.txt
