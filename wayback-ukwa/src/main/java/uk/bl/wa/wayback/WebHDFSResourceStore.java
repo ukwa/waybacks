@@ -9,7 +9,6 @@ import org.archive.wayback.core.CaptureSearchResult;
 import org.archive.wayback.core.Resource;
 import org.archive.wayback.exception.ResourceNotAvailableException;
 import org.archive.wayback.resourcestore.SimpleResourceStore;
-import org.archive.wayback.resourcestore.resourcefile.ArcWarcFilenameFilter;
 
 /**
  * 
@@ -40,8 +39,12 @@ public class WebHDFSResourceStore extends SimpleResourceStore {
 		LOGGER.fine("Looking up "+result.getFile()+result.getOffset());
 
 		// Move offset into a query parameter:
-		String fileName = result.getFile();		
+		String fileName = result.getFile();
+		// Remove any existing fragment identifier:s
+		fileName = fileName.replaceFirst("#.*$", "");
+		// Add WebHDFS parameters:
 		fileName = "/webhdfs/v1" + fileName + "?user.name=hdfs&op=OPEN&offset="+result.getOffset()+"#.warc.gz";
+		// Update the search result object:
 		result.setFile(fileName);
 		result.setOffset(0);
 
