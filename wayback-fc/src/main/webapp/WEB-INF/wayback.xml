@@ -186,6 +186,9 @@
     <property name="bounceToQueryPrefix" value="false" />
     <property name="enableMemento" value="true" />
 
+    <!-- Prevent XML queries being redirected -->
+    <property name="forceCleanQueries" value="false"/>
+
 	<!--
 	  These properties enable customized handling of query, replay, and static
 	  requests by different URL prefixes
@@ -215,7 +218,7 @@
     <property name="replay" ref="archivalurlreplay" />
     <property name="query">
       <bean class="org.archive.wayback.query.Renderer">
-        <property name="captureJsp" value="/WEB-INF/query/CalendarResults.jsp" />
+        <property name="captureJsp" value="/WEB-INF/query/BubbleCalendar.jsp" />
 <!--
         This .jsp provides a "search engine" style listing of results vertically
         <property name="captureJsp" value="/WEB-INF/query/HTMLCaptureResults.jsp" />
