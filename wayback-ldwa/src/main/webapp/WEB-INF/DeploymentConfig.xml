@@ -13,6 +13,7 @@
         wayback.basedir=${wayback.basedir}
         wayback.host=${HOSTNAME}
         wayback.port=${wayback.port}
+        wayback.proxy.host=#{systemEnvironment['WAYBACK_PROXY_HOST']}
         wayback.urlprefix=http://${wayback.host}/
         wayback.resourcestore.prefix=http://${DLSHOSTNAME}/
         wayback.cdx.name=${wayback.cdx.name}
