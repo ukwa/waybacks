@@ -115,20 +115,20 @@ in your Tomcat's server.xml file.
         <property name="bounceToReplayPrefix" value="false"/>
         <property name="bounceToQueryPrefix" value="false"/>
         <property name="refererAuth" value=""/>
-        <property name="staticPrefix" value="http://${wayback.host}:8090/"/>
-        <property name="replayPrefix" value="http://${wayback.host}:8090/"/>
-        <property name="queryPrefix" value="http://${wayback.host}:8090/"/>
+        <property name="staticPrefix" value="http://${wayback.url.host}:8090/"/>
+        <property name="replayPrefix" value="http://${wayback.url.host}:8090/"/>
+        <property name="queryPrefix" value="http://${wayback.url.host}:8090/"/>
         <property name="replay" ref="proxyreplay"/>
         <property name="uriConverter">
             <bean class="org.archive.wayback.proxy.RedirectResultURIConverter">
-                <property name="redirectURI" value="http://${wayback.host}:8090/jsp/QueryUI/Redirect.jsp"/>
+                <property name="redirectURI" value="http://${wayback.url.host}:8090/jsp/QueryUI/Redirect.jsp"/>
             </bean>
         </property>
         <property name="parser">
             <bean class="org.archive.wayback.proxy.ProxyRequestParser">
                 <property name="localhostNames">
                     <list>
-                        <value>${wayback.host}</value>
+                        <value>${wayback.url.host}</value>
                     </list>
                 </property>
                 <property name="maxRecords" value="1000"/>
