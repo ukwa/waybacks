@@ -68,14 +68,14 @@ at org.archive.wayback.webapp.AccessPoint.go(AccessPoint.java:1)
                 <property name="captureJsp" value="/WEB-INF/query/CalendarResults.jsp"/>
             </bean>
         </property>
-        <property name="queryPrefix" value="${wayback.url.prefix}archive/"/>
+        <property name="queryPrefix" value="${wayback.url.prefix}wayback/"/>
         <property name="replay" ref="archivalurlreplay"/>
-        <property name="replayPrefix" value="${wayback.url.prefix}archive/"/>
+        <property name="replayPrefix" value="${wayback.url.prefix}wayback/"/>
         <property name="serveStatic" value="true"/>
-        <property name="staticPrefix" value="${wayback.url.prefix}archive/"/>
+        <property name="staticPrefix" value="${wayback.url.prefix}wayback/"/>
         <property name="uriConverter">
             <bean class="org.archive.wayback.archivalurl.ArchivalUrlResultURIConverter">
-                <property name="replayURIPrefix" value="${wayback.url.prefix}archive/"/>
+                <property name="replayURIPrefix" value="${wayback.url.prefix}wayback/"/>
             </bean>
         </property>
     </bean>
