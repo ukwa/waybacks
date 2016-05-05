@@ -35,37 +35,6 @@
         <param-name>config-path</param-name>
         <param-value>WEB-INF/wayback.xml</param-value>
     </context-param>
-    <listener>
-        <listener-class>
-  			uk.bl.bspa.webarchive.prototype.lockingFilter.WAContextListener
-  		</listener-class>
-    </listener>
-    <filter>
-        <filter-name>MimeFilter</filter-name>
-        <filter-class>uk.bl.bspa.webarchive.prototype.lockingFilter.mimeConvert.MimeConversionFilter</filter-class>
-    </filter>
-    <filter>
-        <filter-name>WaybackLockFilter</filter-name>
-        <filter-class>
-        	uk.bl.bspa.webarchive.prototype.lockingFilter.WaybackLockFilter
-    	</filter-class>
-    </filter>
-    <filter>
-        <filter-name>MementoLockFilter</filter-name>
-        <filter-class>
-        	uk.bl.bspa.webarchive.prototype.lockingFilter.MementoLockFilter
-    	</filter-class>
-    </filter>
-    <filter>
-        <filter-name>ListLockFilter</filter-name>
-        <filter-class>
-        	uk.bl.bspa.webarchive.prototype.lockingFilter.ListLockFilter
-    	</filter-class>
-    </filter>
-    <filter>
-        <filter-name>ResourceFilter</filter-name>
-        <filter-class>uk.bl.bspa.webarchive.prototype.lockingFilter.resource.MissingResourceLoggingFilter</filter-class>
-    </filter>
     <filter>
         <filter-name>RequestFilter</filter-name>
         <filter-class>org.archive.wayback.util.webapp.RequestFilter</filter-class>
@@ -80,11 +49,6 @@
         <url-pattern>/archive/*</url-pattern>
         <url-pattern>/archive-cy/*</url-pattern>
     </filter-mapping>
-    <!--  Memento Locking no longer required -
-	filter-mapping>
-    	<filter-name>MementoLockFilter</filter-name>
-    	<url-pattern>/memento/*</url-pattern>
-	</filter-mapping -->
     <filter-mapping>
         <filter-name>ListLockFilter</filter-name>
         <url-pattern>/list/*</url-pattern>
@@ -99,29 +63,8 @@
         <filter-name>RequestFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    <servlet>
-        <servlet-name>sessionList</servlet-name>
-        <servlet-class>uk.bl.bspa.webarchive.prototype.lockingFilter.SessionListServlet</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>sessionList</servlet-name>
         <url-pattern>/archive/pages/sessionList</url-pattern>
     </servlet-mapping>
-    <!-- Locking Filter security -->
-    <security-constraint>
-        <web-resource-collection>
-            <web-resource-name>Admin-Pages</web-resource-name>
-            <url-pattern>/archive/pages/*</url-pattern>
-        </web-resource-collection>
-        <auth-constraint>
-            <role-name>administrator</role-name>
-        </auth-constraint>
-    </security-constraint>
-    <security-role>
-        <role-name>administrator</role-name>
-    </security-role>
-    <login-config>
-        <auth-method>BASIC</auth-method>
-        <realm-name>Admin-Pages</realm-name>
-    </login-config>
 </web-app>
