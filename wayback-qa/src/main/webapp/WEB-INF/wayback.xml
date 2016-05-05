@@ -68,14 +68,14 @@ at org.archive.wayback.webapp.AccessPoint.go(AccessPoint.java:1)
                 <property name="captureJsp" value="/WEB-INF/query/CalendarResults.jsp"/>
             </bean>
         </property>
-        <property name="queryPrefix" value="${wayback.urlprefix}archive/"/>
+        <property name="queryPrefix" value="${wayback.url.prefix}archive/"/>
         <property name="replay" ref="archivalurlreplay"/>
-        <property name="replayPrefix" value="${wayback.urlprefix}archive/"/>
+        <property name="replayPrefix" value="${wayback.url.prefix}archive/"/>
         <property name="serveStatic" value="true"/>
-        <property name="staticPrefix" value="${wayback.urlprefix}archive/"/>
+        <property name="staticPrefix" value="${wayback.url.prefix}archive/"/>
         <property name="uriConverter">
             <bean class="org.archive.wayback.archivalurl.ArchivalUrlResultURIConverter">
-                <property name="replayURIPrefix" value="${wayback.urlprefix}archive/"/>
+                <property name="replayURIPrefix" value="${wayback.url.prefix}archive/"/>
             </bean>
         </property>
     </bean>
@@ -90,12 +90,12 @@ at org.archive.wayback.webapp.AccessPoint.go(AccessPoint.java:1)
                 <constructor-arg type="java.lang.String" value="GB"/>
             </bean>
         </property>
-        <property name="replayPrefix" value="${wayback.urlprefix}archive-cy/"/>
-        <property name="queryPrefix" value="${wayback.urlprefix}archive-cy/"/>
-        <property name="staticPrefix" value="${wayback.urlprefix}archive-cy/"/>
+        <property name="replayPrefix" value="${wayback.url.prefix}archive-cy/"/>
+        <property name="queryPrefix" value="${wayback.url.prefix}archive-cy/"/>
+        <property name="staticPrefix" value="${wayback.url.prefix}archive-cy/"/>
         <property name="uriConverter">
             <bean class="org.archive.wayback.archivalurl.ArchivalUrlResultURIConverter">
-                <property name="replayURIPrefix" value="${wayback.urlprefix}archive-cy/"/>
+                <property name="replayURIPrefix" value="${wayback.url.prefix}archive-cy/"/>
             </bean>
         </property>
     </bean>
