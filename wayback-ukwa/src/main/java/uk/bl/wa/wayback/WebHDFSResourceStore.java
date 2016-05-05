@@ -43,7 +43,7 @@ public class WebHDFSResourceStore extends SimpleResourceStore {
 		// Remove any existing fragment identifier:s
 		fileName = fileName.replaceFirst("#.*$", "");
 		// Add WebHDFS parameters:
-		fileName = "/webhdfs/v1" + fileName + "?user.name=hdfs&op=OPEN&offset="+result.getOffset()+"#.warc.gz";
+		fileName = "/webhdfs/v1/0_original/crawler05/heritrix/output/warcs/frequent/" + fileName + "?user.name=hdfs&op=OPEN&offset="+result.getOffset()+"#.warc.gz";
 		// Update the search result object:
 		result.setFile(fileName);
 		result.setOffset(0);
