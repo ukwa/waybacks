@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+    <!--
+    	Wayback runs as a single Servlet Filter, which intercepts all incoming
+    	requests.
+    	
+    	AccessPoints are defined in a Spring configuration file, and register
+    	themselves to handle incoming requests with this Filter. If no 
+    	AccessPoint matches an incoming request, the filter does nothing, 
+    	falling back to normal request processing, but this is an exceptional
+    	case: To enable "virtual" AccessPoints to share the common
+    	static content (and especially .jsp files) directly under the webapp
+    	directory, AccessPoints will generally strip leading path information,
+    	and forward() the requests internally to the top level of the webapp
+    	directory. To allow .jsp files to customize output based on the 
+    	particular AccessPoint which matched the request, references to the 
+    	AccessPoint, and other data structures are often stored in the 
+    	HttpServletRequest objects before forwarding these requests. In this 
+    	case, the AccessPoint will inform the common request Filter that 
+    	content has been returned, so "normal" request processing is skipped.
+    	
+    	In general, only 2 configurations are needed, which are both 
+    	webapp-relative paths to configuration.
+    	
+    	Specifically, this is a logging configuration .properties file, for
+    	java.util.logging (logging-config-path) and a Spring XML configuration
+    	file describing the set of AccessPoints objects (and their internal 
+    	objects) being served by this webapp (config-path).
+     -->
+    <context-param>
+        <param-name>logging-config-path</param-name>
+        <param-value>WEB-INF/classes/logging.properties</param-value>
+    </context-param>
+    <context-param>
+        <param-name>config-path</param-name>
+        <param-value>WEB-INF/wayback.xml</param-value>
+    </context-param>
+    <listener>
+        <listener-class>
+  			uk.bl.bspa.webarchive.prototype.lockingFilter.WAContextListener
+  		</listener-class>
+    </listener>
+    <filter>
+        <filter-name>MimeFilter</filter-name>
+        <filter-class>uk.bl.bspa.webarchive.prototype.lockingFilter.mimeConvert.MimeConversionFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>WaybackLockFilter</filter-name>
+        <filter-class>
+        	uk.bl.bspa.webarchive.prototype.lockingFilter.WaybackLockFilter
+    	</filter-class>
+    </filter>
+    <filter>
+        <filter-name>MementoLockFilter</filter-name>
+        <filter-class>
+        	uk.bl.bspa.webarchive.prototype.lockingFilter.MementoLockFilter
+    	</filter-class>
+    </filter>
+    <filter>
+        <filter-name>ListLockFilter</filter-name>
+        <filter-class>
+        	uk.bl.bspa.webarchive.prototype.lockingFilter.ListLockFilter
+    	</filter-class>
+    </filter>
+    <filter>
+        <filter-name>ResourceFilter</filter-name>
+        <filter-class>uk.bl.bspa.webarchive.prototype.lockingFilter.resource.MissingResourceLoggingFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>RequestFilter</filter-name>
+        <filter-class>org.archive.wayback.util.webapp.RequestFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>MimeFilter</filter-name>
+        <url-pattern>/archive/*</url-pattern>
+        <url-pattern>/archive-cy/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>WaybackLockFilter</filter-name>
+        <url-pattern>/archive/*</url-pattern>
+        <url-pattern>/archive-cy/*</url-pattern>
+    </filter-mapping>
+    <!--  Memento Locking no longer required -
+	filter-mapping>
+    	<filter-name>MementoLockFilter</filter-name>
+    	<url-pattern>/memento/*</url-pattern>
+	</filter-mapping -->
+    <filter-mapping>
+        <filter-name>ListLockFilter</filter-name>
+        <url-pattern>/list/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>ResourceFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <url-pattern>/archive/*</url-pattern>
+        <url-pattern>/archive-cy/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>RequestFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <servlet>
+        <servlet-name>sessionList</servlet-name>
+        <servlet-class>uk.bl.bspa.webarchive.prototype.lockingFilter.SessionListServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>sessionList</servlet-name>
+        <url-pattern>/archive/pages/sessionList</url-pattern>
+    </servlet-mapping>
+    <!-- Locking Filter security -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Admin-Pages</web-resource-name>
+            <url-pattern>/archive/pages/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>administrator</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-role>
+        <role-name>administrator</role-name>
+    </security-role>
+    <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>Admin-Pages</realm-name>
+    </login-config>
+</web-app>
