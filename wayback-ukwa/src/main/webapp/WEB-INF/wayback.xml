@@ -37,7 +37,7 @@ not successfully rewritten, resolving them against the referring URL to
 get them back on track.
 -->
     <bean name="+" class="org.archive.wayback.webapp.ServerRelativeArchivalRedirect">
-        <property name="matchPort" value="${wayback.port}"/>
+        <property name="matchPort" value="${wayback.url.port}"/>
         <property name="useCollection" value="true"/>
     </bean>
 
@@ -45,7 +45,7 @@ get them back on track.
 at org.archive.wayback.webapp.AccessPoint.go(AccessPoint.java:1)
 -->
     <bean name="wayback" class="org.archive.wayback.webapp.AccessPoint">
-        <property name="accessPointPath" value="${wayback.port}:wayback"/>
+        <property name="accessPointPath" value="${wayback.url.port}:wayback"/>
         <property name="bounceToQueryPrefix" value="false"/>
         <property name="bounceToReplayPrefix" value="false"/>
         <property name="collection" ref="remotecollection"/>
@@ -82,7 +82,7 @@ at org.archive.wayback.webapp.AccessPoint.go(AccessPoint.java:1)
 
 <!-- Welsh front-end -->
     <bean name="wayback-cy" parent="wayback">
-        <property name="accessPointPath" value="${wayback.port}:archive-cy"/>
+        <property name="accessPointPath" value="${wayback.url.port}:archive-cy"/>
         <property name="locale">
             <bean class="java.util.Locale">
                 <!-- cy_GB -->
@@ -101,7 +101,7 @@ at org.archive.wayback.webapp.AccessPoint.go(AccessPoint.java:1)
     </bean>
 
 <!--
-The following AccessPoint inherits all configuration from the ${wayback.port}:wayback
+The following AccessPoint inherits all configuration from the ${wayback.url.port}:wayback
 AccessPoint, but provides a Proxy Replay UI to the same collection. These
 two access points can be used simultaneously on the same Tomcat 
 installation.
