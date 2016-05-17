@@ -4,9 +4,11 @@
 <bean id="remotecollection" class="org.archive.wayback.webapp.WaybackCollection">
 	<property name="resourceStore">
 		<bean class="org.archive.wayback.resourcestore.MultipleResourceStore">
-			<property name="failOnFirstUnavailable" value="true"/>
+			<property name="failOnFirstUnavailable" value="false"/>
 			<property name="stores">
 				<list>
+				    <ref bean="localdiskresourcestore" />
+                    <ref bean="localdiskopenwarcsresourcestore" />
 					<ref bean="httpfsresourcestore" />
 				</list>
 			</property>
@@ -18,6 +20,15 @@
 			<property name="searchUrlBase" value="${cdx.index.server}" />
 		</bean>
 	</property>
+</bean>
+
+<bean id="localdiskresourcestore" class="org.archive.wayback.resourcestore.SimpleResourceStore">
+    <property name="prefix" value="/mnt/heritrix/output/warcs/frequent/" />
+</bean>
+
+<bean id="localdiskopenwarcsresourcestore" class="org.archive.wayback.resourcestore.SimpleResourceStore">
+    <property name="regex" value="^(.*)$" />
+    <property name="replace" value="/mnt/heritrix/output/warcs/frequent/$1.open" />
 </bean>
 
 <bean id="httpfsresourcestore" class="uk.bl.wa.wayback.WebHDFSResourceStore">
