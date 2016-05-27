@@ -32,7 +32,7 @@
 </bean>
 
 <bean id="httpfsresourcestore" class="uk.bl.wa.wayback.WebHDFSResourceStore">
-	<property name="prefix" value="${wayback.httpfs.prefix}"/>
+	<property name="prefix" value="${wayback.httpfs.prefix}/0_original/qa/crawler05/heritrix/output/warcs/frequent/"/>
 </bean>
 
 </beans>
