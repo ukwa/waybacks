@@ -7,8 +7,8 @@
 			<property name="failOnFirstUnavailable" value="false"/>
 			<property name="stores">
 				<list>
-				    <ref bean="localdiskresourcestore" />
-                    <ref bean="localdiskopenwarcsresourcestore" />
+					<ref bean="localdiskresourcestore" />
+					<ref bean="localdiskopenwarcsresourcestore" />
 					<ref bean="httpfsresourcestore" />
 				</list>
 			</property>
