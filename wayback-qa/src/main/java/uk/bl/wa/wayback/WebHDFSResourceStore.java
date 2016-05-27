@@ -42,6 +42,8 @@ public class WebHDFSResourceStore extends SimpleResourceStore {
 		String fileName = result.getFile();
 		// Remove any existing fragment identifier:s
 		fileName = fileName.replaceFirst("#.*$", "");
+		// Add WebHDFS parameters:
+		fileName = fileName + "?user.name=hdfs&op=OPEN&offset="+result.getOffset()+"#.warc.gz";
 		
 		// Update the search result object:
 		result.setFile(fileName);
