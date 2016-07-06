@@ -16,7 +16,7 @@
 	<property name="resourceIndex">
 		<bean class="org.archive.wayback.resourceindex.SURTFilteringRemoteResourceIndex">
 			<property name="searchUrlBase" value="${cdx.index.server}" />
-			<property name="surtFile" value="/opt/wayback-whitelist.txt"
+			<property name="surtFile" value="/opt/wayback-whitelist.txt"/>
 		</bean>
 	</property>
 </bean>
