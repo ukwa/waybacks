@@ -6,9 +6,12 @@ import java.io.IOException;
 
 import org.archive.util.SurtPrefixSet;
 import org.archive.wayback.UrlCanonicalizer;
+import org.archive.wayback.core.CaptureSearchResult;
 import org.archive.wayback.core.WaybackRequest;
 import org.archive.wayback.exception.BadQueryException;
 import org.archive.wayback.resourceindex.LocalResourceIndex;
+import org.archive.wayback.resourceindex.filters.SURTFilter;
+import org.archive.wayback.util.ObjectFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,6 +33,15 @@ public class SURTCaptureFilterGroupFactory implements FilterGroupFactory {
             UrlCanonicalizer canonicalizer, LocalResourceIndex index)
             throws BadQueryException {
         return new SURTCaptureFilterGroup(request, permittedSurts);
+    }
+
+    public CaptureFilterGroup getGroup(WaybackRequest request)
+            throws BadQueryException {
+        return new SURTCaptureFilterGroup(request, permittedSurts);
+    }
+    
+    public ObjectFilter<CaptureSearchResult> getFilter(WaybackRequest request) {
+    	return new SURTFilter(request, permittedSurts);
     }
 
     private void loadFile() throws IOException {
