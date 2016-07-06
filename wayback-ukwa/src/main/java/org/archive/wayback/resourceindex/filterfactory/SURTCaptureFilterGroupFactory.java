@@ -32,19 +32,23 @@ public class SURTCaptureFilterGroupFactory implements FilterGroupFactory {
     public CaptureFilterGroup getGroup(WaybackRequest request,
             UrlCanonicalizer canonicalizer, LocalResourceIndex index)
             throws BadQueryException {
-        return new SURTCaptureFilterGroup(request, permittedSurts);
+        return new SURTCaptureFilterGroup(request, this);
     }
 
     public CaptureFilterGroup getGroup(WaybackRequest request)
             throws BadQueryException {
-        return new SURTCaptureFilterGroup(request, permittedSurts);
+        return new SURTCaptureFilterGroup(request, this);
     }
     
     public ObjectFilter<CaptureSearchResult> getFilter(WaybackRequest request) {
-    	return new SURTFilter(request, permittedSurts);
+    	return new SURTFilter(request, this);
     }
 
-    private void loadFile() throws IOException {
+    public SurtPrefixSet getPermittedSurts() {
+		return permittedSurts;
+	}
+
+	private void loadFile() throws IOException {
         permittedSurts = new SurtPrefixSet();
         FileReader fileReader = new FileReader(includeFile);
         permittedSurts.importFrom(fileReader);
