@@ -60,7 +60,7 @@ public class WebHDFSResourceStore extends SimpleResourceStore {
 		fileName = fileName.replaceFirst("#.*$", "");
 		
 		// Add WebHDFS parameters:
-		fileName = "/webhdfs/v1" + fileName + "?user.name="+hdfsUser+"&op=OPEN&offset="+result.getOffset();
+		fileName = fileName + "?user.name="+hdfsUser+"&op=OPEN&offset="+result.getOffset();
 		// Add the compressed length, if we know it:
 		if (result.getCompressedLength() > 0) {
 			fileName = fileName + "&length=" + result.getCompressedLength();
