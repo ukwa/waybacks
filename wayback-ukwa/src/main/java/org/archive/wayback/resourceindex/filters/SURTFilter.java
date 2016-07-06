@@ -24,6 +24,9 @@ public class SURTFilter implements ObjectFilter<CaptureSearchResult> {
 			UsableURI uuri = UsableURIFactory.getInstance(request
 					.getRequestUrl());
 			String surt = SurtPrefixSet.getCandidateSurt(uuri);
+			for( String s : permittedSurts) {
+				logger.info("SURT: "+s);
+			}
 			if (permittedSurts.containsPrefixOf(surt)) {
 				filter = FILTER_INCLUDE;
 				logger.info("Allowing " + uuri.toString() + " (" + surt + ")");
