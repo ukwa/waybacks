@@ -49,10 +49,11 @@ public class SURTCaptureFilterGroupFactory implements FilterGroupFactory {
 	}
 
 	private void loadFile() throws IOException {
-        permittedSurts = new SurtPrefixSet();
+		SurtPrefixSet newPermittedSurts = new SurtPrefixSet();
         FileReader fileReader = new FileReader(includeFile);
-        permittedSurts.importFrom(fileReader);
+        newPermittedSurts.importFrom(fileReader);
         fileReader.close();
+        permittedSurts = newPermittedSurts;
         logger.info("Added " + permittedSurts.size()
                 + " SURTS to inclusion filter.");
     }
