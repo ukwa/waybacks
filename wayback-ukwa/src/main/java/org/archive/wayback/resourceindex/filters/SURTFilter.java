@@ -26,11 +26,11 @@ public class SURTFilter implements ObjectFilter<CaptureSearchResult> {
 					.getRequestUrl());
 			String surt = SurtPrefixSet.getCandidateSurt(uuri);
 			for( String s : surtCaptureFilterGroupFactory.getPermittedSurts()) {
-				logger.info("SURT: "+s);
+				logger.debug("SURT: "+s);
 			}
 			if (surtCaptureFilterGroupFactory.getPermittedSurts().containsPrefixOf(surt)) {
 				filter = FILTER_INCLUDE;
-				logger.info("Allowing " + uuri.toString() + " (" + surt + ")");
+				logger.debug("Allowing " + uuri.toString() + " (" + surt + ")");
 			} else {
 				filter = FILTER_EXCLUDE;
 				logger.info("Denying " + uuri.toString() + " (" + surt + ")");
