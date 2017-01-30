@@ -15,7 +15,6 @@
 		<module>wayback-ldwa</module>
 		<module>wayback-qa</module>
 		<module>wayback-ukwa</module>
-		<module>wayback-fc</module>
 	</modules>
 	<developers>
 		<developer>
