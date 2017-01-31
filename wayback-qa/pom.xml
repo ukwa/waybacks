@@ -30,12 +30,6 @@
       <type>war</type>
       <scope>runtime</scope>
     </dependency>
-    <dependency>
-      <groupId>org.apache.tika</groupId>
-      <artifactId>tika-core</artifactId>
-      <version>1.3</version>
-      <type>jar</type>
-    </dependency>
   </dependencies>
   <build>
     <finalName>ROOT</finalName>

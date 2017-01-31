@@ -27,11 +27,7 @@
 UIResults results = UIResults.extractReplay(request);
 WaybackRequest wbRequest = results.getWbRequest();
 ResultURIConverter uriConverter = results.getURIConverter();
-System.out.println("GOT wbRequest.locale "+wbRequest.getLocale());
 StringFormatter fmt = wbRequest.getFormatter();
-
-System.out.println("GOT fmt.resourcebundle.locale "+fmt.getResourceBundle().getLocale());
-
 
 String staticPrefix = results.getStaticPrefix();
 String queryPrefix = results.getQueryPrefix();
