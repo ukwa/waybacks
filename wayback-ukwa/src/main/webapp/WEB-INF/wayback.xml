@@ -104,4 +104,18 @@ at org.archive.wayback.webapp.AccessPoint.go(AccessPoint.java:1)
             </bean>
         </property>
     </bean>
+    
+<!-- QA version - just has a different deployment path: -->
+    <bean name="wayback-qa" parent="wayback">
+        <property name="accessPointPath" value="${wayback.url.port}:wayback"/>
+        <property name="replayPrefix" value="${wayback.url.prefix}/wayback/"/>
+        <property name="queryPrefix" value="${wayback.url.prefix}/wayback/"/>
+        <property name="staticPrefix" value="${wayback.url.prefix}/wayback/"/>
+        <property name="uriConverter">
+            <bean class="org.archive.wayback.archivalurl.ArchivalUrlResultURIConverter">
+                <property name="replayURIPrefix" value="${wayback.url.prefix}/wayback/"/>
+            </bean>
+        </property>
+    </bean>
+    
 </beans>
