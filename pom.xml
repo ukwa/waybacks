@@ -9,7 +9,7 @@
 	<description>Parent project for our various wayback deployments.</description>
 	<properties>
 		<wayback.groupId>org.netpreserve.openwayback</wayback.groupId>
-		<wayback.version>2.3.1</wayback.version>
+		<wayback.version>2.3.2-SNAPSHOT</wayback.version>
 	</properties>
 	<modules>
 		<module>wayback-ldwa</module>
@@ -136,7 +136,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
-				<version>2.3</version>
+				<version>3.0.0</version>
 				<configuration>
 					<archive>
 						<compress>false</compress>
