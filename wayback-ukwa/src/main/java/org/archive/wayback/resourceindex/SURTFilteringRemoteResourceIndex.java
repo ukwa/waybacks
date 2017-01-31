@@ -9,8 +9,6 @@ import org.archive.wayback.resourceindex.filterfactory.ClosestTrackingCaptureFil
 import org.archive.wayback.resourceindex.filterfactory.SURTCaptureFilterGroupFactory;
 import org.archive.wayback.util.ObjectFilter;
 import org.archive.wayback.util.ObjectFilterChain;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
 
 /**
  * @author anj
@@ -39,7 +37,7 @@ public class SURTFilteringRemoteResourceIndex extends RemoteResourceIndex {
 	/* (non-Javadoc)
 	 * @see org.archive.wayback.resourceindex.RemoteResourceIndex#getSearchResultFilters(org.archive.wayback.core.WaybackRequest, org.archive.wayback.resourceindex.filterfactory.ClosestTrackingCaptureFilterGroup)
 	 */
-	@Override
+    @Override
 	protected ObjectFilter<CaptureSearchResult> getSearchResultFilters(
 			WaybackRequest wbRequest,
 			ClosestTrackingCaptureFilterGroup closestGroup) {

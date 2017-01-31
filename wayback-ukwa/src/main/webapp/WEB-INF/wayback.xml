@@ -37,7 +37,8 @@ Last ditch attempt to resolve server-relative URLs (/page1.htm) that were
 not successfully rewritten, resolving them against the referring URL to
 get them back on track.
 -->
-    <bean name="+" class="org.archive.wayback.webapp.ServerRelativeArchivalRedirect">
+    <bean name="serverRelativeRedir" class="org.archive.wayback.webapp.ServerRelativeArchivalRedirect">
+        <property name="accessPointPath" value="${wayback.url.port}"/>
         <property name="matchPort" value="${wayback.url.port}"/>
         <property name="useCollection" value="true"/>
     </bean>
