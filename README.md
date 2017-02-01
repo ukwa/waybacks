@@ -26,7 +26,7 @@ The LDWA Wayback is always built in production mode, and is intended to pick up 
 
 Welsh Dates
 -----------
-To support a Welsh UI, we need not just a localized properties file, but also support for Welsh dates and so on. Wayback currently relies on the JVM Locales to support this, but Java does not support Welsh out of the box. However, the ICU4J toolkit can be installed into the JVM and enables automatic Welsh support for dates.
+To support a Welsh UI, we need not just a localized properties file, but also support for Welsh dates and so on. Wayback currently relies on the JVM Locales to support this, but Java does not support Welsh out of the box. However, the ICU4J toolkit can be installed into the JVM and enables automatic Welsh support for dates. Note, this Welsh language support is installed with the Java service, not the wayback service. Plus, our latest Java installation service installs the icu4j 54_1_1 jars by default.
 
 * See http://userguide.icu-project.org/icu4j-locale-service-provider
 
