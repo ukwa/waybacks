@@ -24,6 +24,9 @@ which is otherwise identical to the production build.
 
 The LDWA Wayback is always built in production mode, and is intended to pick up the necessary configuration from the local environment variables.
 
+Finally, note that it is important that the exclusion list, exclude.txt, is manually copied into place after the 'mvn clean install'. This means the exclusion list is outside of the build, so it can be updated separately without further WAR builds. Where appropriate there is an exclude.txt file in each installation. The built wayback service makes use of this exclusion list via the corresponding environment variable, typically set in /etc/sysconfig/tomcat-wayback.
+
+
 Welsh Dates
 -----------
 To support a Welsh UI, we need not just a localized properties file, but also support for Welsh dates and so on. Wayback currently relies on the JVM Locales to support this, but Java does not support Welsh out of the box. However, the ICU4J toolkit can be installed into the JVM and enables automatic Welsh support for dates. Note, this Welsh language support is installed with the Java service, not the wayback service. Plus, our latest Java installation service installs the icu4j 54_1_1 jars by default.
