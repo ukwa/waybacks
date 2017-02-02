@@ -52,6 +52,7 @@ at org.archive.wayback.webapp.AccessPoint.go(AccessPoint.java:1)
         <property name="embargoMS" value="${wayback.embargo}"/>
         <property name="enableMemento" value="true"/>
         <property name="forceCleanQueries" value="false"/>
+        <property name="exclusionFactory" ref="excluder-factory-static" />
         <property name="locale">
             <bean class="java.util.Locale">
                 <constructor-arg type="java.lang.String" value="en"/>
