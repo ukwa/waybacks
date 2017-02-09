@@ -8,6 +8,16 @@ As we have multiple installations, the 'wayback-ukwa' instance is the config for
 Installation
 ------------
 
+#### Temporary installation process due to locale issue. Build openwayback by:
+  git clone https://github.com/ukwa/openwayback.git && \
+  cd openwayback && \
+  git checkout restore-locale-switch && \
+  mvn install
+
+Then the normal UKWA wayback build process can be followed
+#### -----
+
+
 Note that the UKWA and LDWA builds are slightly different. For UKWA, by default
 
     mvn clean install
@@ -25,7 +35,6 @@ which is otherwise identical to the production build.
 The LDWA Wayback is always built in production mode, and is intended to pick up the necessary configuration from the local environment variables.
 
 Finally, note that it is important that the exclusion list, exclude.txt, is manually copied into place after the 'mvn clean install'. This means the exclusion list is outside of the build, so it can be updated separately without further WAR builds. Where appropriate there is an exclude.txt file in each installation. The built wayback service makes use of this exclusion list via the corresponding environment variable, typically set in /etc/sysconfig/tomcat-wayback.
-
 
 Welsh Dates
 -----------

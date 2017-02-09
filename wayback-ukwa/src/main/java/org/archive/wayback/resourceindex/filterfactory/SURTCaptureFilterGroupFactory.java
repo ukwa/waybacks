@@ -6,9 +6,12 @@ import java.io.IOException;
 
 import org.archive.util.SurtPrefixSet;
 import org.archive.wayback.UrlCanonicalizer;
+import org.archive.wayback.core.CaptureSearchResult;
 import org.archive.wayback.core.WaybackRequest;
 import org.archive.wayback.exception.BadQueryException;
 import org.archive.wayback.resourceindex.LocalResourceIndex;
+import org.archive.wayback.resourceindex.filters.SURTFilter;
+import org.archive.wayback.util.ObjectFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,14 +32,28 @@ public class SURTCaptureFilterGroupFactory implements FilterGroupFactory {
     public CaptureFilterGroup getGroup(WaybackRequest request,
             UrlCanonicalizer canonicalizer, LocalResourceIndex index)
             throws BadQueryException {
-        return new SURTCaptureFilterGroup(request, permittedSurts);
+        return new SURTCaptureFilterGroup(request, this);
     }
 
-    private void loadFile() throws IOException {
-        permittedSurts = new SurtPrefixSet();
+    public CaptureFilterGroup getGroup(WaybackRequest request)
+            throws BadQueryException {
+        return new SURTCaptureFilterGroup(request, this);
+    }
+    
+    public ObjectFilter<CaptureSearchResult> getFilter(WaybackRequest request) {
+    	return new SURTFilter(request, this);
+    }
+
+    public SurtPrefixSet getPermittedSurts() {
+		return permittedSurts;
+	}
+
+	private void loadFile() throws IOException {
+		SurtPrefixSet newPermittedSurts = new SurtPrefixSet();
         FileReader fileReader = new FileReader(includeFile);
-        permittedSurts.importFrom(fileReader);
+        newPermittedSurts.importFrom(fileReader);
         fileReader.close();
+        permittedSurts = newPermittedSurts;
         logger.info("Added " + permittedSurts.size()
                 + " SURTS to inclusion filter.");
     }

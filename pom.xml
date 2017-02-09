@@ -9,13 +9,12 @@
 	<description>Parent project for our various wayback deployments.</description>
 	<properties>
 		<wayback.groupId>org.netpreserve.openwayback</wayback.groupId>
-		<wayback.version>2.3.0</wayback.version>
+		<wayback.version>2.3.2-SNAPSHOT</wayback.version>
 	</properties>
 	<modules>
 		<module>wayback-ldwa</module>
 		<module>wayback-qa</module>
 		<module>wayback-ukwa</module>
-		<module>wayback-fc</module>
 	</modules>
 	<developers>
 		<developer>
@@ -112,7 +111,7 @@
 		<dependency>
 			<groupId>com.ibm.icu</groupId>
 			<artifactId>icu4j</artifactId>
-			<version>4.8.1</version>
+			<version>58.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.dspace</groupId>
@@ -137,7 +136,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
-				<version>2.3</version>
+				<version>3.0.0</version>
 				<configuration>
 					<archive>
 						<compress>false</compress>
@@ -178,6 +177,17 @@
 					<warDirectory>${project.build.directory}/${project.build.finalName}</warDirectory>
 				</configuration>
 			</plugin>
+    <plugin>
+        <groupId>org.apache.tomcat.maven</groupId>
+        <artifactId>tomcat7-maven-plugin</artifactId>
+        <version>2.1</version>
+        <configuration>
+            <warDirectory>${project.build.directory}/${project.build.finalName}</warDirectory>
+            <systemProperties>
+                <wayback.timestamp.startyear>1995</wayback.timestamp.startyear>
+            </systemProperties>
+        </configuration>
+      </plugin>
 		</plugins>
 	</build>
 	<repositories>

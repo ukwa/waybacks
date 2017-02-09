@@ -45,7 +45,7 @@
         <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
-        <version>2.3</version>
+        <version>3.0.0</version>
         <configuration>
    <webResources>
      <resource>
@@ -70,17 +70,10 @@
                 <exclude>WEB-INF/lib/hadoop-*.jar</exclude>
                 <exclude>WEB-INF/lib/icu4j-*.jar</exclude>
                 <exclude>WEB-INF/replay/Timeline.jsp</exclude>
+                <exclude>WEB-INF/classes/WaybackUI.properties.disabled-exclude</exclude>
               </excludes>
             </overlay>
           </overlays>
-        </configuration>
-      </plugin>
-	<plugin>
-        <groupId>org.apache.tomcat.maven</groupId>
-        <artifactId>tomcat6-maven-plugin</artifactId>
-        <version>2.0</version>
-        <configuration>
-            <warDirectory>${project.build.directory}/${project.build.finalName}</warDirectory>
         </configuration>
       </plugin>
       <plugin>

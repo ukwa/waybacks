@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<web-app 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    xmlns="http://java.sun.com/xml/ns/javaee"
-    xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" 
-    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-    version="2.5">
-
-
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
     <!--
     	Wayback runs as a single Servlet Filter, which intercepts all incoming
     	requests.
@@ -43,36 +35,34 @@
         <param-name>config-path</param-name>
         <param-value>WEB-INF/wayback.xml</param-value>
     </context-param>
-	
-	<listener>
-  		<listener-class>
+    <listener>
+        <listener-class>
   			uk.bl.bspa.webarchive.prototype.lockingFilter.WAContextListener
   		</listener-class>
-  	</listener>
-	
-	<filter>
+    </listener>
+    <filter>
         <filter-name>MimeFilter</filter-name>
         <filter-class>uk.bl.bspa.webarchive.prototype.lockingFilter.mimeConvert.MimeConversionFilter</filter-class>
     </filter>
-	<filter>
-    	<filter-name>WaybackLockFilter</filter-name>
-    	<filter-class>
+    <filter>
+        <filter-name>WaybackLockFilter</filter-name>
+        <filter-class>
         	uk.bl.bspa.webarchive.prototype.lockingFilter.WaybackLockFilter
     	</filter-class>
-	</filter>
-	<filter>
-    	<filter-name>MementoLockFilter</filter-name>
-    	<filter-class>
+    </filter>
+    <filter>
+        <filter-name>MementoLockFilter</filter-name>
+        <filter-class>
         	uk.bl.bspa.webarchive.prototype.lockingFilter.MementoLockFilter
     	</filter-class>
-	</filter>
-	<filter>
-    	<filter-name>ListLockFilter</filter-name>
-    	<filter-class>
+    </filter>
+    <filter>
+        <filter-name>ListLockFilter</filter-name>
+        <filter-class>
         	uk.bl.bspa.webarchive.prototype.lockingFilter.ListLockFilter
     	</filter-class>
-	</filter>
-	 <filter>
+    </filter>
+    <filter>
         <filter-name>ResourceFilter</filter-name>
         <filter-class>uk.bl.bspa.webarchive.prototype.lockingFilter.resource.MissingResourceLoggingFilter</filter-class>
     </filter>
@@ -80,105 +70,58 @@
         <filter-name>RequestFilter</filter-name>
         <filter-class>org.archive.wayback.util.webapp.RequestFilter</filter-class>
     </filter>
- 
-	
-	<filter-mapping>
+    <filter-mapping>
         <filter-name>MimeFilter</filter-name>
         <url-pattern>/archive/*</url-pattern>
-		<url-pattern>/archive-cy/*</url-pattern>
+        <url-pattern>/archive-cy/*</url-pattern>
     </filter-mapping>
-	<filter-mapping>
-    	<filter-name>WaybackLockFilter</filter-name>
-    	<url-pattern>/archive/*</url-pattern>
-		<url-pattern>/archive-cy/*</url-pattern>
-	</filter-mapping>
-	<!--  Memento Locking no longer required -
+    <filter-mapping>
+        <filter-name>WaybackLockFilter</filter-name>
+        <url-pattern>/archive/*</url-pattern>
+        <url-pattern>/archive-cy/*</url-pattern>
+    </filter-mapping>
+    <!--  Memento Locking no longer required -
 	filter-mapping>
     	<filter-name>MementoLockFilter</filter-name>
     	<url-pattern>/memento/*</url-pattern>
 	</filter-mapping -->
-	<filter-mapping>
-    	<filter-name>ListLockFilter</filter-name>
-    	<url-pattern>/list/*</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
+    <filter-mapping>
+        <filter-name>ListLockFilter</filter-name>
+        <url-pattern>/list/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
         <filter-name>ResourceFilter</filter-name>
         <url-pattern>/*</url-pattern>
         <url-pattern>/archive/*</url-pattern>
-		<url-pattern>/archive-cy/*</url-pattern>
+        <url-pattern>/archive-cy/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>RequestFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-
-	<servlet>
-    	<servlet-name>sessionList</servlet-name>
-    	<servlet-class>uk.bl.bspa.webarchive.prototype.lockingFilter.SessionListServlet</servlet-class>
-  	</servlet>
-
-  	<servlet-mapping>
-    	<servlet-name>sessionList</servlet-name>
-    	<url-pattern>/archive/pages/sessionList</url-pattern>
-  	</servlet-mapping>
-
-	<!-- Locking Filter security -->
-	<security-constraint>
-    	<web-resource-collection>
-      		<web-resource-name>Admin-Pages</web-resource-name>
-      		<url-pattern>/archive/pages/*</url-pattern>
-    	</web-resource-collection>
-    	<auth-constraint>
-      		<role-name>administrator</role-name>
-    	</auth-constraint>
-  </security-constraint>
-  
-  <security-role>
-    <role-name>administrator</role-name>
-  </security-role>
-  
-  <login-config>
-      <auth-method>BASIC</auth-method>
-      <realm-name>Admin-Pages</realm-name>
-  </login-config>
-
-  
-
-<!--
-    The following configuration will add HTTP Basic Authentication to an
-    an AccessPoint called "usersecure", which also needs to be defined in
-    the wayback.xml Spring configuration file.
-    
-    Also note that you will need to add one or more users to your 
-    tomcat-users.xml with in the role "wayback".
--->
-
-<!--
-    <security-role>
-        <description>Secured-Wayback-Access</description>
-        <role-name>wayback</role-name>
-    </security-role>
-
+    <servlet>
+        <servlet-name>sessionList</servlet-name>
+        <servlet-class>uk.bl.bspa.webarchive.prototype.lockingFilter.SessionListServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>sessionList</servlet-name>
+        <url-pattern>/archive/pages/sessionList</url-pattern>
+    </servlet-mapping>
+    <!-- Locking Filter security -->
     <security-constraint>
         <web-resource-collection>
-            <web-resource-name>Secured-Wayback</web-resource-name>
-            <url-pattern>/usersecure/*</url-pattern>
+            <web-resource-name>Admin-Pages</web-resource-name>
+            <url-pattern>/archive/pages/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
-            <role-name>wayback</role-name>
+            <role-name>administrator</role-name>
         </auth-constraint>
     </security-constraint>
-    
+    <security-role>
+        <role-name>administrator</role-name>
+    </security-role>
     <login-config>
         <auth-method>BASIC</auth-method>
-        <realm-name>Secured-Wayback</realm-name>
+        <realm-name>Admin-Pages</realm-name>
     </login-config>
-
-
-    <error-page>
-        <exception-type>java.lang.Exception</exception-type>
-        <location>/WEB-INF/exception/HTMLError.jsp</location>
-    </error-page>
--->
-
 </web-app>
