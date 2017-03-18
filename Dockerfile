@@ -44,7 +44,6 @@ RUN \
 COPY . /waybacks
 RUN \
   cd waybacks && \
-  git checkout master && \
   mvn install -DskipTests
 
 # Define runtime properties
