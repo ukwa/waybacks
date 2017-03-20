@@ -19,7 +19,7 @@ public class SURTCaptureFilterGroup implements CaptureFilterGroup {
     public SURTCaptureFilterGroup(WaybackRequest request,
             SURTCaptureFilterGroupFactory surtCaptureFilterGroupFactory) {
         chain = new ObjectFilterChain<CaptureSearchResult>();
-        chain.addFilter(new SURTFilter(request, surtCaptureFilterGroupFactory));
+        chain.addFilter(new SURTFilter(request.getRequestUrl(), surtCaptureFilterGroupFactory));
     }
 
     @Override

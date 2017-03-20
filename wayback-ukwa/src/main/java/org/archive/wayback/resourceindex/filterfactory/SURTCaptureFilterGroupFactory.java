@@ -41,7 +41,11 @@ public class SURTCaptureFilterGroupFactory implements FilterGroupFactory {
     }
     
     public ObjectFilter<CaptureSearchResult> getFilter(WaybackRequest request) {
-    	return new SURTFilter(request, this);
+    	return new SURTFilter(request.getRequestUrl(), this);
+    }
+
+    public ObjectFilter<CaptureSearchResult> getFilter(String requestUrl) {
+    	return new SURTFilter(requestUrl, this);
     }
 
     public SurtPrefixSet getPermittedSurts() {

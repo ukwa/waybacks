@@ -13,7 +13,7 @@ package org.archive.wayback.exception;
  * @author Andrew Jackson <Andrew.Jackson@bl.uk>
  *
  */
-public class UnavailableForLegalReasonsException extends WaybackException {
+public class UnavailableForLegalReasonsException extends ResourceNotInArchiveException {
 
     private static final long serialVersionUID = 128947144788923147L;
     protected static final String ID = "unavailableForLegalReasonsException";
@@ -35,7 +35,7 @@ public class UnavailableForLegalReasonsException extends WaybackException {
      * @param details
      */
     public UnavailableForLegalReasonsException(String message, String details) {
-        super(message, "Unavailable for legal reasons", details);
+        super(message, "Unavailable for legal reasons: "+ details);
         id = ID;
     }
 

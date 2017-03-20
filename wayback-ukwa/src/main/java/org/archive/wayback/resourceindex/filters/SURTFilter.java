@@ -28,11 +28,11 @@ public class SURTFilter implements ObjectFilter<CaptureSearchResult> {
     protected static Logger logger = LoggerFactory.getLogger(SURTFilter.class);
     private int filter;
 
-    public SURTFilter(WaybackRequest request,
+    public SURTFilter(String requestUrl,
             SURTCaptureFilterGroupFactory surtCaptureFilterGroupFactory) {
         try {
             UsableURI uuri = UsableURIFactory
-                    .getInstance(request.getRequestUrl());
+                    .getInstance(requestUrl);
             String surt = SurtPrefixSet.getCandidateSurt(uuri);
             for (String s : surtCaptureFilterGroupFactory.getPermittedSurts()) {
                 logger.debug("SURT: " + s);
@@ -63,16 +63,6 @@ public class SURTFilter implements ObjectFilter<CaptureSearchResult> {
             result = FILTER_INCLUDE;
         case EXCLUDE_FLAG:
             result = FILTER_EXCLUDE;
-        }
-
-        // If a result was found, but has been excluded here, then it's because
-        // of the legal deposit restrictions.
-        //
-        // Therefore, attempt to raise a clear HTTP 451 error in this case:
-        if (result == FILTER_EXCLUDE) {
-            throw new RuntimeException(new UnavailableForLegalReasonsException(
-                    "This Legal Deposit resource can only be accessed on site in a Legal Deposit Library reading room."));
-
         }
         
         // Otherwise:
