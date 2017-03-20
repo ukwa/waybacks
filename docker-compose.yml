@@ -1,0 +1,25 @@
+version: '2'
+
+services:
+
+  oukwa-wayback:
+    build: .
+    ports:
+      - "localhost:19080:8080"
+      - "localhost:18090:8090"
+    environment:
+      - "UKWA_OWB_VERSION=ukwa"
+      - "WAYBACK_URL_PORT=8080"
+      - "WAYBACK_URL_PREFIX=http://localhost:19080"
+      - "WAYBACK_URL_SCHEME=http"
+      - "WAYBACK_URL_HOST=localhost"
+      - "CDX_INDEX_SERVER=http://cdxserver:9090/fc"
+      - "CDX_WHITELIST=/wayback-whitelist.txt"
+      - "WAYBACK_HTTPFS_PREFIX=http://hadoop:50070/webhdfs/v1"
+      - "WAYBACK_EMBARGO=-1"
+      - "WAYBACK_EXCLUDE_FILE=/waybacks/wayback-qa/target/ROOT/WEB-INF/classes/exclude.txt"
+    volumes:
+      - "./wayback-ukwa/src/test/resources/include.txt:/wayback-whitelist.txt"
+    extra_hosts:
+      - "hadoop:192.168.1.7"
+      - "cdxserver:192.168.1.7"
