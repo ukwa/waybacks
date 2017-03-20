@@ -57,12 +57,14 @@ public class SURTFilteringRemoteResourceIndex extends RemoteResourceIndex {
 			ResourceNotInArchiveException, BadQueryException, AccessControlException {
 		SearchResults results = super.query(wbRequest);
 		if( !declareLegalRestriction ) {
+			logger.debug("Not filtering query results...");
 			return results;
 		}
+		logger.debug("Filtering query results...");
 		// Here, rather than swallowing them silently, we make our holdings known, but raise a 451 on access:
 		if( results instanceof UrlSearchResults ) {
 			UrlSearchResults urs = (UrlSearchResults) results;
-			logger.info("IS UrlSearchResults... " + urs);
+			logger.debug("IS UrlSearchResults... " + urs);
 		} else if( results instanceof CaptureSearchResults ) {
 			CaptureSearchResults crs = (CaptureSearchResults) results;
 			for( CaptureSearchResult r : crs ) {
@@ -76,6 +78,7 @@ public class SURTFilteringRemoteResourceIndex extends RemoteResourceIndex {
 				}
 			}
 		}
+		
 		return results;
 	}
 
@@ -87,11 +90,11 @@ public class SURTFilteringRemoteResourceIndex extends RemoteResourceIndex {
 			WaybackRequest wbRequest,
 			ClosestTrackingCaptureFilterGroup closestGroup) {
 		ObjectFilterChain<CaptureSearchResult> filters = (ObjectFilterChain<CaptureSearchResult>) super.getSearchResultFilters(wbRequest, closestGroup);
-		if( filters == null ) {
-			filters = new ObjectFilterChain<CaptureSearchResult>();
-		}
+		// Optionally, silently filter using the white list:
 		if( !declareLegalRestriction ) {
-			// This will silently filter using the white list:
+			if( filters == null ) {
+				filters = new ObjectFilterChain<CaptureSearchResult>();
+			}
 			filters.addFilter(surtFilterFactory.getFilter(wbRequest));
 		}
 		return filters;
