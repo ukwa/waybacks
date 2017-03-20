@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+
+  oukwa-wayback:
+    image: ukwa/waybacks:2.3.1-PATCHED-1.1.1
+    ports:
+      - "${INTERNAL_IP}:9080:8080"
+      - "${INTERNAL_IP}:8090:8090"
+    environment:
+      - "UKWA_OWB_VERSION=ukwa"
+      - "WAYBACK_URL_PORT=8080"
+      - "WAYBACK_URL_PREFIX=https://www.webarchive.org.uk/wayback"
+      - "WAYBACK_URL_SCHEME=https"
+      - "WAYBACK_URL_HOST=www.webarchive.org.uk"
+      - "CDX_INDEX_SERVER=http://bigcdx.wa.bl.uk:8080/data-heritrix"
+      - "CDX_WHITELIST=/wayback-whitelist.txt"
+      - "WAYBACK_HTTPFS_PREFIX=http://hdfs.gtw.wa.bl.uk:14000/webhdfs/v1"
+      - "WAYBACK_EMBARGO=-1"
+      - "WAYBACK_EXCLUDE_FILE=/wayback/webapps/ROOT/WEB-INF/classes/exclude.txt"
+    volumes:
+      - "/opt/wayback-whitelist.txt:/wayback-whitelist.txt"
