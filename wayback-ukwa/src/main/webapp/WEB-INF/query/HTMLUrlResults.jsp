@@ -68,10 +68,15 @@ while(itr.hasNext()) {
     <%
     
   } else {
-    String anchor = results.makeCaptureQueryUrl(originalUrl);
+    String anchor = "";
+    try {
+    	anchor = results.makeCaptureQueryUrl(originalUrl);
+    } catch( Exception e) {
+    	anchor = "#Unparseable-URL";
+    }
     %>
     <a href="<%= anchor %>">
-      <%= urlKey %>
+      <%= originalUrl %>
     </a>
     <span class="mainSearchText">
       <%= fmt.format("PathPrefixQuery.versionCount",numVersions) %>
