@@ -23,8 +23,8 @@ RUN chmod +x /opt/tomcat/bin/*.sh
 RUN cd /opt/tomcat/webapps && rm -rf *
 
 # Tweak Tomcat configuration
-COPY docker/server.xml /opt/apache-tomcat-7.0.70/conf/server.xml
-COPY docker/logging.properties /opt/apache-tomcat-7.0.70/conf/logging.properties
+COPY docker/server.xml /opt/tomcat/conf/server.xml
+COPY docker/logging.properties /opt/tomcat/conf/logging.properties
 
 # Install ICU4J in the system JVM for broader language support
 RUN \
