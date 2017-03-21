@@ -26,7 +26,7 @@ block from the ResourceIndex. These URLs or SURTs are treated as prefixes:
 "http://www.archive.org/ima" will block anything starting with that string
 from being returned from the index.
 -->
-    <bean id="excluder-factory-static" class="org.archive.wayback.accesscontrol.staticmap.StaticMapExclusionFilterFactory">
+    <bean id="excluder-factory-static" class="org.archive.wayback.accesscontrol.staticmap.StaticListExclusionFilterFactory">
         <property name="file" value="${wayback.exclude.file}"/>
         <!-- the checkInterval in seconds to set: every ten minutes -->
         <property name="checkInterval" value="600"/>

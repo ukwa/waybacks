@@ -3,9 +3,12 @@
  */
 package org.archive.wayback.resourceindex;
 
+import org.archive.wayback.accesscontrol.staticmap.StaticListExclusionFilter;
+import org.archive.wayback.accesscontrol.staticmap.StaticMapExclusionFilter;
 import org.archive.wayback.core.CaptureSearchResult;
 import org.archive.wayback.core.CaptureSearchResults;
 import org.archive.wayback.core.SearchResults;
+import org.archive.wayback.core.UrlSearchResult;
 import org.archive.wayback.core.UrlSearchResults;
 import org.archive.wayback.core.WaybackRequest;
 import org.archive.wayback.exception.AccessControlException;
@@ -15,6 +18,7 @@ import org.archive.wayback.exception.ResourceNotInArchiveException;
 import org.archive.wayback.exception.UnavailableForLegalReasonsException;
 import org.archive.wayback.resourceindex.filterfactory.ClosestTrackingCaptureFilterGroup;
 import org.archive.wayback.resourceindex.filterfactory.SURTCaptureFilterGroupFactory;
+import org.archive.wayback.resourceindex.filters.ExclusionFilter;
 import org.archive.wayback.util.ObjectFilter;
 import org.archive.wayback.util.ObjectFilterChain;
 import org.slf4j.Logger;

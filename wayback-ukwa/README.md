@@ -27,6 +27,12 @@ and that version expects to be deployed at webarchive.org.uk/wayback/, and to re
 which is otherwise identical to the production build.
 
 
+Access Control
+--------------
+
+exclude file, whitelist
+
+
 Extensions
 ----------
 
