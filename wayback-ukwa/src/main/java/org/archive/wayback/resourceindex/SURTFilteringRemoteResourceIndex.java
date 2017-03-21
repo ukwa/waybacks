@@ -90,11 +90,14 @@ public class SURTFilteringRemoteResourceIndex extends RemoteResourceIndex {
 			WaybackRequest wbRequest,
 			ClosestTrackingCaptureFilterGroup closestGroup) {
 		ObjectFilterChain<CaptureSearchResult> filters = (ObjectFilterChain<CaptureSearchResult>) super.getSearchResultFilters(wbRequest, closestGroup);
+        if (filters == null) {
+            filters = new ObjectFilterChain<CaptureSearchResult>();
+        }
+        // Use the exclude file to drop unwanted results:
+        filters.addFilter(wbRequest.getExclusionFilter());
+
 		// Optionally, silently filter using the white list:
 		if( !declareLegalRestriction ) {
-			if( filters == null ) {
-				filters = new ObjectFilterChain<CaptureSearchResult>();
-			}
 			filters.addFilter(surtFilterFactory.getFilter(wbRequest));
 		}
 		return filters;
