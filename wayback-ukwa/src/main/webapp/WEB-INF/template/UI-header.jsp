@@ -13,6 +13,13 @@ String staticPrefix = results.getStaticPrefix();
 String queryPrefix = results.getQueryPrefix();
 String replayPrefix = results.getReplayPrefix();
 
+// Remember the query URL
+String queryUrl = wbRequest.getRequestUrl();
+if( queryUrl == null || "".equals(queryUrl)) {
+    queryUrl = "http://";
+}
+
+
 %>
 <!-- HEADER -->
 <html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" lang="en"><head>
@@ -85,7 +92,7 @@ String replayPrefix = results.getReplayPrefix();
 														<%= fmt.format("UIGlobal.enterWebAddress") %>
 													</font> 
 													<input type="hidden" name="<%= WaybackRequest.REQUEST_TYPE %>" value="<%= WaybackRequest.REQUEST_CAPTURE_QUERY %>">
-													<input type="text" name="<%= WaybackRequest.REQUEST_URL %>" value="http://" size="24" maxlength="256">
+													<input type="text" name="<%= WaybackRequest.REQUEST_URL %>" value="<%= queryUrl %>" size="24" maxlength="256">
 													&nbsp;
 												</b> 
 												<select name="<%= WaybackRequest.REQUEST_DATE %>" size="1">
