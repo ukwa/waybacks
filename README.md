@@ -98,6 +98,16 @@ The UKWA modifications include:
 
 Note http://faq.web.archive.org/page-without-wayback-code/ - the id_ suffix thing avoids any re-writing and returns raw responses.
 
+Note also a wierd issue - with Apache 2.2 mod_proxy the return of the 451 code failed and it returns 500 instead. This may be fixed, at least in Apache 2.4 (see [here](http://stackoverflow.com/questions/24775340/apache-reverse-proxy-changes-status-code)), but needs a status message for Apache 2.2, i.e.
+
+    HTTP/1.1 451 Unavailable for Legal Reasons
+    
+would work, but 
+
+    HTTP/1.1 451
+
+Gets turned into a `500`. To report a `451` properly you need Apache Tomcat 7.0.74 or later (see [here](https://bz.apache.org/bugzilla/show_bug.cgi?id=53602)).
+
 Access Control
 --------------
 
