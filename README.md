@@ -32,7 +32,17 @@ Note that the UKWA and LDWA builds are slightly different. By default
 
 will build each module, and each creates a different WAR for a different deployment context. Each is intended to pick up the necessary configuration from the local environment variables.
 
-Finally, note that it is important that the exclusion list, exclude.txt, is manually copied into place after the 'mvn clean install'. This means the exclusion list is outside of the build, so it can be updated separately without further WAR builds. Where appropriate there is an exclude.txt file in each installation. The built wayback service makes use of this exclusion list via the corresponding environment variable, typically set in /etc/sysconfig/tomcat-wayback.
+Note that it is important that the exclusion list, exclude.txt, is manually copied into place after the 'mvn clean install'. This means the exclusion list is outside of the build, so it can be updated separately without further WAR builds. Where appropriate there is an exclude.txt file in each installation. The built wayback service makes use of this exclusion list via the corresponding environment variable, typically set in /etc/sysconfig/tomcat-wayback.
+
+Until we switch to Docker, deployment of a minor update looks something like:
+
+    $ ssh oukwa-wayback
+    $ cd /root/github/waybacks/
+    $ git pull
+    $ mvn clean install
+    $ cd /opt/tomcat_instances/wayback/webapps/
+    $ cp /root/github/waybacks/wayback-ukwa/target/wayback.war ROOT.war
+    
 
 ### Developer build/test instructions ###
 
