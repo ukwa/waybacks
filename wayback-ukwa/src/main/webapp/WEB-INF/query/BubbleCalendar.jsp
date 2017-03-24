@@ -11,10 +11,11 @@
 <%@ page import="org.archive.wayback.core.UIResults" %>
 <%@ page import="org.archive.wayback.core.WaybackRequest" %>
 <%@ page import="org.archive.wayback.partition.BubbleCalendarData" %>
+<%@ page import="org.archive.wayback.util.Timestamp" %>
 <%@ page import="org.archive.wayback.util.partition.Partition" %>
 <%@ page import="org.archive.wayback.util.StringFormatter" %>
-<jsp:include page="/WEB-INF/template/UI-header.jsp" flush="true" />
 <jsp:include page="/WEB-INF/template/CookieJS.jsp" flush="true" />
+
 <%
 UIResults results = UIResults.extractCaptureQuery(request);
 
@@ -29,14 +30,18 @@ String replayPrefix = results.getReplayPrefix();
 //deployment-specific address for the graph generator:
 String graphJspPrefix = results.getContextConfig("graphJspPrefix");
 if(graphJspPrefix == null) {
-    graphJspPrefix = queryPrefix;
+	graphJspPrefix = queryPrefix;
 }
 
 // graph size "constants": These are currently baked-in to the JS logic...
-int imgWidth = 915;
+int imgWidth = 0;
 int imgHeight = 75;
-int yearWidth = 61;
+int yearWidth = 49;
 int monthWidth = 5;
+int startYear = Timestamp.getStartYear();
+
+for (int year = startYear; year <= Calendar.getInstance().get(Calendar.YEAR); year++)
+    imgWidth += yearWidth;
 
 BubbleCalendarData data = new BubbleCalendarData(results);
 
@@ -47,6 +52,9 @@ String yearImgUrl = graphJspPrefix + "jsp/graph.jsp?nomonth=1&graphdata=" + year
 Calendar cal = BubbleCalendarData.getUTCCalendar();
 
 %>
+<style type="text/css" src="<%= staticPrefix %>css/styles.css">
+@import url("<%= staticPrefix %>css/styles.css");
+</style>
 <script type="text/javascript" src="<%= staticPrefix %>js/jquery-1.4.2.min.js"></script>
 <script type="text/javascript" src="<%= staticPrefix %>js/excanvas.compiled.js"></script>
 <script type="text/javascript" src="<%= staticPrefix %>js/jquery.bt.min.js" charset="utf-8"></script>
@@ -61,39 +69,39 @@ var lastDate = <%= data.dataEndMSSE %>;
 var wbPrefix = "<%= replayPrefix %>";
 var wbCurrentUrl = "<%= data.searchUrlForJS %>";
 
-var curYear = <%= data.yearNum - 1991 %>;
+var curYear = <%= data.yearNum - startYear %>;
 var curMonth = -1;
 var yearCount = 15;
-var firstYear = 1991;
-var startYear = <%= data.yearNum - 1991 %>;
+var firstYear = <%= startYear %>;
+var startYear = <%= data.yearNum - startYear %>;
 var imgWidth = <%= imgWidth %>;
 var yearImgWidth = <%= yearWidth %>;
 var monthImgWidth = <%= monthWidth %>;
 var trackerVal = "none";
 
 function showTrackers(val) {
-    if(val == trackerVal) {
-        return;
-    }
+	if(val == trackerVal) {
+		return;
+	}
 
     document.getElementById("wbMouseTrackYearImg").style.display = val;
     trackerVal = val;
 }
 function getElementX2(obj) {
-    var thing = jQuery(obj);
-    if((thing == undefined) 
-            || (typeof thing == "undefined") 
-            || (typeof thing.offset == "undefined")) {
-        return getElementX(obj);
-    }
-    return Math.round(thing.offset().left);
+	var thing = jQuery(obj);
+	if((thing == undefined) 
+			|| (typeof thing == "undefined") 
+			|| (typeof thing.offset == "undefined")) {
+		return getElementX(obj);
+	}
+	return Math.round(thing.offset().left);
 }
 function setActiveYear(year) {
     if(curYear != year) {
         var yrOff = year * yearImgWidth;
         document.getElementById("wbMouseTrackYearImg").style.left = yrOff + "px";
         if(curYear != -1) {
-            document.getElementById("highlight-"+curYear).setAttribute("class","inactiveHighlight");
+        	document.getElementById("highlight-"+curYear).setAttribute("class","inactiveHighlight");
         }
         document.getElementById("highlight-"+year).setAttribute("class","activeHighlight");
         curYear = year;
@@ -104,32 +112,32 @@ function trackMouseMove(event,element) {
     var eventX = getEventX(event);
     var elementX = getElementX2(element);
     var xOff = eventX - elementX;
-    if(xOff < 0) {
-        xOff = 0;
-    } else if(xOff > imgWidth) {
-        xOff = imgWidth;
-    }
+	if(xOff < 0) {
+		xOff = 0;
+	} else if(xOff > imgWidth) {
+		xOff = imgWidth;
+	}
     var monthOff = xOff % yearImgWidth;
 
     var year = Math.floor(xOff / yearImgWidth);
-    var yearStart = year * yearImgWidth;
+	var yearStart = year * yearImgWidth;
     var monthOfYear = Math.floor(monthOff / monthImgWidth);
     if(monthOfYear > 11) {
         monthOfYear = 11;
     }
     var month = (year * 12) + monthOfYear;
     var day = 1;
-    if(monthOff % 2 == 1) {
-        day = 15;
-    }
-    var dateString = 
-        zeroPad(year + firstYear) + 
-        zeroPad(monthOfYear+1,2) +
-        zeroPad(day,2) + "000000";
+	if(monthOff % 2 == 1) {
+		day = 15;
+	}
+	var dateString = 
+		zeroPad(year + firstYear) + 
+		zeroPad(monthOfYear+1,2) +
+		zeroPad(day,2) + "000000";
 
-    var url = "<%= queryPrefix %>" + dateString + '*/' +  wbCurrentUrl;
-    document.getElementById('wm-graph-anchor').href = url;
-    setActiveYear(year);
+	var url = "<%= queryPrefix %>" + dateString + '*/' +  wbCurrentUrl;
+	document.getElementById('wm-graph-anchor').href = url;
+	setActiveYear(year);
 }
 </script>
 
@@ -204,20 +212,26 @@ $().ready(function(){
     <div id="wbSearch">
     
         <div id="logo">
-            <a href="/index.jsp"><img src="<%= staticPrefix %>images/logo_WM.png" alt="logo: Internet Archive's Wayback Machine" width="183" height="65" /></a>
+            <a href="<%= queryPrefix %>"><img src="<%= staticPrefix %>images/toolbar/wayback-toolbar-logo.png" alt="UK Web Archive" /></a>
         </div>
 
         <div id="form">
         
             <form name="form1" method="get" action="<%= queryPrefix %>query">
-            <input type="hidden" name="<%= WaybackRequest.REQUEST_TYPE %>" value="<%= WaybackRequest.REQUEST_CAPTURE_QUERY %>">
-            <input type="text" name="<%= WaybackRequest.REQUEST_URL %>" value="<%= data.searchUrlForHTML %>" size="40">
+			<input type="hidden" name="<%= WaybackRequest.REQUEST_TYPE %>" value="<%= WaybackRequest.REQUEST_CAPTURE_QUERY %>">
+                        <input type="text" name="<%= WaybackRequest.REQUEST_URL %>" value="<%= data.searchUrlForHTML %>" size="40" maxlength="256">
             <input type="submit" name="Submit" value="Go Wayback!"/>
             </form>
     
             <div id="wbMeta">
-                <p class="wbThis"><a href="<%= data.searchUrlForHTML %>"><%= data.searchUrlForHTML %></a> has been crawled <strong><%= fmt.format("{0} times",data.numResults) %></strong> going all the way back to <a href="<%= data.firstResultReplayUrl %>"><%= fmt.format("{0,date,MMMM d, yyyy}",data.firstResultDate) %></a>.</p>
-                <p class="wbNote">A crawl can be a duplicate of the last one. It happens about 25% of the time across 420,000,000 websites. <a href="https://webarchive.jira.com/wiki/display/WWMOS/FAQs">FAQ</a></p>
+                <p class="wbThis"><%= fmt.format("BubbleCalendar.crawledInfo",
+                                            data.searchUrlForHTML, 
+                                            data.numResults,
+                                            data.firstResultReplayUrl,
+                                            data.firstResultDate,
+                                            data.numYearResults,
+                                            data.yearNum) %></p>
+                <p class="wbNote"><%= fmt.format("BubbleCalendar.crawledInfoDuplicate") %><a href="<%= fmt.format("UIGlobal.helpUrl") %>"><%= fmt.format("BubbleCalendar.documentation") %></a></p>
             </div>
         </div>
         
@@ -230,46 +244,46 @@ $().ready(function(){
   <div id="wbChartThis">
         <a style="position:relative; white-space:nowrap; width:<%= imgWidth %>px;height:<%= imgHeight %>px;" href="<%= queryPrefix %>" id="wm-graph-anchor">
         <div id="wm-ipp-sparkline" style="position:relative; white-space:nowrap; width:<%= imgWidth %>px;height:<%= imgHeight %>px;background: #f3f3f3 -moz-linear-gradient(top,#ffffff,#f3f3f3);background: #f3f3f3 -webkit-gradient(linear, left top, left bottom, from(#fff), to(#f3f3f3), color-stop(1.0, #f3f3f3));background-color: #f3f3f3;filter: progid:DXImageTransform.Microsoft.Gradient(enabled='true',startColorstr=#FFFFFFFF, endColorstr=#FFF3F3F3);cursor:pointer;border: 1px solid #ccc;border-left:none;" title="<%= fmt.format("ToolBar.sparklineTitle") %>">
-            <img id="sparklineImgId" style="position:absolute;z-index:9012;top:0;left:0;"
-                onmouseover="showTrackers('inline');" 
-                
-                onmousemove="trackMouseMove(event,this)"
-                alt="sparklines"
-                width="<%= imgWidth %>"
-                height="<%= imgHeight %>"
-                border="0"
-                src="<%= yearImgUrl %>"></img>
-            <img id="wbMouseTrackYearImg" 
-                style="display:none; position:absolute; z-index:9010;"
-                width="<%= yearWidth %>" 
-                height="<%= imgHeight %>"
-                border="0"
-                src="<%= staticPrefix %>images/toolbar/yellow-pixel.png"></img>
-            <img id="wbMouseTrackMonthImg"
-                style="display:none; position:absolute; z-index:9011; " 
-                width="<%= monthWidth %>"
-                height="<%= imgHeight %>" 
-                border="0"
-                src="<%= staticPrefix %>images/toolbar/transp-black-pixel.png"></img>
+			<img id="sparklineImgId" style="position:absolute;z-index:9012;top:0;left:0;"
+				onmouseover="showTrackers('inline');" 
+				
+				onmousemove="trackMouseMove(event,this)"
+				alt="sparklines"
+				width="<%= imgWidth %>"
+				height="<%= imgHeight %>"
+				border="0"
+				src="<%= yearImgUrl %>"></img>
+			<img id="wbMouseTrackYearImg" 
+				style="display:none; position:absolute; z-index:9010;"
+				width="<%= yearWidth %>" 
+				height="<%= imgHeight %>"
+				border="0"
+				src="<%= staticPrefix %>images/toolbar/yellow-pixel.png"></img>
+			<img id="wbMouseTrackMonthImg"
+				style="display:none; position:absolute; z-index:9011; " 
+				width="<%= monthWidth %>"
+				height="<%= imgHeight %>" 
+				border="0"
+				src="<%= staticPrefix %>images/toolbar/transp-black-pixel.png"></img>
         </div>
         </a>
+        	<%
+        	for(int i = startYear; i <= Calendar.getInstance().get(Calendar.YEAR); i++) {
+        		String curClass = "inactiveHighlight";
+        		if(data.yearNum == i) {
+            		curClass = "activeHighlight";
+        		}
+        	%>
+	            <div class="wbChartThisContainer">
+	                <a style="text-decoration: none;" href="<%= queryPrefix + i + "0201000000*/" + data.searchUrlForHTML %>">
+	                
+	                	<div id="highlight-<%= i - startYear %>"
+						onmouseover="showTrackers('inline'); setActiveYear(<%= i - startYear %>)" 
+	                	class="<%= curClass %>"><%= i %></div>
+	                </a>
+	            </div>
             <%
-            for(int i = 1991; i < 2013; i++) {
-                String curClass = "inactiveHighlight";
-                if(data.yearNum == i) {
-                    curClass = "activeHighlight";
-                }
-            %>
-                <div class="wbChartThisContainer">
-                    <a style="text-decoration: none;" href="<%= queryPrefix + i + "0101000000*/" + data.searchUrlForJS %>">
-                    
-                        <div id="highlight-<%= i - 1991 %>"
-                        onmouseover="showTrackers('inline'); setActiveYear(<%= i - 1991 %>)" 
-                        class="<%= curClass %>"><%= i %></div>
-                    </a>
-                </div>
-            <%
-            }
+        	}
             %>
   </div>
 </div>
@@ -285,74 +299,74 @@ $().ready(function(){
 <%
 // draw 12 months, 0-11 (0=Jan, 11=Dec)
 for(int moy = 0; moy < 12; moy++) {
-    Partition<Partition<CaptureSearchResult>> curMonth = data.monthsByDay.get(moy);
-    List<Partition<CaptureSearchResult>> monthDays = curMonth.list();
+	Partition<Partition<CaptureSearchResult>> curMonth = data.monthsByDay.get(moy);
+	List<Partition<CaptureSearchResult>> monthDays = curMonth.list();
 %>
     <div class="month" id="<%= data.yearNum %>-<%= moy %>">
-        <table>
-    
-           <thead>
-               <tr>
-                   <th colspan="7"><span class="label"></span></th>
-               </tr>
-           </thead>
-           <tbody>
-               <tr>
+	    <table>
+	
+	       <thead>
+	           <tr>
+	               <th colspan="7"><span class="label"></span></th>
+	           </tr>
+	       </thead>
+	       <tbody>
+	           <tr>
 <%
-        cal.setTime(curMonth.getStart());
-        int skipDays = cal.get(Calendar.DAY_OF_WEEK) - 1;
-        int daysInMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-        // skip until the 1st:
-        for(int i = 0; i < skipDays; i++) {
-            %><td><div class="date"></div></td><%
-        }
-        int dow = skipDays;
-        int dom;
-        for(dom = 0; dom < daysInMonth; dom++) {
+		cal.setTime(curMonth.getStart());
+		int skipDays = cal.get(Calendar.DAY_OF_WEEK) - 1;
+		int daysInMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+		// skip until the 1st:
+		for(int i = 0; i < skipDays; i++) {
+			%><td><div class="date"></div></td><%
+		}
+		int dow = skipDays;
+		int dom;
+		for(dom = 0; dom < daysInMonth; dom++) {
 
 
-            int count = monthDays.get(dom).count();
-            if(count > 0) {
-                // one or more captures in this day:
-                CaptureSearchResult firstCaptureInDay = 
-                    monthDays.get(dom).list().get(0);
-                String replayUrl = uriConverter.makeReplayURI(
-                            firstCaptureInDay.getCaptureTimestamp(),
-                            firstCaptureInDay.getOriginalUrl());
-                Date firstCaptureInDayDate = firstCaptureInDay.getCaptureDate();
-                String safeUrl = fmt.escapeHtml(replayUrl);     
-                %><td>
+			int count = monthDays.get(dom).count();
+			if(count > 0) {
+				// one or more captures in this day:
+				CaptureSearchResult firstCaptureInDay = 
+					monthDays.get(dom).list().get(0);
+				String replayUrl = uriConverter.makeReplayURI(
+							firstCaptureInDay.getCaptureTimestamp(),
+							firstCaptureInDay.getOriginalUrl());
+				Date firstCaptureInDayDate = firstCaptureInDay.getCaptureDate();
+				String safeUrl = fmt.escapeHtml(replayUrl);		
+				%><td>
                     <div class="date">
                         <div class="position">
                            <div class="hidden"><%= count %></div>
                            <div class="measure opacity20" id="<%= fmt.format("{0,date,MMM-d-yyyy}",firstCaptureInDayDate) %>"><img width="100%" height="100%"/></div>
                         </div>
                     </div>
-                </td><%
+				</td><%
 
-            } else {
-                // zero captures in this day:
-                %><td>
-                    <div class="date"></div>
-                </td><%
-                
-            }
+			} else {
+				// zero captures in this day:
+				%><td>
+	                <div class="date"></div>
+				</td><%
+				
+			}
 
 
-            if(((dom+skipDays+1) % 7) == 0) {
-                // end of the week, start a new tr:
-                %></tr><tr><%
-            }
-        }
-        // fill in blank days until the end of the current week:
-        while(((dom+skipDays) % 7) != 0) {
-            %><td></td><%
-            dom++;
-        }
+			if(((dom+skipDays+1) % 7) == 0) {
+				// end of the week, start a new tr:
+				%></tr><tr><%
+			}
+		}
+		// fill in blank days until the end of the current week:
+		while(((dom+skipDays) % 7) != 0) {
+			%><td></td><%
+			dom++;
+		}
 %>
-               </tr>
-            </tbody>
-        </table>    
+			   </tr>
+			</tbody>
+		</table>    
       </div>
     
 <%
@@ -363,63 +377,63 @@ for(int moy = 0; moy < 12; moy++) {
 <%
 
 for(int moy = 0; moy < 12; moy++) {
-    Partition<Partition<CaptureSearchResult>> curMonth = data.monthsByDay.get(moy);
-    List<Partition<CaptureSearchResult>> monthDays = curMonth.list();
+	Partition<Partition<CaptureSearchResult>> curMonth = data.monthsByDay.get(moy);
+	List<Partition<CaptureSearchResult>> monthDays = curMonth.list();
 %>
     <div class="month" id="<%= data.yearNum %>-<%= moy %>">
-        <table>
-    
-           <thead>
-               <tr>
-                   <th colspan="7"><span class="label"><%= fmt.format("{0,date,MMM}",curMonth.getStart()) %></span></th>
-               </tr>
-           </thead>
-           <tbody>
-               <tr>
+	    <table>
+	
+	       <thead>
+	           <tr>
+	               <th colspan="7"><span class="label"><%= fmt.format("{0,date,MMM}",curMonth.getStart()) %></span></th>
+	           </tr>
+	       </thead>
+	       <tbody>
+	           <tr>
 <%
-        cal.setTime(curMonth.getStart());
-        int skipDays = cal.get(Calendar.DAY_OF_WEEK) - 1;
-        int daysInMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-        // skip until the 1st:
-        for(int i = 0; i < skipDays; i++) {
-            %><td><div class="date"></div></td><%
-        }
-        int dow = skipDays;
-        int dom;
-        for(dom = 0; dom < daysInMonth; dom++) {
+		cal.setTime(curMonth.getStart());
+		int skipDays = cal.get(Calendar.DAY_OF_WEEK) - 1;
+		int daysInMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+		// skip until the 1st:
+		for(int i = 0; i < skipDays; i++) {
+			%><td><div class="date"></div></td><%
+		}
+		int dow = skipDays;
+		int dom;
+		for(dom = 0; dom < daysInMonth; dom++) {
 
 
-            int count = monthDays.get(dom).count();
-            
-            if(count > 0) {
-                // one or more captures in this day:
-                CaptureSearchResult firstCaptureInDay =
-                    monthDays.get(dom).list().get(0);
-                String replayUrl = uriConverter.makeReplayURI(
-                        firstCaptureInDay.getCaptureTimestamp(),
-                        firstCaptureInDay.getOriginalUrl());
-                Date firstCaptureInDayDate = firstCaptureInDay.getCaptureDate();
-                String safeUrl = fmt.escapeHtml(replayUrl);
+			int count = monthDays.get(dom).count();
+			
+			if(count > 0) {
+				// one or more captures in this day:
+				CaptureSearchResult firstCaptureInDay =
+					monthDays.get(dom).list().get(0);
+				String replayUrl = uriConverter.makeReplayURI(
+						firstCaptureInDay.getCaptureTimestamp(),
+						firstCaptureInDay.getOriginalUrl());
+				Date firstCaptureInDayDate = firstCaptureInDay.getCaptureDate();
+				String safeUrl = fmt.escapeHtml(replayUrl);
 
-                %><td>
+				%><td>
                     <div class="date tooltip">
                         <div class="pop">
                             <h3><%= fmt.format("{0,date,MMMMM d, yyyy}",firstCaptureInDayDate) %></h3>
                             <p><%= count %> snapshots</p>
                             <ul>
-                            <%
-                            Iterator<CaptureSearchResult> dayItr = 
-                                monthDays.get(dom).iterator();
-                            while(dayItr.hasNext()) {
-                                CaptureSearchResult c = dayItr.next();
-                                String replayUrl2 = uriConverter.makeReplayURI(
-                                        c.getCaptureTimestamp(),c.getOriginalUrl());
-                                String safeUrl2 = fmt.escapeHtml(replayUrl2);
-                                %>
-                                <li><a href="<%= safeUrl2 %>"><%= fmt.format("{0,date,HH:mm:ss}",c.getCaptureDate()) %></a></li>
-                                <%
-                            }
-                            %>
+							<%
+							Iterator<CaptureSearchResult> dayItr = 
+								monthDays.get(dom).iterator();
+							while(dayItr.hasNext()) {
+								CaptureSearchResult c = dayItr.next();
+								String replayUrl2 = uriConverter.makeReplayURI(
+										c.getCaptureTimestamp(),c.getOriginalUrl());
+								String safeUrl2 = fmt.escapeHtml(replayUrl2);
+								%>
+								<li><a href="<%= safeUrl2 %>"><%= fmt.format("{0,date,HH:mm:ss}",c.getCaptureDate()) %></a></li>
+								<%
+							}
+							%>
                             </ul>
                         </div>
                         <div class="day">
@@ -427,33 +441,33 @@ for(int moy = 0; moy < 12; moy++) {
                             <a href="<%= safeUrl %>" title="<%= count %> snapshots" class="<%= fmt.format("{0,date,MMM-d-yyyy}",firstCaptureInDayDate) %>"><%= dom + 1 %></a>
                         </div>
                     </div>
-                  </td><%
+			      </td><%
 
-            } else {
-                // zero captures in this day:
-                %><td>
-                    <div class="date">
-                        <div class="day"><span><%= dom + 1 %></span></div>
-                    </div>
-                </td><%
-                
-            }
+			} else {
+				// zero captures in this day:
+				%><td>
+	                <div class="date">
+	    	            <div class="day"><span><%= dom + 1 %></span></div>
+		            </div>
+				</td><%
+				
+			}
 
 
-            if(((dom+skipDays+1) % 7) == 0) {
-                // end of the week, start a new tr:
-                %></tr><tr><%
-            }
-        }
-        // fill in blank days until the end of the current week:
-        while(((dom+skipDays) % 7) != 0) {
-            %><td></td><%
-            dom++;
-        }
+			if(((dom+skipDays+1) % 7) == 0) {
+				// end of the week, start a new tr:
+				%></tr><tr><%
+			}
+		}
+		// fill in blank days until the end of the current week:
+		while(((dom+skipDays) % 7) != 0) {
+			%><td></td><%
+			dom++;
+		}
 %>
-               </tr>
-            </tbody>
-        </table>    
+			   </tr>
+			</tbody>
+		</table>    
       </div>
 <%
 }
@@ -461,8 +475,8 @@ for(int moy = 0; moy < 12; moy++) {
     </div>
   </div>
   <div id="wbCalNote">
-    <h2>Note</h2>
-    <p>This calendar view maps the number of times <%= data.searchUrlForHTML %> was crawled by the Wayback Machine, <em>not</em> how many times the site was actually updated. More info in the <a href="https://webarchive.jira.com/wiki/display/WWMOS/FAQs">FAQ</a>.</p>
+    <h2><%= fmt.format("BubbleCalendar.wbCalNoteTitle") %></h2>
+    <p><%= fmt.format("BubbleCalendar.wbCalNote", data.searchUrlForHTML, fmt.format("UIGlobal.helpUrl")) %></p>
   </div>
 </div>
   

@@ -52,6 +52,7 @@
 
 	<bean id="fastArchivalSAXDelegator" class="org.archive.wayback.archivalurl.FastArchivalUrlReplayParseEventHandler">
 		<property name="jspInsertPath" value="/WEB-INF/replay/DisclaimChooser.jsp"/>
+        <property name="headInsertJsp" value="/WEB-INF/replay/HTMLHeadInsert.jsp"/>
 	</bean>
 
 	<bean id="archivalsaxreplayrenderer" class="org.archive.wayback.archivalurl.ArchivalUrlSAXRewriteReplayRenderer">

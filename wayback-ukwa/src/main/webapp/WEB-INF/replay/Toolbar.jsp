@@ -15,6 +15,7 @@
 %><%@ page import="org.archive.wayback.partition.PartitionPartitionMap"
 %><%@ page import="org.archive.wayback.partition.PartitionsToGraph"
 %><%@ page import="org.archive.wayback.partition.ToolBarData"
+%><%@ page import="org.archive.wayback.util.Timestamp"
 %><%@ page import="org.archive.wayback.util.graph.Graph"
 %><%@ page import="org.archive.wayback.util.graph.GraphEncoder"
 %><%@ page import="org.archive.wayback.util.graph.GraphRenderer"
@@ -47,49 +48,28 @@ Date firstYearDate = data.yearPartitions.get(0).getStart();
 Date lastYearDate = data.yearPartitions.get(data.yearPartitions.size()-1).getEnd();
 
 int resultIndex = 1;
-int imgWidth = 375;
+int imgWidth = 0;
 int imgHeight = 27;
 int monthWidth = 2;
 int yearWidth = 25;
+int startYear = Timestamp.getStartYear();
+
+for (int year = startYear; year <= Calendar.getInstance().get(Calendar.YEAR); year++)
+    imgWidth += yearWidth;
+
 String yearFormatKey = "PartitionSize.dateHeader.yearGraphLabel";
 String encodedGraph = data.computeGraphString(yearFormatKey,imgWidth,imgHeight);
 String graphImgUrl = graphJspPrefix + "jsp/graph.jsp?graphdata=" + encodedGraph;
 // TODO: this is archivalUrl specific:
 String starLink = fmt.escapeHtml(queryPrefix + wbRequest.getReplayTimestamp() + 
 		"*/" + searchUrl);
-// Adding language-switch logic:
-String switchLang = "Cymraeg";
-String switchSearchUrl = replayPrefix + wbRequest.getReplayTimestamp() + "/" + searchUrl;
-if(replayPrefix.endsWith("-cy/") ) {
-	// This is the Welsh, so offer to switch back to English:		
-	switchLang = "English";
-	switchSearchUrl = switchSearchUrl.replaceFirst("/archive-cy/", "/archive/");
-} else {
-	switchSearchUrl = switchSearchUrl.replaceFirst("/archive/", "/archive-cy/");
-}
 %>
 <!-- BEGIN WAYBACK TOOLBAR INSERT -->
 
 <script type="text/javascript" src="<%= staticPrefix %>js/disclaim-element.js" ></script>
 <script type="text/javascript" src="<%= staticPrefix %>js/graph-calc.js" ></script>
-<!-- 
-<script type="text/javascript" src="<%= staticPrefix %>jflot/jquery.min.js" ></script>
- -->
 <script type="text/javascript">
-/*
- * Experimental jQuery AJAX method override.
- * 
-jQuery.ajaxBase = jQuery.ajax;
-jQuery.ajax = function( s ) {
-    console.log("jQuery.ajax.1 "+s.url);
-	  if ( s.url != undefined ) {
-		  s.url = convertToWaybackURL( s.url );
-		  console.log("jQuery.ajax.2 "+s.url);
-	  }
-	  return jQuery.ajaxBase(s);	
-};
-*/
-
+//<![CDATA[
 var firstDate = <%= firstYearDate.getTime() %>;
 var lastDate = <%= lastYearDate.getTime() %>;
 var wbPrefix = "<%= replayPrefix %>";
@@ -98,7 +78,7 @@ var wbCurrentUrl = "<%= searchUrlJS %>";
 var curYear = -1;
 var curMonth = -1;
 var yearCount = 15;
-var firstYear = 1991;
+var firstYear = <%= startYear %>;
 var imgWidth=<%= imgWidth %>;
 var yearImgWidth = <%= yearWidth %>;
 var monthImgWidth = <%= monthWidth %>;
@@ -106,7 +86,7 @@ var trackerVal = "none";
 var displayDay = "<%= fmt.format("ToolBar.curDayText",data.curResult.getCaptureDate()) %>";
 var displayMonth = "<%= fmt.format("ToolBar.curMonthText",data.curResult.getCaptureDate()) %>";
 var displayYear = "<%= fmt.format("ToolBar.curYearText",data.curResult.getCaptureDate()) %>";
-var prettyMonths = <%= fmt.format("ToolBar.prettyMonthsArray") %>;
+var prettyMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
 function showTrackers(val) {
 	if(val == trackerVal) {
@@ -128,19 +108,10 @@ function showTrackers(val) {
    document.getElementById("wbMouseTrackMonthImg").style.display = val;
    trackerVal = val;
 }
-function getElementX2(obj) {
-	var thing = jQuery(obj);
-	if((thing == undefined) 
-			|| (typeof thing == "undefined") 
-			|| (typeof thing.offset == "undefined")) {
-		return getElementX(obj);
-	}
-	return Math.round(thing.offset().left);
-}
 function trackMouseMove(event,element) {
 
    var eventX = getEventX(event);
-   var elementX = getElementX2(element);
+   var elementX = getElementX(element);
    var xOff = eventX - elementX;
 	if(xOff < 0) {
 		xOff = 0;
@@ -150,7 +121,6 @@ function trackMouseMove(event,element) {
    var monthOff = xOff % yearImgWidth;
 
    var year = Math.floor(xOff / yearImgWidth);
-	var yearStart = year * yearImgWidth;
    var monthOfYear = Math.floor(monthOff / monthImgWidth);
    if(monthOfYear > 11) {
        monthOfYear = 11;
@@ -167,7 +137,7 @@ function trackMouseMove(event,element) {
 		zeroPad(day,2) + "000000";
 
 	var monthString = prettyMonths[monthOfYear];
-	document.getElementById("displayYearEl").innerHTML = year + 1991;
+	document.getElementById("displayYearEl").innerHTML = year + <%= startYear %>;
 	document.getElementById("displayMonthEl").innerHTML = monthString;
 	// looks too jarring when it changes..
 	//document.getElementById("displayDayEl").innerHTML = zeroPad(day,2);
@@ -187,21 +157,27 @@ function trackMouseMove(event,element) {
        curMonth = month;
    }
 }
+//]]>
 </script>
 
 <style type="text/css">body{margin-top:0!important;padding-top:0!important;min-width:800px!important;}#wm-ipp a:hover{text-decoration:underline!important;}</style>
 <div id="wm-ipp" style="display:none; position:relative;padding:0 5px;min-height:70px;min-width:800px; z-index:9000;">
 <div id="wm-ipp-inside" style="position:fixed;padding:0!important;margin:0!important;width:97%;min-width:780px;border:5px solid #000;border-top:none;background-image:url(<%= staticPrefix %>images/toolbar/wm_tb_bk_trns.png);text-align:center;-moz-box-shadow:1px 1px 3px #333;-webkit-box-shadow:1px 1px 3px #333;box-shadow:1px 1px 3px #333;font-size:11px!important;font-family:'Lucida Grande','Arial',sans-serif!important;">
-   <table style="border-collapse:collapse;margin:0;padding:0;width:100%;"><tbody><tr>
-   <td style="padding:10px;vertical-align:top;width:180px;">
-   <a href="<%= queryPrefix %>" title="Wayback Machine home page" style="background-color:transparent;border:none;float:left;margin-right:4px;"><img src="<%= staticPrefix %>images/toolbar/wayback-toolbar-logo.png" alt="Wayback Machine" width="40" height="40" border="0"/></a><div style="font-size: 9px !important;color:#333;text-align:center;line-height:1.0em;"><%= fmt.format("ToolBar.playbackWarning") %></div>
-   </td>
-   <td style="padding:0!important;text-align:center;vertical-align:top;">
+    <table style="border-collapse:collapse;margin:0;padding:0;width:100%;"><tbody><tr>
+        <td style="padding:10px;vertical-align:top;min-width:110px;">
+            <a href="<%= queryPrefix %>" title="Wayback Machine home page" style="background-color:transparent;border:none;"><img src="<%= staticPrefix %>images/toolbar/wayback-toolbar-logo.png" alt="UK Web Archive" border="0"/></a>
+        </td>
+        <td style="padding:0!important;text-align:center;vertical-align:top;width:100%;">
 
-       <table style="border-collapse:collapse;margin:0 auto;padding:0;width:570px;"><tbody><tr>
-       <td style="padding:3px 0;" colspan="2">
-       <form target="_top" method="get" action="<%= queryPrefix %>query" name="wmtb" id="wmtb" style="margin:0!important;padding:0!important;"><input type="text" name="<%= WaybackRequest.REQUEST_URL %>" id="wmtbURL" value="<%= searchUrlSafe %>" style="width:400px;font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;"/><input type="hidden" name="<%= WaybackRequest.REQUEST_TYPE %>" value="<%= WaybackRequest.REQUEST_REPLAY_QUERY %>"><input type="hidden" name="<%= WaybackRequest.REQUEST_DATE %>" value="<%= data.curResult.getCaptureTimestamp() %>"><input type="submit" value="Go" style="font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;margin-left:5px;"/><span id="wm_tb_options" style="display:block;"></span></form>
-       </td>
+            <table style="border-collapse:collapse;margin:0 auto;padding:0;width:570px;"><tbody><tr>
+                <td style="padding:3px 0;" colspan="2">
+                    <form target="_top" method="get" action="<%= queryPrefix %>query" name="wmtb" id="wmtb" style="margin:0!important;padding:0!important;">
+                        <input type="text" name="<%= WaybackRequest.REQUEST_URL %>" id="wmtbURL" value="<%= searchUrlSafe %>" maxlength="256" style="width:400px;font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;"/>
+                        <input type="hidden" name="<%= WaybackRequest.REQUEST_TYPE %>" value="<%= WaybackRequest.REQUEST_REPLAY_QUERY %>"><input type="hidden" name="<%= WaybackRequest.REQUEST_DATE %>" value="<%= data.curResult.getCaptureTimestamp() %>"/>
+                        <input type="submit" value="Go" style="font-size:11px;font-family:'Lucida Grande','Arial',sans-serif;margin-left:5px;"/>
+                        <span id="wm_tb_options" style="display:block;"/>
+                    </form>
+                </td>
        <td style="vertical-align:bottom;padding:5px 0 0 0!important;" rowspan="2">
            <table style="border-collapse:collapse;width:110px;color:#99a;font-family:'Helvetica','Lucida Grande','Arial',sans-serif;"><tbody>
 			
@@ -337,9 +313,8 @@ function trackMouseMove(event,element) {
        </tr></tbody></table>
    </td>
    <td style="text-align:right;padding:5px;width:65px;font-size:11px!important;">
-       <a href="javascript:;" onclick="document.getElementById('wm-ipp').style.display='none';" style="display:block;padding-right:18px;background:url(<%= staticPrefix %>images/toolbar/wm_tb_close.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;margin-bottom:7px;background-color:transparent;border:none;" title="<%= fmt.format("ToolBar.closeTitle") %>"><%= fmt.format("ToolBar.closeText") %></a>
-       <a href="<%= switchSearchUrl %>" style="display:block;padding-right:18px;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;margin-bottom:7px;background-color:transparent;border:none;" title="<%= switchLang %>"><%= switchLang %></a>
-       <a href="http://www.webarchive.org.uk/ukwa/info/faq" style="display:block;padding-right:18px;background:url(<%= staticPrefix %>images/toolbar/wm_tb_help.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;background-color:transparent;border:none;" title="<%= fmt.format("ToolBar.helpTitle") %>"><%= fmt.format("ToolBar.helpText") %></a>
+       <a href="javascript:;" onclick="document.getElementById('wm-ipp').style.display='none';" style="display:block;padding-right:18px;background:url(<%= staticPrefix %>images/toolbar/wm_tb_close.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;margin-bottom:23px;background-color:transparent;border:none;" title="<%= fmt.format("ToolBar.closeTitle") %>"><%= fmt.format("ToolBar.closeText") %></a>
+       <a href="<%= fmt.format("UIGlobal.helpUrl") %>" style="display:block;padding-right:18px;background:url(<%= staticPrefix %>images/toolbar/wm_tb_help.png) no-repeat 100% 0;color:#33f;font-family:'Lucida Grande','Arial',sans-serif;background-color:transparent;border:none;" title="<%= fmt.format("ToolBar.helpTitle") %>"><%= fmt.format("ToolBar.helpText") %></a>
    </td>
    </tr></tbody></table>
 
@@ -350,47 +325,5 @@ function trackMouseMove(event,element) {
  if(wmDisclaimBanner != null) {
    disclaimElement(wmDisclaimBanner);
  }
-</script>
-<!-- Google Analytics -->
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-7571526-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
-<!-- Flowplayer overrides -->
-<script type="text/javascript">
-	if( typeof flowplayer != "function" ) {
-		var fScript = document.createElement( "script" );
-		fScript.setAttribute( "type", "text/javascript" );
-		fScript.setAttribute( "src", "//www.webarchive.org.uk/flowplayer/flowplayer-3.1.4.min.js" );
-		document.getElementsByTagName( "head" )[0].appendChild( fScript );
-	}
-	var dScript= document.createElement( "script" );
-	var oDomain = "<%=wbRequest.getRequestUrl()%>"; 
-
-	dScript.setAttribute( "type", "text/javascript" );
-
-	regEx = new RegExp( "https?:/+([^/]+)/.*" );
-	oDomain = regEx.exec( oDomain );
-	dScript.setAttribute( "src", "//www.webarchive.org.uk/flowplayer/" + oDomain[ 1 ] + ".js" );
-	document.getElementsByTagName( "head" )[0].appendChild( dScript );
-	// And fire:
-	var oldOnload = window.onload;
-    window.onload = function()
-    {
-        if( oldOnload ) oldOnload();
-        // Attempt to change the page title:
-        document.title = "[<%= fmt.format("UIGlobal.ARCHIVED") %>] " + document.title;
-        // Initiate the flowplayer override:
-		if( typeof streamVideo == "function" ) streamVideo();
-    }
 </script>
 <!-- END WAYBACK TOOLBAR INSERT -->
