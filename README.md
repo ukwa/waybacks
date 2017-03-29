@@ -76,25 +76,19 @@ UKWA Wayback Modifications
 
 The UKWA modifications include:
 
- * Flowplayer.
- * Google Analytics embedding.
- * UK Theme in UI-header/footer JSPs, Toolbar branding, etc.
- * Archive Query behaviour (i.e. wayback/archive/* returns XML not HTML).
-     * http://www.webarchive.org.uk/wayback/archive/*/http://www.bbc.co.uk
-     * Not sure this is what we really want.
-     * http://www.webarchive.org.uk/waybackhdfs/archive/xmlquery?url=http://www.nytimes.com
-     * http://inkdroid.org/journal/2012/05/03/way-way-back/
-     * REMOVED.
- * Memento access point (wayback/memento/ & wayback/list/)
- * Blocked selected websites via exclude.txt
- * White-list for open access websites, HTTP 451 for reading-room-only content.
- * Welsh language access point (wayback/archive-cy)
- * Cross-linking between languages
- * [ARCHIVED] in page title.
- * Embed the warning from resources, rather than directly in the page.
- * prettyMonths is hard-coded English.
- * Welsh translation of 'ARCHIVED'.
- * Welsh disclaimer.
+- JSP/UI modifications:
+    - Flowplayer hook.
+    - Google Analytics code embedding.
+    - UKWA Theme in UI-header/footer JSPs, Toolbar branding, etc.
+    - Cross-linking between languages
+    - [ARCHIVED] in page title.
+    - Links to main site, e.g. disclaimer, T&Cs
+- Bean/system modifications:
+    - Memento access point (archive/memento/ & archive/list/) enabled.
+    - Blocked selected websites via exclude.txt
+    - White-list for open access websites, HTTP 451 for reading-room-only content.
+    - Welsh language access point (wayback/archive-cy) (n.b. prettyMonths is hard-coded English.)
+    - OutbackCDX and HDFS/DLS backends via `RemoteCollection.xml`
 
 Note http://faq.web.archive.org/page-without-wayback-code/ - the id_ suffix thing avoids any re-writing and returns raw responses.
 
