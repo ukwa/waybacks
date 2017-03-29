@@ -6,10 +6,11 @@
                         wayback.url.host=#{systemEnvironment['WAYBACK_URL_HOST']}
                         wayback.url.port=#{systemEnvironment['WAYBACK_URL_PORT']}
                         wayback.url.prefix=#{systemEnvironment['WAYBACK_URL_PREFIX']}
+                        wayback.proxy.port=#{systemEnvironment['WAYBACK_PROXY_PORT']}
                         wayback.httpfs.prefix=#{systemEnvironment['WAYBACK_HTTPFS_PREFIX']}
                         cdx.index.server=#{systemEnvironment['CDX_INDEX_SERVER']}
                         cdx.whitelist=#{systemEnvironment['CDX_WHITELIST']}
-			wayback.exclude.file=#{systemEnvironment['WAYBACK_EXCLUDE_FILE']}
+			            wayback.exclude.file=#{systemEnvironment['WAYBACK_EXCLUDE_FILE']}
                         wayback.embargo=#{systemEnvironment['WAYBACK_EMBARGO']}
                 </value>
         </property>
@@ -119,5 +120,46 @@ at org.archive.wayback.webapp.AccessPoint.go(AccessPoint.java:1)
             </bean>
         </property>
     </bean>
-    
+
+
+<!--
+    The following AccessPoint inherits all configuration from the ${wayback.port}:wayback
+    AccessPoint, but provides a Proxy Replay UI to the same collection. These
+    two access points can be used simultaneously on the same Tomcat 
+    installation.
+  
+    Note: using this AccessPoint requires adding a "Connector" on port e.g. 8090
+         in your Tomcat's server.xml file.
+ -->
+
+  <import resource="ProxyReplay.xml"/>
+  <bean name="proxy" parent="wayback">
+    <property name="accessPointPath" value="${wayback.proxy.port}"/>
+    <property name="serveStatic" value="true" />
+    <property name="bounceToReplayPrefix" value="false" />
+    <property name="bounceToQueryPrefix" value="false" />
+    <property name="refererAuth" value="" />
+
+    <property name="staticPrefix" value="http://${wayback.url.host}:${wayback.proxy.port}/" />
+    <property name="replayPrefix" value="http://${wayback.url.host}:${wayback.proxy.port}/" />
+    <property name="queryPrefix" value="http://${wayback.url.host}:${wayback.proxy.port}/" />
+    <property name="replay" ref="proxyreplay" />
+    <property name="uriConverter">
+      <bean class="org.archive.wayback.proxy.RedirectResultURIConverter">
+        <property name="redirectURI" value="http://${wayback.url.host}:${wayback.proxy.port}/jsp/QueryUI/Redirect.jsp" />
+      </bean>
+    </property>
+    <property name="parser">
+      <bean class="org.archive.wayback.proxy.ProxyRequestParser">
+        <property name="localhostNames">
+          <list>
+            <value>${wayback.url.host}</value>
+          </list>
+        </property>
+        <property name="maxRecords" value="1000" />
+        <property name="addDefaults" value="false" />
+      </bean>
+    </property>
+  </bean>
+
 </beans>
