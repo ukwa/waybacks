@@ -144,14 +144,13 @@ at org.archive.wayback.webapp.AccessPoint.go(AccessPoint.java:1)
     <property name="queryPrefix" value="http://${wayback.url.host}:${wayback.proxy.port}/" />
     <property name="replay" ref="proxyreplay" />
     <property name="uriConverter">
-      <bean class="org.archive.wayback.proxy.RedirectResultURIConverter">
-        <property name="redirectURI" value="http://${wayback.url.host}:${wayback.proxy.port}/jsp/QueryUI/Redirect.jsp" />
-      </bean>
+      <bean class="org.archive.wayback.proxy.ProxyHttpsResultURIConverter"/>
     </property>
     <property name="parser">
       <bean class="org.archive.wayback.proxy.ProxyRequestParser">
         <property name="localhostNames">
           <list>
+            <value>localhost</value>
             <value>${wayback.url.host}</value>
           </list>
         </property>
