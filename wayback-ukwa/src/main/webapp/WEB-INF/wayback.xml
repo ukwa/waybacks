@@ -147,7 +147,7 @@ at org.archive.wayback.webapp.AccessPoint.go(AccessPoint.java:1)
       <bean class="org.archive.wayback.proxy.ProxyHttpsResultURIConverter"/>
     </property>
     <property name="parser">
-      <bean class="org.archive.wayback.proxy.ProxyRequestParser">
+      <bean class="org.archive.wayback.proxy.ProxyArchivalRequestParser">
         <property name="localhostNames">
           <list>
             <value>localhost</value>
