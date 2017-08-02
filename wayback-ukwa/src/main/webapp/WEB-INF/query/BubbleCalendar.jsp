@@ -258,7 +258,7 @@ $().ready(function(){
 				width="<%= yearWidth %>" 
 				height="<%= imgHeight %>"
 				border="0"
-				src="<%= staticPrefix %>images/toolbar/yellow-pixel.png"></img>
+				src="<%= staticPrefix %>images/yellow-pixel.png"></img>
 			<img id="wbMouseTrackMonthImg"
 				style="display:none; position:absolute; z-index:9011; " 
 				width="<%= monthWidth %>"
