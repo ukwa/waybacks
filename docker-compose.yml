@@ -13,6 +13,7 @@ services:
       - "WAYBACK_URL_PREFIX=http://localhost:19080"
       - "WAYBACK_URL_SCHEME=http"
       - "WAYBACK_URL_HOST=localhost"
+      - "WAYBACK_PROXY_PORT=8090"
       - "CDX_INDEX_SERVER=http://cdxserver:9090/fc"
       - "CDX_WHITELIST=/wayback-whitelist.txt"
       - "WAYBACK_HTTPFS_PREFIX=http://hadoop:50070/webhdfs/v1"
@@ -21,5 +22,5 @@ services:
     volumes:
       - "./wayback-ukwa/src/test/resources/include.txt:/wayback-whitelist.txt"
     extra_hosts:
-      - "hadoop:192.168.1.7"
-      - "cdxserver:192.168.1.7"
+      - "hadoop:10.8.135.187"
+      - "cdxserver:10.8.135.187"
