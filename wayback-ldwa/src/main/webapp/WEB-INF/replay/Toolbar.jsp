@@ -82,7 +82,7 @@ var wbCurrentUrl = "<%= searchUrlJS %>";
 var curYear = -1;
 var curMonth = -1;
 var yearCount = 15;
-var firstYear = 1996;
+var firstYear = 1991;
 var imgWidth=<%= imgWidth %>;
 var yearImgWidth = <%= yearWidth %>;
 var monthImgWidth = <%= monthWidth %>;
