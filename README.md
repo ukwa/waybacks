@@ -11,19 +11,6 @@ This repository places our various Wayback installations under tighter control. 
 Installation
 ------------
 
-### Temporary installation process due to locale issue. ###
-
-Until 2.3.2 is released, we need a patched version of OpenWayback.
-
-Build openwayback by:
-
-  git clone https://github.com/ukwa/openwayback.git && \
-  cd openwayback && \
-  git checkout restore-locale-switch && \
-  mvn install
-
-Then the normal UKWA wayback build process can be followed...
-
 ### General build instructions ###
 
 Note that the UKWA and LDWA builds are slightly different. By default
@@ -50,12 +37,15 @@ As we're using WAR overlays, IDEs can struggle to run the service using their de
 
     mvn clean install tomcat7:run-war
 
-will create a WAR suitable for local deployment and testing, and then run it under Tomcat 7. To better control the logging, you can do something like:
+will create and run a WAR suitable for local deployment and testing, and then run it under Tomcat 7. To better control the logging, you can do something like:
 
     mvn -Djava.util.logging.config.file=src/main/resources/logging.properties clean install tomcat7:run-war
     
 Actual configuration is done via environment variables. See [docker-compose.yml](docker-compose.yml) or [this Eclipse screenshot](docs/eclipse-environment-vars.png) for examples suitable for (on-site) testing purposes.
 
+See `wayback-ukwa/run-war-internal.sh` and related scripts for example environment variable settings that should work. Once running, you need to go to the full path including access point, and test using URLs that are covered by the CDX whitelist and not excluded by the exclude file.
+
+e.g. http://localhost:8080/wayback-ukwa/archive/query?type=urlquery&url=http%3A%2F%2Fwww.bl.uk
 
 Requirements
 ------------
