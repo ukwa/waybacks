@@ -3,12 +3,9 @@
  */
 package org.archive.wayback.resourceindex;
 
-import org.archive.wayback.accesscontrol.staticmap.StaticListExclusionFilter;
-import org.archive.wayback.accesscontrol.staticmap.StaticMapExclusionFilter;
 import org.archive.wayback.core.CaptureSearchResult;
 import org.archive.wayback.core.CaptureSearchResults;
 import org.archive.wayback.core.SearchResults;
-import org.archive.wayback.core.UrlSearchResult;
 import org.archive.wayback.core.UrlSearchResults;
 import org.archive.wayback.core.WaybackRequest;
 import org.archive.wayback.exception.AccessControlException;
@@ -18,7 +15,6 @@ import org.archive.wayback.exception.ResourceNotInArchiveException;
 import org.archive.wayback.exception.UnavailableForLegalReasonsException;
 import org.archive.wayback.resourceindex.filterfactory.ClosestTrackingCaptureFilterGroup;
 import org.archive.wayback.resourceindex.filterfactory.SURTCaptureFilterGroupFactory;
-import org.archive.wayback.resourceindex.filters.ExclusionFilter;
 import org.archive.wayback.util.ObjectFilter;
 import org.archive.wayback.util.ObjectFilterChain;
 import org.slf4j.Logger;
@@ -35,13 +31,18 @@ public class SURTFilteringRemoteResourceIndex extends RemoteResourceIndex {
 	private String surtFile;
 	private SURTCaptureFilterGroupFactory surtFilterFactory;
 	
-	private boolean declareLegalRestriction = true;
+    // Show a 451 error when content is unavailable, rather than silently
+    // suppressing the results.
+    private boolean declareLegalRestriction = true;
+
+    private boolean useWhitelist = true;
 
 	public void setSurtFile(String surtFile) {
 		this.surtFile = surtFile;
 		if( this.surtFile == null || "".equals(this.surtFile)) {
 			// Do no filtering at all if this is unset:
 			logger.warn("No CDX whitelist set - assuming all content is whitelisted.");
+            this.useWhitelist = false;
 			return;
 		}
 		logger.info("Firing up CDX whitelist...");
@@ -60,7 +61,7 @@ public class SURTFilteringRemoteResourceIndex extends RemoteResourceIndex {
 	public SearchResults query(WaybackRequest wbRequest) throws ResourceIndexNotAvailableException,
 			ResourceNotInArchiveException, BadQueryException, AccessControlException {
 		SearchResults results = super.query(wbRequest);
-		if( !declareLegalRestriction ) {
+        if (!useWhitelist) {
 			logger.debug("Not filtering query results...");
 			return results;
 		}
@@ -77,8 +78,8 @@ public class SURTFilteringRemoteResourceIndex extends RemoteResourceIndex {
 			        // If a result was found, but has been excluded here, then it's because
 			        // of the legal deposit restrictions.
 			        // Therefore, attempt to raise a clear HTTP 451 error in this case:
-		            throw new UnavailableForLegalReasonsException(
-			                    "This Legal Deposit resource can only be accessed on site in a Legal Deposit Library reading room.");
+                    throw new UnavailableForLegalReasonsException(
+                            "This Legal Deposit resource can only be accessed on site in a Legal Deposit Library reading room.");
 				}
 			}
 		}
@@ -101,7 +102,7 @@ public class SURTFilteringRemoteResourceIndex extends RemoteResourceIndex {
         filters.addFilter(wbRequest.getExclusionFilter());
 
 		// Optionally, silently filter using the white list:
-		if( !declareLegalRestriction ) {
+        if (useWhitelist && !declareLegalRestriction) {
 			filters.addFilter(surtFilterFactory.getFilter(wbRequest));
 		}
 		return filters;
