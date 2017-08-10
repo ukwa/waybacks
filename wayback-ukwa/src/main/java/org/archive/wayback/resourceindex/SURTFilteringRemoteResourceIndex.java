@@ -100,6 +100,9 @@ public class SURTFilteringRemoteResourceIndex extends RemoteResourceIndex {
         }
         // Use the exclude file to drop unwanted results:
         filters.addFilter(wbRequest.getExclusionFilter());
+	// Use embargo filter to drop unwanted results: 
+        if (wbRequest.getAccessPoint().getEmbargoMS() > 0)
+        	filters.addFilter(new DateEmbargoFilter(wbRequest.getAccessPoint().getEmbargoMS()));
 
 		// Optionally, silently filter using the white list:
         if (useWhitelist && !declareLegalRestriction) {
