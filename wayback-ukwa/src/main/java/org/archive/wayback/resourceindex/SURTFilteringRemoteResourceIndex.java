@@ -15,6 +15,7 @@ import org.archive.wayback.exception.ResourceNotInArchiveException;
 import org.archive.wayback.exception.UnavailableForLegalReasonsException;
 import org.archive.wayback.resourceindex.filterfactory.ClosestTrackingCaptureFilterGroup;
 import org.archive.wayback.resourceindex.filterfactory.SURTCaptureFilterGroupFactory;
+import org.archive.wayback.resourceindex.filters.DateEmbargoFilter;
 import org.archive.wayback.util.ObjectFilter;
 import org.archive.wayback.util.ObjectFilterChain;
 import org.slf4j.Logger;
