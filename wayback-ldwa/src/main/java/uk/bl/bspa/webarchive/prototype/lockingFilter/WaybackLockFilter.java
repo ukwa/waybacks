@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
  */
 public class WaybackLockFilter extends BaseLockFilter{
 	
-	public static String FILTER_DOMAIN = "/wayback";
+    public static String FILTER_DOMAIN = "";
 	
 	protected static Logger logger = LoggerFactory.getLogger(WaybackLockFilter.class);
 	
@@ -41,7 +41,7 @@ public class WaybackLockFilter extends BaseLockFilter{
 		FILTER_DOMAIN = config.getServletContext().getContextPath() + propertiesConfig.getProperty("wayback.relativePath");
 		MSG_PAGE = FILTER_DOMAIN + "/pages/";
 		WAYBACK_QUERY =  FILTER_DOMAIN + "/query";
-		
+        logger.info("Locking active under filter domain: " + FILTER_DOMAIN);
     }
 	
 	@Override
@@ -53,8 +53,6 @@ public class WaybackLockFilter extends BaseLockFilter{
 	
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

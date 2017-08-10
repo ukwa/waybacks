@@ -85,12 +85,6 @@
 			<version>2.0.2</version>
 		</dependency>
 		<dependency>
-			<!-- Required by Quartz to prevent SLF4J Error Messages -->
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.7.2</version>
-		</dependency>
-		<dependency>
 			<groupId>${wayback.groupId}</groupId>
 			<artifactId>openwayback-core</artifactId>
 			<version>${wayback.version}</version>
@@ -117,6 +111,11 @@
 			<groupId>org.dspace</groupId>
 			<artifactId>foresite</artifactId>
 			<version>SNAPSHOT</version>
+		</dependency>
+		<dependency>
+		   <groupId>org.slf4j</groupId>
+		   <artifactId>slf4j-jdk14</artifactId>
+		   <version>1.7.2</version>
 		</dependency>
 	</dependencies>
 	<build>
