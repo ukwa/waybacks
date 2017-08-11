@@ -43,8 +43,10 @@ public abstract class BaseLockFilter implements Filter {
 	
     public static String FILTER_DOMAIN = "";
 	// Do not change relative paths
-	public static final String ERROR_PAGE ="/pages/status/SystemProblem.html"; 	// Relative path
-	public static final String LOCK_PAGE = "/pages/status/ItemAlreadyInUse.html";	// Relative path
+    public static final String ERROR_PAGE = "/pages/status/SystemProblem.jsp"; // Relative
+                                                                               // path
+    public static final String LOCK_PAGE = "/pages/status/ItemAlreadyInUse.jsp"; // Relative
+                                                                                 // path
 	public static final String LOGOFF_PAGE = "/logoff"; // Relative path
 	public static final String UNSUPPORTED_BROWSER_PAGE = "/pages/unsupportedBrowser.jsp"; //Relative path
 	public static final String SESSION_PAGE = "/pages/maintainSessions.jsp";
