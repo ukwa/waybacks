@@ -14,7 +14,7 @@
       			<td width="615" valign="top">
 					<br/>
 			    	<h2><font color="red">Unfortunately there has been an error.</font></h2>
-			    	<p>Please contact British Library customer services</p>
+			    	<p>Please contact customer services</p>
 					
 														
 				</td>

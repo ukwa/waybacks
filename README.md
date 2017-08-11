@@ -117,6 +117,7 @@ To Do
 - Re-implement controllable banner (minimise, move, main-frame-only, etc)
 - Better cross-linking to/from main site too?
 - Improve/replace the Captures page (which is struggling with the scale) consider BubbleCalendar or a variation based on Mementos.
+- Note that WEB_ARCHIVE_NAME should be set to e.g. "The British Library Legal Deposit Web Archive" for wayback-ldwa.
 
 
 

@@ -1,0 +1,6 @@
+intranet.ad.bl.uk
+intranet.bl.uk
+webarchive.nationalarchives.gov.uk
+walesholidaycaravans.co.uk/wwhc.sql
+cottages-wales.co.uk/wwhc.sql
+daysoutinwales.oc.uk/wwhc.sql
