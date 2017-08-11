@@ -9,17 +9,17 @@
 	<meta name="DCTERMS.modified" scheme="DCTERMS.W3CDTF" content="2012-10-23"/>
 	<meta name="DC.type" scheme="DCTERMS.DCMIType" content="Text"/>
 	<meta name="DC.format" scheme="DCTERMS.IMT" content="text/html"/>
-	<meta name="DC.identifier" content="SystemProblem.html"/>
+	<meta name="DC.identifier" content="ItemAlreadyInUse.html"/>
 	<meta name="DC.language" scheme="DCTERMS.ISO639-2" content="eng"/>
 	<meta name="eGMS.subject.category" scheme="GCL" content="libraries and archives"/>
-	<meta name="DC.description" content="If the Legal Deposit Secure Access Service systems detect a problem, the user sees this page."/>
-	<meta name="description" content="If the Legal Deposit Secure Access Service systems detect a problem, the user sees this page."/>
-	<meta name="keywords" content="Legal Deposit secure access service LDL NPLD error problem system"/>
-	<meta name="DC.subject" content="Legal Deposit secure access service LDL NPLD error problem system"/>
+	<meta name="DC.description" content="Legal Deposit items are restricted to one concurrent access per library. If a user tries to access an item that is already in use, they will see this informative page."/>
+	<meta name="description" content="Legal Deposit items are restricted to one concurrent access per library. If a user tries to access an item that is already in use, they will see this informative page."/>
+	<meta name="keywords" content="Legal Deposit access concurrent licence restrictions law LDL NPLD"/>
+	<meta name="DC.subject" content="Legal Deposit access concurrent licence restrictions law LDL NPLD"/>
 	<meta name="DC.subject" scheme="DCTERMS.LCSH" content="British Library"/>
 	<meta name="DC.subject" scheme="DCTERMS.DDC" content="025"/>
-	<meta name="DC.title" content="System problem"/>
-	<title>System problem</title>
+	<meta name="DC.title" content="The item is already in use"/>
+	<title>The item is already in use</title>
 <style type="text/css">
 html {
 	font-size: 100%;
@@ -596,22 +596,23 @@ text-decoration:none;
 
 <body>
 <div id="pagewrapper">
-	<div id="pagewidth"> <a name="top" id="top"></a>
+	<div id="pagewidth">
 		<div style="background-color:rgb(0, 153, 153);color:#fff;padding:10px">
-			<h1>System problem</h1>
+			<h1>Sorry, this item is already in use</h1>
 		</div>
+
 		<div id="colwrap" style="margin-top: 30px;">
 			<div id="maincolwide">
 				<div class="pagecontent">
 					<div dir="ltr" align="left">
-						<h2><strong>Sorry - we could not fulfil your request because there is a problem with the system</strong></h2>
-						<p>Some problems are resolved automatically, so please wait a short time then try again.</p>
-						<p>If the problem continues, please let us know by contacting the Reference Services Team in the Reading Room, and report that there is a problem with the &quot;Legal Deposit Secure Access Service.&quot;</p>
-						<p>Please accept our apologies for this inconvenience.</p>
+						<h2><strong>Another reader is already looking at the item at a different computer.</strong></h2>
+						<h2><strong>This is the maximum permitted by law.</strong></h2>						
+						<p>The item you requested is licensed under the terms of the Legal Deposit Libraries (Non-Print Works) Regulations 2013. Clause 23 of the regulations states: &quot;A deposit library must ensure that only one computer terminal is available to readers to access the same relevant material at any one time.&quot;</p>
+						<p>Please accept our apologies for the inconvenience but these restrictions are beyond our control and we are required to comply with the law.</p>
+						<p>If you feel you have received this message in error, or you would like further help in this matter, please contact the Reference Services Team, in the Reading Room.</p>
 					</div>
-					<p><strong>Return to <a href="/ukdomain/">LDWA Search</a></strong></p>
 				</div>
-				<p>The Cambridge University Library Legal Deposit Web Archive</p>
+				<p><%= System.getenv("WEB_ARCHIVE_NAME") %></p>
 			</div>
 		</div>
 	</div>

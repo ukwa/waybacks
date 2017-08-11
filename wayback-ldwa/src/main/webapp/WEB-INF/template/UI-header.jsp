@@ -32,7 +32,7 @@ String replayPrefix = results.getReplayPrefix();
                         src="<%= staticPrefix %>css/styles.css" />
 <!-- END OF Wayback CSS -->
 
-<title><%= fmt.format("UIGlobal.pageTitle") %></title>
+<title><%= System.getenv("WEB_ARCHIVE_NAME") %></title>
 </head><body class="js"><div class="header">
 
         <div class="banner">
