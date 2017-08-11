@@ -61,7 +61,9 @@ public class SURTFilteringRemoteResourceIndex extends RemoteResourceIndex {
 	@Override
 	public SearchResults query(WaybackRequest wbRequest) throws ResourceIndexNotAvailableException,
 			ResourceNotInArchiveException, BadQueryException, AccessControlException {
+		
 		SearchResults results = super.query(wbRequest);
+		
         if (!useWhitelist) {
 			logger.debug("Not filtering query results...");
 			return results;
@@ -95,20 +97,30 @@ public class SURTFilteringRemoteResourceIndex extends RemoteResourceIndex {
 	protected ObjectFilter<CaptureSearchResult> getSearchResultFilters(
 			WaybackRequest wbRequest,
 			ClosestTrackingCaptureFilterGroup closestGroup) {
-		ObjectFilterChain<CaptureSearchResult> filters = (ObjectFilterChain<CaptureSearchResult>) super.getSearchResultFilters(wbRequest, closestGroup);
-        if (filters == null) {
-            filters = new ObjectFilterChain<CaptureSearchResult>();
-        }
+		
+       	ObjectFilterChain<CaptureSearchResult> filters = new ObjectFilterChain<CaptureSearchResult>();
+       	
         // Use the exclude file to drop unwanted results:
         filters.addFilter(wbRequest.getExclusionFilter());
-	// Use embargo filter to drop unwanted results: 
-        if (wbRequest.getAccessPoint().getEmbargoMS() > 0)
+	    
+        // Use embargo filter to drop unwanted results: 
+        if (wbRequest.getAccessPoint().getEmbargoMS() > 0) {
         	filters.addFilter(new DateEmbargoFilter(wbRequest.getAccessPoint().getEmbargoMS()));
+        }
 
-		// Optionally, silently filter using the white list:
+		// Optionally, silently filter using the white list rather than emit a 451 (above):
         if (useWhitelist && !declareLegalRestriction) {
 			filters.addFilter(surtFilterFactory.getFilter(wbRequest));
 		}
+        
+        // Now apply the standard filters (order matters because one populates the Closest Match):
+		ObjectFilterChain<CaptureSearchResult> standardFilters = (ObjectFilterChain<CaptureSearchResult>) super.getSearchResultFilters(wbRequest, closestGroup);
+		if( standardFilters != null ) {
+			for( ObjectFilter<CaptureSearchResult> standardFilter : standardFilters.getFilters()) {
+				filters.addFilter(standardFilter);
+			}
+		}
+
 		return filters;
 	}
 

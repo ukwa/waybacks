@@ -56,7 +56,7 @@ public class WebHDFSResourceStore extends SimpleResourceStore {
 	@Override
 	public Resource retrieveResource(CaptureSearchResult result)
 			throws ResourceNotAvailableException {
-
+		LOGGER.fine("Following-up Capture Search Result: " + result.getCaptureTimestamp()+ " of " + result.getOriginalUrl());
 		LOGGER.fine("Looking up "+result.getFile()+"@"+result.getOffset()+".."+result.getCompressedLength());
 
 		// Move offset into a query parameter:
