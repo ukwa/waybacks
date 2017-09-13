@@ -279,7 +279,7 @@ function trackMouseMove(event,element) {
        </tr>
        <tr>
        <td style="vertical-align:middle;padding:0!important;">
-           <a href="<%= starLink %>" style="color:#33f;font-size:11px;font-weight:bold;background-color:transparent;border:none;" title="<%= fmt.format("ToolBar.numCapturesTitle") %>"><strong><%= fmt.format("ToolBar.numCapturesText",data.getResultCount()) %></strong></a>
+           <a href="<%= starLink %>" style="color:#33f;font-size:11px;font-weight:bold;background-color:transparent;border:none;" title="<%= fmt.format("ToolBar.numCapturesTitle") %>"><strong><%= fmt.format("ToolBar.numCapturesText", queryPrefix + "*/" +  searchUrlJS ) %></strong></a>
            <div style="margin:0!important;padding:0!important;color:#666;font-size:9px;padding-top:2px!important;white-space:nowrap;" title="<%= fmt.format("ToolBar.captureRangeTitle") %>"><%= fmt.format("ToolBar.captureRangeText",data.getFirstResultDate(),data.getLastResultDate()) %></div>
        </td>
        <td style="padding:0!important;">
