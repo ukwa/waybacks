@@ -12,9 +12,9 @@ RUN \
   apt-get install -y tar wget curl git maven
 
 # move to /opt and download the tomcat package
-RUN cd /opt && wget -q "http://www.mirrorservice.org/sites/ftp.apache.org/tomcat/tomcat-7/v7.0.79/bin/apache-tomcat-7.0.79.tar.gz" && \
-    cd /opt && tar -zxvf apache-tomcat-7.0.79.tar.gz && \
-    cd /opt && ln -sf apache-tomcat-7.0.79 tomcat
+RUN cd /opt && wget -q "http://www.mirrorservice.org/sites/ftp.apache.org/tomcat/tomcat-7/v7.0.82/bin/apache-tomcat-7.0.82.tar.gz" && \
+    cd /opt && tar -zxvf apache-tomcat-7.0.82.tar.gz && \
+    cd /opt && ln -sf apache-tomcat-7.0.82 tomcat
 
 # make tomcat scripts executable
 RUN chmod +x /opt/tomcat/bin/*.sh
