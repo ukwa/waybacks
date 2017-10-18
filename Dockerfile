@@ -1,30 +1,25 @@
-
-FROM java:openjdk-7-jdk
+FROM maven:3 AS build-env
 # originally based on UNB Libraries Dockerfile
 MAINTAINER Andrew Jackson "anj@anjackson.net"
 
-# update packages and install maven
-RUN \
-  export DEBIAN_FRONTEND=noninteractive && \
-  sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list && \
-  apt-get update && \
-  apt-get -y upgrade && \
-  apt-get install -y tar wget curl git maven
+# Now build our overlays:
+COPY pom.xml /waybacks/pom.xml
+COPY wayback-ukwa /waybacks/wayback-ukwa
+COPY wayback-ldwa /waybacks/wayback-ldwa
+COPY wayback-qa /waybacks/wayback-qa
 
-# move to /opt and download the tomcat package
-RUN cd /opt && wget -q "http://www.mirrorservice.org/sites/ftp.apache.org/tomcat/tomcat-7/v7.0.82/bin/apache-tomcat-7.0.82.tar.gz" && \
-    cd /opt && tar -zxvf apache-tomcat-7.0.82.tar.gz && \
-    cd /opt && ln -sf apache-tomcat-7.0.82 tomcat
+RUN cd waybacks && \
+  mvn install -DskipTests
 
-# make tomcat scripts executable
-RUN chmod +x /opt/tomcat/bin/*.sh
+# Now set up tomcat:
+FROM tomcat:7
 
 # Cleanup webapps directory
-RUN cd /opt/tomcat/webapps && rm -rf *
+RUN cd webapps && rm -rf *
 
 # Tweak Tomcat configuration
-COPY docker/server.xml /opt/tomcat/conf/server.xml
-COPY docker/logging.properties /opt/tomcat/conf/logging.properties
+COPY docker/server.xml conf/server.xml
+COPY docker/logging.properties conf/logging.properties
 
 # Install ICU4J in the system JVM for broader language support
 RUN \
@@ -32,24 +27,13 @@ RUN \
   curl -O http://download.icu-project.org/files/icu4j/58.2/icu4j-localespi-58_2.jar && \ 
   mv icu4j-* /usr/lib/jvm/java-7-openjdk-amd64/jre/lib/ext/
 
-# Build UKWA Wayback versions inside the container...
-# Need a patched OpenWayback instance:
-RUN \
-  git clone https://github.com/ukwa/openwayback.git && \
-  cd openwayback && \
-  git checkout restore-locale-switch && \
-  mvn install -DskipTests
-  
-# Now build our overlays:
-COPY . /waybacks
-RUN \
-  cd waybacks && \
-  mvn install -DskipTests
+# Copy in built WARs:
+COPY --from=build-env /waybacks/wayback-qa/target/*.war /waybacks/wayback-qa/target/
+COPY --from=build-env /waybacks/wayback-ukwa/target/*.war /waybacks/wayback-ukwa/target/
+COPY --from=build-env /waybacks/wayback-ldwa/target/*.war /waybacks/wayback-ldwa/target/
 
 # Define runtime properties
-
 EXPOSE 8080 8090
-
 ENV JAVA_OPTS -Xmx1g
 
 # Use oukwa|ldukwa|qa for Open UKWA, LD UKWA or QA UKWA versions
