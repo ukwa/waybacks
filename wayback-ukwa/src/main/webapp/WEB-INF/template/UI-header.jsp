@@ -24,6 +24,11 @@ String replayPrefix = results.getReplayPrefix();
 		<link rel="stylesheet" type="text/css" 
 			href="<%= staticPrefix %>css/styles.css"
 			src="<%= staticPrefix %>css/styles.css" />
+		<style>
+		.mainBColor {
+		  background-color: #2e6dd9;
+		}
+		</style>
 		<title><%= fmt.format("UIGlobal.pageTitle") %></title>
 		<base target="_top" />
 	</head>
