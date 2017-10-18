@@ -73,7 +73,7 @@ at org.archive.wayback.webapp.AccessPoint.go(AccessPoint.java:1)
                 <property name="captureJsp" value="/WEB-INF/query/CalendarResults.jsp"/>
             -->
                 <!-- This is very poorly laid out with our current CSS: -->
-                    <property name="captureJsp" value="/WEB-INF/query/BubbleCalendarHeatmap.jsp"/>
+                    <property name="captureJsp" value="/WEB-INF/query/BubbleCalendar.jsp"/>
             </bean>
         </property>
         <property name="queryPrefix" value="${wayback.url.prefix}/archive/"/>

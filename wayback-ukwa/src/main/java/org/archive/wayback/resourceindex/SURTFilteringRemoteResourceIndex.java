@@ -120,6 +120,11 @@ public class SURTFilteringRemoteResourceIndex extends RemoteResourceIndex {
 				filters.addFilter(standardFilter);
 			}
 		}
+		// By default, RemoteResourceIndex only does this for Replay requests, but we need them 
+		// for Capture requests too otherwise things like the BubbleCalendar can't work.
+		if( wbRequest.isCaptureQueryRequest()) {
+            filters.addFilter(closestGroup.getFilter());			
+		}
 
 		return filters;
 	}
