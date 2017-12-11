@@ -32,26 +32,25 @@
 							</tr>
 						
         					
-        						<tr class="row" style="color:blue">
-        							<td class="field"><c:out value="${session.sessionId}"/></td>
-									<td class="field" align="right"><c:out value="${session.sessionDetail[0].ipAddress}"/></td>
-									<td class="field" align="right"><c:out value="${session.sessionDetail[0].hostName}"/></td>
-        							<td class="field" align="right">
-        								<a href="/archive/pages/sessionList?sessionId=<c:out value="${session.sessionId}"/>">
-                							<img id="pic" alt="Delete Session" src="../images/icons/ico_deleteitem.gif" border="0"/>
+        					<tr class="row" style="color:blue">
+        						<td class="field"><c:out value="${session.sessionId}"/></td>
+								<td class="field" align="right"><c:out value="${session.sessionDetail[0].ipAddress}"/></td>
+								<td class="field" align="right"><c:out value="${session.sessionDetail[0].hostName}"/></td>
+        						<td class="field" align="right">
+        							<a href="/archive/pages/sessionList?sessionId=<c:out value="${session.sessionId}"/>">
+                						<img id="pic" alt="Delete Session" src="../images/icons/ico_deleteitem.gif" border="0"/>
                 						</a>
-        							
-        							</td>
-        						</tr>
+        						
+        						</td>
+        					</tr>
 		
-        						<c:forEach items="${session.sessionDetail}" var="detail">
-									<tr>                                    	
-                						<td class="field"><c:out value="${detail.page}"/></td>
-                					</tr>
-                				</c:forEach>
-								
-        					</c:forEach>
-        				</table>		
+        					<c:forEach items="${session.sessionDetail}" var="detail">
+								<tr>                                    	
+                					<td class="field"><c:out value="${detail.page}"/></td>
+                				</tr>
+                			</c:forEach>
+						</table>
+        				</c:forEach>
         			</table>
         		</div>
         	</div>
