@@ -19,7 +19,6 @@ import org.slf4j.LoggerFactory;
 public class MementoLockFilter extends BaseLockFilter {
 	
 	public static String FILTER_DOMAIN = "/memento";
-		
 	protected static Logger logger = LoggerFactory.getLogger(MementoLockFilter.class);
 	
 	/**
@@ -33,8 +32,8 @@ public class MementoLockFilter extends BaseLockFilter {
 		super.init(config);
 	    // Use .getContextPath() and set up paths.
 		FILTER_DOMAIN = config.getServletContext().getContextPath() + propertiesConfig.getProperty("memento.relativePath");
-		WAYBACK_QUERY =  FILTER_DOMAIN + "/query";
-		
+		setFilterDomain(FILTER_DOMAIN);
+        logger.warn("Using filter domain: " + FILTER_DOMAIN);
     }
 
 
