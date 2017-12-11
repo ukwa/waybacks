@@ -104,6 +104,16 @@ The white-list, however, is used to declare the subset of our content that is op
 NOTE: All indexed URLs are visible to URL prefix queries, because the system is not set up to filter UrlSearchResults (see
 org.archive.wayback.resourceindex.RemoteResourceIndex.documentToSearchResults(Document, ObjectFilter<CaptureSearchResult>) for details). i.e. if there are any URLs that should not be discoverable, they should be removed from the backing index.
 
+### Concurrent-Use Lock ###
+
+As required by the legislation, we restrict access to each Work in the Non-Print Legal Deposit collection to one user at a time, emulating the existence of one copy per library.  This is achieved through a specialised locking [servlet filter](http://www.oracle.com/technetwork/java/filters-137243.html) that intercepts all requests and locks resources to specific user sessions, based on the user JSESSIONID cookie.
+
+A dedicated page, hosted at `/archive/pages/maintainSessions.jsp` can be used to examine and release locks. Access to this page is restricted to users who have the `administrator` role, via HTTP Basic authentication. It looks like this:
+
+![Maintain Sessions view](./docs/ukwa-npld-lock-session-view-ui.png)
+
+When the users' desktop sessions are closed, the client system can call `/archive/logoff` to force the locks to be released. In case  this doesn't work, all locks are automatically released in the midnight.
+
 
 To Do
 -----
