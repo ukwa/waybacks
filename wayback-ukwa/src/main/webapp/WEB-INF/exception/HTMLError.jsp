@@ -37,8 +37,29 @@ StringFormatter fmt = results.getWbRequest().getFormatter();
 
                 <h2><%= fmt.format(e.getTitleKey()) %></h2>
                 <p><%= fmt.escapeHtml(fmt.format(e.getMessageKey(),e.getMessage())) %></p>
+
+<h3>Next steps</h3>
+
 <%
-if(e instanceof ResourceNotInArchiveException) {
+if(e instanceof org.archive.wayback.exception.UnavailableForLegalReasonsException) {
+	String ts = "20500101120000"; // Direct to most recent copy by default.
+	if( wbr.getReplayTimestamp() != null) {
+		ts = wbr.getReplayTimestamp();
+	}
+%>
+			<p>
+			If you are in a Legal Deposit Library Reading Room, you should be able to access this resource using a library computer, via the appropriate secure access gateway:
+			</p>
+			<ul>
+			  <li><a href="https://bl.ldls.org.uk/welcome.html?<%= ts %>/<%= fmt.escapeHtml(requestUrl) %>">via the British Library's Secure Gateway</a></li>
+			  <li><a href="https://llgc.ldls.org.uk/welcome.html?<%= ts %>/<%= fmt.escapeHtml(requestUrl) %>">via the National Library of Wales' Secure Gateway</a></li>
+			  <li><a href="https://nls.ldls.org.uk/welcome.html?<%= ts %>/<%= fmt.escapeHtml(requestUrl) %>">via the National Library of Scotland's Secure Gateway</a></li>
+			  <li><a href="https://cam.ldls.org.uk/<%= ts %>/<%= fmt.escapeHtml(requestUrl) %>">via the Cambridge University Library's Secure Gateway</a></li>
+			  <li><a href="https://tcdlibrary.ldls.org.uk/<%= ts %>/<%= fmt.escapeHtml(requestUrl) %>">via the Trinity College Library's Secure Gateway</a></li>
+			  <li><a href="https://bodleian.ldls.org.uk/<%= ts %>/<%= fmt.escapeHtml(requestUrl) %>">via the Bodleian Libraries' Secure Gateway</a></li>
+			</ul>
+<%
+} else if(e instanceof ResourceNotInArchiveException) {
 	ResourceNotInArchiveException niae = (ResourceNotInArchiveException) e;
 	List<String> closeMatches = niae.getCloseMatches();
 	if(closeMatches != null && !closeMatches.isEmpty()) {
