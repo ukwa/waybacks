@@ -1,7 +1,7 @@
 /**
  * 
  */
-package uk.bl.bspa.webarchive.prototype.lockingFilter;
+package uk.bl.wa.servlet;
 
 import java.io.IOException;
 
