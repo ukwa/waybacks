@@ -41,7 +41,6 @@ import uk.bl.bspa.webarchive.prototype.lockingFilter.VO.AccessDetailVO;
  */
 public abstract class BaseLockFilter implements Filter {
 	
-    public static String FILTER_DOMAIN = "";
 	// Do not change relative paths
     public static final String ERROR_PAGE = "/pages/status/SystemProblem.jsp"; // Relative
                                                                                // path
@@ -52,7 +51,6 @@ public abstract class BaseLockFilter implements Filter {
 	public static final String SESSION_PAGE = "/pages/maintainSessions.jsp";
 	public static final String COOKIE_PREFIX = "sessionid-";
 	
-	public static String MSG_PAGE = FILTER_DOMAIN+"/pages/";
 	public static final String LOGOFF_JSP_PAGE = "/pages/logoff.jsp";
 	public static final String SESSION_LIST = "maintainSessions.jsp/pages/sessionList";
 	public static final String FILTER_URL_IM = "im_/http://";
@@ -64,18 +62,33 @@ public abstract class BaseLockFilter implements Filter {
 	public static final String FIREFOX = "Firefox";
 	public static final String CHROME = "Chrome";
 	public static final String VALID_ACCEPT = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
-	public static String WAYBACK_QUERY = "/archive/query";
 	protected static Logger logger = LoggerFactory.getLogger(BaseLockFilter.class);
 	
 	public Properties propertiesConfig;
 	public List<String> excludeSuffixes = new ArrayList<String>();
+	
+	private String filterDomain = "";
 	
 	/**
 	 * 
 	 */
 	public BaseLockFilter() {
 	}
-
+	
+	protected void setFilterDomain(String filterDomain) {
+		this.filterDomain = filterDomain;
+	}
+		protected String getFilterDomain() {
+		return filterDomain;
+	}
+	
+	private String getMessagePrefix() {
+		return getFilterDomain() + "/pages/";
+	}
+	
+	private String getWaybackQuery() {
+		return getFilterDomain() + "/query";
+	}
 
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res,
@@ -106,9 +119,8 @@ public abstract class BaseLockFilter implements Filter {
 		}
 	    */
      
-        
         // Don't filter Message Pages
-        if(StringUtils.containsIgnoreCase(url.getPath(), MSG_PAGE)){
+        if(StringUtils.containsIgnoreCase(url.getPath(), getMessagePrefix())){
 
         	// Set a session list
         	if(StringUtils.containsIgnoreCase(url.getPath(), SESSION_PAGE)){
@@ -132,6 +144,8 @@ public abstract class BaseLockFilter implements Filter {
         	return;
         }
         
+        logger.warn("Looking at " + url);
+        
         /*
          * Simulate Logoff
          */
@@ -139,11 +153,11 @@ public abstract class BaseLockFilter implements Filter {
         	logoffCleanUp(httpRequest, httpResponse);
         	httpRequest.getSession().invalidate();
         	httpRequest.getSession(true);
-        	httpResponse.sendRedirect(LOGOFF_JSP_PAGE);
+        	httpResponse.sendRedirect(this.getFilterDomain() + LOGOFF_JSP_PAGE);
         	return;
         }
         
-        logger.debug("HTTP METHOD: " + httpRequest.getMethod());
+        //logger.debug("HTTP METHOD: " + httpRequest.getMethod());
         // Filter out anything but HTTP Gets
         if(httpRequest.getMethod() == null ||!httpRequest.getMethod().equals(HTTP_GET)){
         	chain.doFilter(req, res);
@@ -197,7 +211,7 @@ public abstract class BaseLockFilter implements Filter {
         }
 		
         String shortPath = null;
-        shortPath = url.getFile().substring((FILTER_DOMAIN).length());
+        shortPath = url.getFile().substring((getFilterDomain()).length());
         logger.info("Got short Path: " + shortPath);
         
         // Remove -xx (like -cy) from archive extension
@@ -208,7 +222,7 @@ public abstract class BaseLockFilter implements Filter {
         /*
          * Special Page - Query. Lock at parameter level
          */
-       	if (StringUtils.contains(url.getPath(), WAYBACK_QUERY)) {
+       	if (StringUtils.contains(url.getPath(), getWaybackQuery())) {
         		
        		String paramUrl = httpRequest.getParameter("url");
        		String paramDate = httpRequest.getParameter("date");
@@ -302,10 +316,8 @@ public abstract class BaseLockFilter implements Filter {
 		excludeSuffixes = new ArrayList<String>(Arrays.asList(propertiesConfig.getProperty("exclude.suffix").split(";")));
 		
 		// Use .getContextPath() and set up paths.
-		FILTER_DOMAIN = config.getServletContext().getContextPath() + propertiesConfig.getProperty("wayback.relativePath");
-		MSG_PAGE = FILTER_DOMAIN + "/pages/";
-		WAYBACK_QUERY =  FILTER_DOMAIN + "/query";
-        logger.warn("Using filter domain: " + FILTER_DOMAIN);
+		setFilterDomain( config.getServletContext().getContextPath() + propertiesConfig.getProperty("wayback.relativePath"));
+        logger.warn("Using filter domain: " + getFilterDomain());
     }
 	
 	@Override
