@@ -134,7 +134,7 @@ if(e instanceof org.archive.wayback.exception.UnavailableForLegalReasonsExceptio
 %>			
 			
 			  <li><a href="<%= fmt.escapeHtml(requestUrl) %>">Visiting the current, live site</a></li>
-			  <li><a href="http://www.webarchive.org.uk/mementos/search/<%= fmt.escapeHtml(requestUrl) %>">Seeing if other archives hold copies of this URL</a></li>
+			  <li><a href="http://www.webarchive.org.uk/mementos/search/<%= fmt.escapeHtml(requestUrl) %>">Seeing if other web archives hold copies of this URL</a></li>
 			</ul>
 
             </div>
