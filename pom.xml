@@ -9,7 +9,7 @@
 	<description>Parent project for our various wayback deployments.</description>
 	<properties>
 		<wayback.groupId>org.netpreserve.openwayback</wayback.groupId>
-		<wayback.version>2.4.0</wayback.version>
+		<wayback.version>2.4.0-SNAPSHOT</wayback.version>
 	</properties>
 	<modules>
 		<module>wayback-ldwa</module>
@@ -222,5 +222,11 @@
 				<checksumPolicy>warn</checksumPolicy>
 			</snapshots>
 		</repository>
+                <repository>
+         <id>snapshots-repo</id>
+         <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+         <releases><enabled>false</enabled></releases>
+         <snapshots><enabled>true</enabled></snapshots>
+                </repository>
 	</repositories>
 </project>
