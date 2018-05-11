@@ -45,5 +45,3 @@ VOLUME /data
 COPY docker/start.sh /
 
 CMD /start.sh
-
-
