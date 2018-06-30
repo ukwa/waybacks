@@ -81,6 +81,13 @@ public class RedirectRewritingHttpHeaderProcessor
 	public void filter(Map<String, String> output, String key, String value,
 			ResultURIConverter uriConverter, CaptureSearchResult result) {
 
+        // If this is the first pass, add CSR headers
+        if (output.size() == 0) {
+            output.put("Content-Security-Policy",
+                    "default-src 'unsafe-eval' 'unsafe-inline' 'self' data: blob: mediastream: ws: wss: ; form-action 'self'");
+        }
+
+        // For every header, get the header key, upper case:
 		String keyUp = key.toUpperCase();
 
 		// first stick it in as-is, or with prefix, then maybe we'll overwrite

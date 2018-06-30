@@ -74,7 +74,7 @@ public class WebHDFSResourceStore extends SimpleResourceStore {
 		
 		// Update the search result object:
 		result.setFile(fileName);
-		result.setOffset(0);
+        result.setOffset(-1);
 
 		LOGGER.fine("Resolving as "+result.getFile()+"@"+result.getOffset());
 
